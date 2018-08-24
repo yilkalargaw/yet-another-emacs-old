@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;markdown}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{markdown\PYGZhy{}mode}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:config}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{markdown\PYGZhy{}mode+}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{markdown\PYGZhy{}preview\PYGZhy{}mode}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{markdown\PYGZhy{}toc}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}\PYG{p}{)}
+  \PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{autoload} \PYG{l+s+ss}{\PYGZsq{}markdown\PYGZhy{}mode} \PYG{l+s}{\PYGZdq{}markdown\PYGZhy{}mode\PYGZdq{}} \PYG{l+s}{\PYGZdq{}Major mode for Markdown files\PYGZdq{}} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}auto\PYGZhy{}mode\PYGZhy{}alist} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}README\PYGZbs{}\PYGZbs{}.md\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{gfm\PYGZhy{}mode}\PYG{p}{))}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{markdown\PYGZhy{}command} \PYG{l+s}{\PYGZdq{}pandoc \PYGZhy{}c \PYGZti{}/.emacs.d/github\PYGZhy{}pandoc.css \PYGZhy{}\PYGZhy{}from markdown\PYGZus{}github \PYGZhy{}t html5 \PYGZhy{}\PYGZhy{}mathjax \PYGZhy{}\PYGZhy{}highlight\PYGZhy{}style pygments \PYGZhy{}\PYGZhy{}standalone\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

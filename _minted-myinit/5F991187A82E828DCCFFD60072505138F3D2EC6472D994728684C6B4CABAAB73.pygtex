@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org\PYGZhy{}bullets}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{org\PYGZhy{}bullets}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:hook} \PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}mode} \PYG{o}{.} \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{()} \PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}bullets\PYGZhy{}mode} \PYG{l+m+mi}{1}\PYG{p}{))))}
+\end{Verbatim}

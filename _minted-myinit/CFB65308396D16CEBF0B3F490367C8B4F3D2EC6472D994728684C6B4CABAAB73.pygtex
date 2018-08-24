@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{version\PYGZlt{}} \PYG{n+nv}{emacs\PYGZhy{}version} \PYG{l+s}{\PYGZdq{}26.0\PYGZdq{}}\PYG{p}{)}
+    \PYG{p}{(}\PYG{n+nv}{linum\PYGZhy{}relative\PYGZhy{}global\PYGZhy{}mode}\PYG{p}{)}
+    \PYG{p}{(}\PYG{k}{progn}  \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{display\PYGZhy{}line\PYGZhy{}numbers\PYGZhy{}type} \PYG{p}{(}\PYG{k}{quote} \PYG{n+nv}{relative}\PYG{p}{))}
+	    \PYG{p}{(}\PYG{n+nv}{global\PYGZhy{}display\PYGZhy{}line\PYGZhy{}numbers\PYGZhy{}mode}\PYG{p}{))}
+    \PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,38 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{ivy} \PYG{l+s+ss}{:demand}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+\PYG{c+c1}{;  :defer 1}
+\PYG{c+c1}{;  :diminish ivy\PYGZhy{}mode}
+  \PYG{l+s+ss}{:init} \PYG{p}{(}\PYG{n+nv}{ivy\PYGZhy{}mode} \PYG{l+m+mi}{1}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{flx}
+	  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+	  \PYG{p}{)}
+
+  \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{ivy\PYGZhy{}re\PYGZhy{}builders\PYGZhy{}alist}
+	\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{swiper} \PYG{o}{.} \PYG{n+nv}{ivy\PYGZhy{}\PYGZhy{}regex\PYGZhy{}plus}\PYG{p}{)}
+	  \PYG{p}{(}\PYG{n+no}{t} \PYG{o}{.} \PYG{n+nv}{ivy\PYGZhy{}\PYGZhy{}regex\PYGZhy{}fuzzy}\PYG{p}{)))}
+
+  \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{ivy\PYGZhy{}initial\PYGZhy{}inputs\PYGZhy{}alist} \PYG{n+no}{nil}\PYG{p}{)}
+  \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{ivy\PYGZhy{}format\PYGZhy{}function} \PYG{l+s+ss}{\PYGZsq{}ivy\PYGZhy{}format\PYGZhy{}function\PYGZhy{}line}\PYG{p}{)}
+  \PYG{l+s+ss}{:config} \PYG{c+c1}{;(ivy\PYGZhy{}mode 1)}
+  \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{ivy\PYGZhy{}use\PYGZhy{}virtual\PYGZhy{}buffers} \PYG{n+no}{t}
+	\PYG{n+nv}{ivy\PYGZhy{}count\PYGZhy{}format} \PYG{l+s}{\PYGZdq{}\PYGZpc{}d/\PYGZpc{}d \PYGZdq{}}\PYG{p}{)}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}x b\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{ivy\PYGZhy{}switch\PYGZhy{}buffer}\PYG{p}{)}
+  \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}x C\PYGZhy{}b\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{ivy\PYGZhy{}switch\PYGZhy{}buffer}\PYG{p}{)}
+  \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}c C\PYGZhy{}r\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{ivy\PYGZhy{}resume}\PYG{p}{)}
+  \PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{counsel}
+    \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+	\PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+	\PYG{l+s+ss}{:bind}\PYG{p}{(}
+	 \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}x C\PYGZhy{}f\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{counsel\PYGZhy{}find\PYGZhy{}file}\PYG{p}{)}
+	 \PYG{p}{(}\PYG{l+s}{\PYGZdq{}M\PYGZhy{}x\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{counsel\PYGZhy{}M\PYGZhy{}x}\PYG{p}{)}
+	 \PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}f\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{counsel\PYGZhy{}ag}\PYG{p}{))}
+	 \PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{swiper}
+	     \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+			 \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+	     \PYG{l+s+ss}{:bind} \PYG{p}{((}\PYG{l+s}{\PYGZdq{}M\PYGZhy{}s s\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{swiper}\PYG{p}{))}
+	     \PYG{p}{)}
+\end{Verbatim}

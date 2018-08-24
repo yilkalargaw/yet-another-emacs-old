@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;backups}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{backup\PYGZhy{}directory\PYGZhy{}alist} \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}.*\PYGZdq{}} \PYG{o}{.} \PYG{l+s}{\PYGZdq{}\PYGZti{}/.emacs.d/backups\PYGZdq{}}\PYG{p}{)))}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{auto\PYGZhy{}save\PYGZhy{}file\PYGZhy{}name\PYGZhy{}transforms}
+      \PYG{o}{`}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}.*\PYGZdq{}} \PYG{o}{,}\PYG{l+s}{\PYGZdq{}\PYGZti{}/.emacs.d/backups\PYGZdq{}} \PYG{n+no}{t}\PYG{p}{)))}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{backup\PYGZhy{}by\PYGZhy{}copying} \PYG{n+no}{t}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,96 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org fontify}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}src\PYGZhy{}fontify\PYGZhy{}natively} \PYG{n+no}{t}
+    \PYG{n+nv}{org\PYGZhy{}src\PYGZhy{}tab\PYGZhy{}acts\PYGZhy{}natively} \PYG{n+no}{t}
+    \PYG{n+nv}{org\PYGZhy{}confirm\PYGZhy{}babel\PYGZhy{}evaluate} \PYG{n+no}{nil}
+    \PYG{n+nv}{org\PYGZhy{}edit\PYGZhy{}src\PYGZhy{}content\PYGZhy{}indentation} \PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{;org\PYGZhy{}md}
+ \PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s}{\PYGZdq{}org\PYGZdq{}}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}md} \PYG{n+no}{nil} \PYG{n+no}{t}\PYG{p}{))}
+
+\PYG{c+c1}{;org\PYGZhy{}md}
+ \PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s}{\PYGZdq{}org\PYGZdq{}}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}beamer} \PYG{n+no}{nil} \PYG{n+no}{t}\PYG{p}{))}
+
+
+\PYG{c+c1}{;org\PYGZhy{}odt}
+ \PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s}{\PYGZdq{}org\PYGZdq{}}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}odt} \PYG{n+no}{nil} \PYG{n+no}{t}\PYG{p}{))}
+
+\PYG{c+c1}{;org\PYGZhy{}babel}
+\PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{version\PYGZlt{}} \PYG{n+nv}{emacs\PYGZhy{}version} \PYG{l+s}{\PYGZdq{}26.0\PYGZdq{}}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}babel\PYGZhy{}do\PYGZhy{}load\PYGZhy{}languages}
+ \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}babel\PYGZhy{}load\PYGZhy{}languages}
+ \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{sh} \PYG{o}{.} \PYG{n+nv}{true}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{python} \PYG{o}{.} \PYG{n+nv}{true}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{ruby} \PYG{o}{.}\PYG{n+nv}{true}\PYG{p}{)}
+   \PYG{p}{(}\PYG{n+nv}{emacs\PYGZhy{}lisp} \PYG{o}{.}\PYG{n+nv}{true}\PYG{p}{)))}
+\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}babel\PYGZhy{}do\PYGZhy{}load\PYGZhy{}languages}
+ \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}babel\PYGZhy{}load\PYGZhy{}languages}
+ \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{shell} \PYG{o}{.} \PYG{n+nv}{true}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{python} \PYG{o}{.} \PYG{n+nv}{true}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{ruby} \PYG{o}{.}\PYG{n+nv}{true}\PYG{p}{)}
+   \PYG{p}{(}\PYG{n+nv}{emacs\PYGZhy{}lisp} \PYG{o}{.}\PYG{n+nv}{true}\PYG{p}{))))}
+
+
+
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{ox\PYGZhy{}gfm} \PYG{l+s+ss}{:ensure} \PYG{n+no}{t} \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s}{\PYGZdq{}org\PYGZdq{}}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}gfm} \PYG{n+no}{nil} \PYG{n+no}{t}\PYG{p}{))}
+
+\PYG{c+c1}{;pygment minted}
+\PYG{c+c1}{;(require \PYGZsq{}org\PYGZhy{}latex)}
+
+\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}latex}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}latex\PYGZhy{}classes}
+	     \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}beamer\PYGZdq{}}
+	       \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}documentclass\PYGZbs{}[presentation\PYGZbs{}]\PYGZbs{}\PYGZob{}beamer\PYGZbs{}\PYGZcb{}\PYGZdq{}}
+	       \PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}section\PYGZbs{}\PYGZob{}\PYGZpc{}s\PYGZbs{}\PYGZcb{}\PYGZdq{}} \PYG{o}{.} \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}section*\PYGZbs{}\PYGZob{}\PYGZpc{}s\PYGZbs{}\PYGZcb{}\PYGZdq{}}\PYG{p}{)}
+	       \PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}subsection\PYGZbs{}\PYGZob{}\PYGZpc{}s\PYGZbs{}\PYGZcb{}\PYGZdq{}} \PYG{o}{.} \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}subsection*\PYGZbs{}\PYGZob{}\PYGZpc{}s\PYGZbs{}\PYGZcb{}\PYGZdq{}}\PYG{p}{)}
+	       \PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}subsubsection\PYGZbs{}\PYGZob{}\PYGZpc{}s\PYGZbs{}\PYGZcb{}\PYGZdq{}} \PYG{o}{.} \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}subsubsection*\PYGZbs{}\PYGZob{}\PYGZpc{}s\PYGZbs{}\PYGZcb{}\PYGZdq{}}\PYG{p}{)))}
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}latex\PYGZhy{}packages\PYGZhy{}alist} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZdq{}} \PYG{l+s}{\PYGZdq{}minted\PYGZdq{}}\PYG{p}{))}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}listings} \PYG{l+s+ss}{\PYGZsq{}minted}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}pdf\PYGZhy{}process}
+      \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}
+	\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}
+	\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}\PYG{p}{))}
+
+\PYG{c+c1}{;;(use\PYGZhy{}package org :ensure t)}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{htmlize} \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}html\PYGZhy{}html5\PYGZhy{}fancy} \PYG{n+no}{t}
+\PYG{n+nv}{org\PYGZhy{}html\PYGZhy{}doctype} \PYG{l+s}{\PYGZdq{}html5\PYGZdq{}}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}html\PYGZhy{}html5\PYGZhy{}fancy} \PYG{n+no}{t}
+      \PYG{n+nv}{org\PYGZhy{}html\PYGZhy{}doctype} \PYG{l+s}{\PYGZdq{}html5\PYGZdq{}}\PYG{p}{)}
+\PYG{c+c1}{;;; Loading custom backend}
+\PYG{c+c1}{;(add\PYGZhy{}to\PYGZhy{}list \PYGZsq{}load\PYGZhy{}path \PYGZdq{}lisp/\PYGZdq{})}
+\PYG{c+c1}{;(load\PYGZhy{}file \PYGZdq{}\PYGZti{}/.emacs.d/lisp/pelican\PYGZhy{}html.el\PYGZdq{})}
+\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}pelican\PYGZhy{}html}\PYG{p}{)}
+
+
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}to\PYGZhy{}pdf\PYGZhy{}process}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}xelatex \PYGZhy{}interaction nonstopmode \PYGZpc{}f\PYGZdq{}}
+     \PYG{l+s}{\PYGZdq{}xelatex \PYGZhy{}interaction nonstopmode \PYGZpc{}f\PYGZdq{}}\PYG{p}{))} \PYG{c+c1}{;; for multiple passes}
+
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{org\PYGZhy{}bullets}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:hook} \PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}mode} \PYG{o}{.} \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{()} \PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}bullets\PYGZhy{}mode} \PYG{l+m+mi}{1}\PYG{p}{))))}
+
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{org\PYGZhy{}beautify\PYGZhy{}theme}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}mode\PYGZhy{}hook} \PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)(}\PYG{k}{lambda} \PYG{p}{()} \PYG{p}{(}\PYG{n+nv}{load\PYGZhy{}theme} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}beautify}\PYG{p}{))))}
+
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{org\PYGZhy{}tree\PYGZhy{}slide}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{org\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}\PYGZlt{}f8\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}mode}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{org\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}S\PYGZhy{}\PYGZlt{}f8\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}skip\PYGZhy{}done\PYGZhy{}toggle}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{with\PYGZhy{}eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s}{\PYGZdq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZdq{}}
+  \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}\PYGZlt{}f9\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}move\PYGZhy{}previous\PYGZhy{}tree}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}\PYGZlt{}f10\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}move\PYGZhy{}next\PYGZhy{}tree}\PYG{p}{)}
+  \PYG{p}{)}
+\end{Verbatim}

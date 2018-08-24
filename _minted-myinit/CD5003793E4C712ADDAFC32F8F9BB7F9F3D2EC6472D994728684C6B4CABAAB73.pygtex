@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org\PYGZhy{}beautify\PYGZhy{}theme}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{org\PYGZhy{}beautify\PYGZhy{}theme}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}mode\PYGZhy{}hook} \PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)(}\PYG{k}{lambda} \PYG{p}{()} \PYG{p}{(}\PYG{n+nv}{load\PYGZhy{}theme} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}beautify}\PYG{p}{))))}
+\end{Verbatim}

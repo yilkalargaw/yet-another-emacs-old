@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s+ss}{\PYGZsq{}dired} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{k}{progn} \PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}joseph\PYGZhy{}single\PYGZhy{}dired}\PYG{p}{)))}
+\PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{dired\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}C\PYGZhy{}c C\PYGZhy{}w\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}wdired\PYGZhy{}change\PYGZhy{}to\PYGZhy{}wdired\PYGZhy{}mode}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{dired\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}C\PYGZhy{}c C\PYGZhy{}d\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}wdired\PYGZhy{}change\PYGZhy{}to\PYGZhy{}dired\PYGZhy{}mode}\PYG{p}{)}
+\end{Verbatim}

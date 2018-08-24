@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;undo\PYGZhy{}tree}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{undo\PYGZhy{}tree}
+  \PYG{l+s+ss}{:diminish} \PYG{n+nv}{undo\PYGZhy{}tree\PYGZhy{}mode}
+  \PYG{l+s+ss}{:defer} \PYG{l+m+mi}{2}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}/\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{undo\PYGZhy{}tree\PYGZhy{}visualize}\PYG{p}{))}
+  \PYG{l+s+ss}{:config} \PYG{p}{(}\PYG{n+nv}{global\PYGZhy{}undo\PYGZhy{}tree\PYGZhy{}mode}\PYG{p}{)}
+\end{Verbatim}

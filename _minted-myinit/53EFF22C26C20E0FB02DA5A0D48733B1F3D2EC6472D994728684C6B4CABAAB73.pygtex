@@ -1,0 +1,44 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{telephone\PYGZhy{}line}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+\PYG{p}{)}
+
+\PYG{c+c1}{;(add\PYGZhy{}hook \PYGZsq{}after\PYGZhy{}make\PYGZhy{}frame\PYGZhy{}functions}
+\PYG{c+c1}{;         (lambda (frame)}
+\PYG{c+c1}{;           (select\PYGZhy{}frame frame)}
+\PYG{c+c1}{;           (if (display\PYGZhy{}graphic\PYGZhy{}p)}
+\PYG{c+c1}{;               (progn}
+\PYG{c+c1}{;                 (setq telephone\PYGZhy{}line\PYGZhy{}primary\PYGZhy{}left\PYGZhy{}separator \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}cubed\PYGZhy{}left}
+\PYG{c+c1}{;                       telephone\PYGZhy{}line\PYGZhy{}secondary\PYGZhy{}left\PYGZhy{}separator \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}cubed\PYGZhy{}hollow\PYGZhy{}left}
+\PYG{c+c1}{;                       telephone\PYGZhy{}line\PYGZhy{}primary\PYGZhy{}right\PYGZhy{}separator \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}cubed\PYGZhy{}left}
+\PYG{c+c1}{;                       telephone\PYGZhy{}line\PYGZhy{}secondary\PYGZhy{}right\PYGZhy{}separator \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}cubed\PYGZhy{}hollow\PYGZhy{}left)}
+\PYG{c+c1}{;                 (setq telephone\PYGZhy{}line\PYGZhy{}subseparator\PYGZhy{}faces \PYGZsq{}())}
+\PYG{c+c1}{;                 (setq telephone\PYGZhy{}line\PYGZhy{}height 24)}
+\PYG{c+c1}{;                  (telephone\PYGZhy{}line\PYGZhy{}mode)}
+\PYG{c+c1}{;                  (telephone\PYGZhy{}line\PYGZhy{}mode))}
+\PYG{c+c1}{;                 )}
+\PYG{c+c1}{;;(telephone\PYGZhy{}line\PYGZhy{}mode)}
+\PYG{c+c1}{;)))}
+\PYG{c+c1}{;}
+\PYG{c+c1}{;;(add\PYGZhy{}hook \PYGZsq{}after\PYGZhy{}init\PYGZhy{}hook}
+\PYG{c+c1}{;;(add\PYGZhy{}hook \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}mode\PYGZhy{}hook}
+\PYG{c+c1}{;;        (lambda ()}
+\PYG{c+c1}{;           (if (display\PYGZhy{}graphic\PYGZhy{}p)}
+\PYG{c+c1}{;               (progn}
+\PYG{c+c1}{;                 (setq telephone\PYGZhy{}line\PYGZhy{}primary\PYGZhy{}left\PYGZhy{}separator \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}cubed\PYGZhy{}left}
+\PYG{c+c1}{;                       telephone\PYGZhy{}line\PYGZhy{}secondary\PYGZhy{}left\PYGZhy{}separator \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}cubed\PYGZhy{}hollow\PYGZhy{}left}
+\PYG{c+c1}{;                       telephone\PYGZhy{}line\PYGZhy{}primary\PYGZhy{}right\PYGZhy{}separator \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}cubed\PYGZhy{}left}
+\PYG{c+c1}{;                       telephone\PYGZhy{}line\PYGZhy{}secondary\PYGZhy{}right\PYGZhy{}separator \PYGZsq{}telephone\PYGZhy{}line\PYGZhy{}cubed\PYGZhy{}hollow\PYGZhy{}left)}
+\PYG{c+c1}{;                 (setq telephone\PYGZhy{}line\PYGZhy{}subseparator\PYGZhy{}faces \PYGZsq{}())}
+\PYG{c+c1}{;                 (setq telephone\PYGZhy{}line\PYGZhy{}height 24)}
+\PYG{c+c1}{;                 (telephone\PYGZhy{}line\PYGZhy{}mode)}
+\PYG{c+c1}{;                  (progn}
+\PYG{c+c1}{;                      (telephone\PYGZhy{}line\PYGZhy{}mode)}
+\PYG{c+c1}{;                      (telephone\PYGZhy{}line\PYGZhy{}mode)))}
+\PYG{c+c1}{;;                  (telephone\PYGZhy{}line\PYGZhy{}mode)}
+\PYG{c+c1}{;)}
+\PYG{c+c1}{;;))}
+\PYG{c+c1}{;}
+\PYG{c+c1}{;;(telephone\PYGZhy{}line\PYGZhy{}mode)}
+\end{Verbatim}

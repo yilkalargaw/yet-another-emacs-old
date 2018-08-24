@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org\PYGZhy{}md}
+ \PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s}{\PYGZdq{}org\PYGZdq{}}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}md} \PYG{n+no}{nil} \PYG{n+no}{t}\PYG{p}{))}
+\end{Verbatim}

@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{quick\PYGZhy{}preview}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}dired\PYGZhy{}mode\PYGZhy{}hook} \PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)(}\PYG{k}{lambda} \PYG{p}{()} \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{dired\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}Q\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}quick\PYGZhy{}preview\PYGZhy{}at\PYGZhy{}point}\PYG{p}{))))}
+\end{Verbatim}

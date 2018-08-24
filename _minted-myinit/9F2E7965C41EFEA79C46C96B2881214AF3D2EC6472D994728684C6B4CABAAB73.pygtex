@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;which mode}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{which\PYGZhy{}key}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{l+m+mi}{2}
+  \PYG{l+s+ss}{:config} \PYG{p}{(}\PYG{n+nv}{which\PYGZhy{}key\PYGZhy{}mode}\PYG{p}{)}
+    \PYG{p}{)}
+\end{Verbatim}

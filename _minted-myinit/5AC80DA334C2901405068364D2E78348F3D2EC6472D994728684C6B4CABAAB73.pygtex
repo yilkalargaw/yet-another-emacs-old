@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;flycheck}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{flycheck}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+\PYG{c+c1}{;      :config}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}prog\PYGZhy{}mode\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}flycheck\PYGZhy{}mode}\PYG{p}{)}
+\end{Verbatim}

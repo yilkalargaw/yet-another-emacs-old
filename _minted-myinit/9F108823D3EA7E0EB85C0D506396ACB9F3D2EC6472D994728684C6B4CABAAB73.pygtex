@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;nlinum mode}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{nlinum}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:config}  \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{nlinum\PYGZhy{}highlight\PYGZhy{}current\PYGZhy{}line} \PYG{n+no}{t}\PYG{p}{)}
+	   \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{nlinum\PYGZhy{}use\PYGZhy{}right\PYGZhy{}margin} \PYG{n+no}{t}\PYG{p}{)}
+
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+    \PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}after\PYGZhy{}init\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}global\PYGZhy{}nlinum\PYGZhy{}mode} \PYG{n+no}{t}\PYG{p}{)}
+\end{Verbatim}

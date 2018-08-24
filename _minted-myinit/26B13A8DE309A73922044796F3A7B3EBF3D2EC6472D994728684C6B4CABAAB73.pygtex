@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;yasnippet}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{yasnippet}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{l+m+mi}{1}
+  \PYG{l+s+ss}{:diminish} \PYG{n+nv}{yas\PYGZhy{}minor\PYGZhy{}mode}
+  \PYG{l+s+ss}{:config}
+  \PYG{p}{(}\PYG{n+nv}{yas\PYGZhy{}global\PYGZhy{}mode} \PYG{l+m+mi}{1}\PYG{p}{))}
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}prog\PYGZhy{}mode\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}yas\PYGZhy{}minor\PYGZhy{}mode}\PYG{p}{)}
+\end{Verbatim}

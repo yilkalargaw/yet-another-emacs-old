@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;neotree}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{neotree}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}.\PYGZdq{}} \PYG{o}{.} \PYG{l+s+ss}{\PYGZsq{}neotree\PYGZhy{}toggle}\PYG{p}{)}
+	\PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}c n t\PYGZdq{}} \PYG{o}{.} \PYG{l+s+ss}{\PYGZsq{}neotree\PYGZhy{}toggle}\PYG{p}{)}
+
+  \PYG{l+s+ss}{:config}
+	 \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{all\PYGZhy{}the\PYGZhy{}icons}
+		 \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+		 \PYG{p}{)}
+	 \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{neo\PYGZhy{}theme} \PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}icons} \PYG{l+s+ss}{\PYGZsq{}arrows}\PYG{p}{))}
+\PYG{c+c1}{;          (setq neo\PYGZhy{}theme \PYGZsq{}icons)}
+\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}neotree\PYGZhy{}mode\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}my\PYGZhy{}neotree\PYGZhy{}hook}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{defun} \PYG{n+nv}{my\PYGZhy{}neotree\PYGZhy{}hook} \PYG{p}{()}
+  \PYG{p}{(}\PYG{n+nv}{nlinum\PYGZhy{}mode} \PYG{l+m+mi}{0}\PYG{p}{))}
+\end{Verbatim}

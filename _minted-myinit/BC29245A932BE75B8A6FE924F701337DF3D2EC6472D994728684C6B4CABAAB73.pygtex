@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;company}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{company}
+    \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+	\PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+	\PYG{l+s+ss}{:config} \PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}company}\PYG{p}{)}
+
+	\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{company\PYGZhy{}c\PYGZhy{}headers}
+	  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}\PYG{p}{)}
+
+  \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}after\PYGZhy{}init\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}global\PYGZhy{}company\PYGZhy{}mode}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nv}{global\PYGZhy{}set\PYGZhy{}key} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}\PYGZlt{}backtab\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}complete\PYGZhy{}common}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{company\PYGZhy{}active\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}C\PYGZhy{}n\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}select\PYGZhy{}next}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{company\PYGZhy{}active\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}C\PYGZhy{}p\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}select\PYGZhy{}previous}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}backends} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}c\PYGZhy{}headers}\PYG{p}{))}
+\end{Verbatim}

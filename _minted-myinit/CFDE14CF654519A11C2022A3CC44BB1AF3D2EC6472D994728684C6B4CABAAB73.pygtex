@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;lua}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{lua\PYGZhy{}mode}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{company\PYGZhy{}lua}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:config}\PYG{c+c1}{;(require \PYGZsq{}company\PYGZhy{}lua)}
+      \PYG{c+c1}{;(add\PYGZhy{}to\PYGZhy{}list \PYGZsq{}company\PYGZhy{}backends \PYGZsq{}company\PYGZhy{}lua)}
+  \PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s+ss}{\PYGZsq{}company}
+    \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{push} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}lua} \PYG{n+nv}{company\PYGZhy{}backends}\PYG{p}{)))}
+\end{Verbatim}

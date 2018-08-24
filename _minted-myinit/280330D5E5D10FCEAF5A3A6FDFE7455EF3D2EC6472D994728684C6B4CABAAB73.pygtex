@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org\PYGZhy{}tree\PYGZhy{}slide}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{org\PYGZhy{}tree\PYGZhy{}slide}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{org\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}\PYGZlt{}f8\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}mode}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{org\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}S\PYGZhy{}\PYGZlt{}f8\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}skip\PYGZhy{}done\PYGZhy{}toggle}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{with\PYGZhy{}eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s}{\PYGZdq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZdq{}}
+  \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}\PYGZlt{}f9\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}move\PYGZhy{}previous\PYGZhy{}tree}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}\PYGZlt{}f10\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}tree\PYGZhy{}slide\PYGZhy{}move\PYGZhy{}next\PYGZhy{}tree}\PYG{p}{)}
+  \PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{dired}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:config}
+\PYG{c+c1}{;         (use\PYGZhy{}package dired+}
+\PYG{c+c1}{;          :ensure t}
+\PYG{c+c1}{;          :config}
+\PYG{c+c1}{;          (use\PYGZhy{}package dired\PYGZhy{}details}
+\PYG{c+c1}{;            :ensure t}
+\PYG{c+c1}{;            :defer t}
+\PYG{c+c1}{;            :config}
+\PYG{c+c1}{;            (setq diredp\PYGZhy{}hide\PYGZhy{}details\PYGZhy{}initially\PYGZhy{}flag nil)}
+\PYG{c+c1}{;            (setq diredp\PYGZhy{}hide\PYGZhy{}details\PYGZhy{}propagate\PYGZhy{}flag nil)))}
+\PYG{c+c1}{;        (setq dired\PYGZhy{}dwim\PYGZhy{}target t)}
+	 \PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{peep\PYGZhy{}dired}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s+ss}{:map} \PYG{n+nv}{dired\PYGZhy{}mode\PYGZhy{}map}
+	      \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}.\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{peep\PYGZhy{}dired}\PYG{p}{))}
+  \PYG{p}{)}
+\end{Verbatim}

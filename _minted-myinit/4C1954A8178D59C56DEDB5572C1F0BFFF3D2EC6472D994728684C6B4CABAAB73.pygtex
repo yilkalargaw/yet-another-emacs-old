@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{dired\PYGZhy{}narrow}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s+ss}{:map} \PYG{n+nv}{dired\PYGZhy{}mode\PYGZhy{}map}
+	      \PYG{p}{(}\PYG{l+s}{\PYGZdq{}/\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{dired\PYGZhy{}narrow}\PYG{p}{)))}
+\end{Verbatim}

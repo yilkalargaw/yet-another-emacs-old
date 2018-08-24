@@ -1,0 +1,41 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;web\PYGZhy{}mode}
+
+ \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{web\PYGZhy{}mode}
+   \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+   \PYG{l+s+ss}{:mode} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}.html\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}}
+	  \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}.css?\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}}
+	  \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}.phtml\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}}
+	  \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}.erb\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}}
+	  \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}.html?\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}}
+	  \PYG{p}{)}
+
+   \PYG{l+s+ss}{:config}
+   \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{web\PYGZhy{}mode\PYGZhy{}markup\PYGZhy{}indent\PYGZhy{}offset} \PYG{l+m+mi}{2}\PYG{p}{)}
+ \PYG{c+c1}{;  (setq web\PYGZhy{}mode\PYGZhy{}engines\PYGZhy{}alist}
+ \PYG{c+c1}{;        \PYGZsq{}((\PYGZdq{}django\PYGZdq{} . \PYGZdq{}focus/.*\PYGZbs{}\PYGZbs{}.html\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{})}
+ \PYG{c+c1}{;          (\PYGZdq{}ctemplate\PYGZdq{} . \PYGZdq{}realtimecrm/.*\PYGZbs{}\PYGZbs{}.html\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{})))}
+ \PYG{p}{)}
+
+ \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{company\PYGZhy{}web}
+   \PYG{l+s+ss}{:config}
+   \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}web\PYGZhy{}mode\PYGZhy{}hook}
+	     \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{()}
+	       \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}backends} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}web\PYGZhy{}html}\PYG{p}{)))}
+   \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}html\PYGZhy{}mode\PYGZhy{}hook}
+	     \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{()}
+	       \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}backends} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}web\PYGZhy{}html}\PYG{p}{))))}
+
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{emmet\PYGZhy{}mode}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:hook} \PYG{p}{(}\PYG{n+nv}{sgml\PYGZhy{}mode} \PYG{n+nv}{css\PYGZhy{}mode} \PYG{n+nv}{web\PYGZhy{}mode}\PYG{p}{))}
+
+\PYG{c+c1}{;(defadvice company\PYGZhy{}tern (before web\PYGZhy{}mode\PYGZhy{}set\PYGZhy{}up\PYGZhy{}ac\PYGZhy{}sources activate)}
+\PYG{c+c1}{;  \PYGZdq{}Set `tern\PYGZhy{}mode\PYGZsq{} based on current language before running company\PYGZhy{}tern.\PYGZdq{}}
+\PYG{c+c1}{;  (if (equal major\PYGZhy{}mode \PYGZsq{}web\PYGZhy{}mode)}
+\PYG{c+c1}{;      (let ((web\PYGZhy{}mode\PYGZhy{}cur\PYGZhy{}language}
+\PYG{c+c1}{;             (web\PYGZhy{}mode\PYGZhy{}language\PYGZhy{}at\PYGZhy{}pos)))}
+\PYG{c+c1}{;        (if (string= web\PYGZhy{}mode\PYGZhy{}cur\PYGZhy{}language \PYGZdq{}javascript\PYGZdq{})}
+\PYG{c+c1}{;            (unless tern\PYGZhy{}mode (tern\PYGZhy{}mode))}
+\PYG{c+c1}{;          (if tern\PYGZhy{}mode (tern\PYGZhy{}mode ))))))}
+\end{Verbatim}

@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+ \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{js2\PYGZhy{}mode}
+   \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+ \PYG{c+c1}{;        :defer t}
+   \PYG{l+s+ss}{:mode} \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}.js\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}}
+   \PYG{l+s+ss}{:interpreter} \PYG{l+s}{\PYGZdq{}node\PYGZdq{}}
+   \PYG{p}{)}
+
+ \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{company\PYGZhy{}tern}
+   \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+   \PYG{l+s+ss}{:config}
+   \PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s+ss}{\PYGZsq{}company}
+     \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{push} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}tern} \PYG{n+nv}{company\PYGZhy{}backends}\PYG{p}{)))}
+
+
+ \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{tern}
+       \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+       \PYG{l+s+ss}{:hook} \PYG{p}{((}\PYG{n+nv}{js\PYGZhy{}mode} \PYG{o}{.} \PYG{n+nv}{tern\PYGZhy{}mode}\PYG{p}{)}
+	      \PYG{p}{(}\PYG{n+nv}{js2\PYGZhy{}mode} \PYG{o}{.} \PYG{n+nv}{tern\PYGZhy{}mode}\PYG{p}{))}
+       \PYG{l+s+ss}{:config} \PYG{p}{(}\PYG{k}{progn} \PYG{p}{(}\PYG{n+nb}{defun} \PYG{n+nv}{kill\PYGZhy{}tern\PYGZhy{}process} \PYG{p}{()}
+		  \PYG{l+s}{\PYGZdq{}Kill the tern process if any. The process will be restarted.  This is useful if tern becomes unreachable.\PYGZdq{}}
+		  \PYG{p}{(}\PYG{n+nv}{interactive}\PYG{p}{)}
+		  \PYG{p}{(}\PYG{n+nv}{delete\PYGZhy{}process} \PYG{l+s}{\PYGZdq{}Tern\PYGZdq{}}\PYG{p}{)))}
+   \PYG{p}{)}
+
+
+
+\PYG{c+c1}{;      (add\PYGZhy{}to\PYGZhy{}list \PYGZsq{}auto\PYGZhy{}mode\PYGZhy{}alist \PYGZsq{}(\PYGZdq{}\PYGZbs{}\PYGZbs{}.js\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{} . js2\PYGZhy{}mode))}
+\end{Verbatim}

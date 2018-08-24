@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;multiple\PYGZhy{}cursors}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{multiple\PYGZhy{}cursors}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:config} \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{mc/keymap} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}\PYGZlt{}return\PYGZgt{}\PYGZdq{}}\PYG{p}{)} \PYG{n+no}{nil}\PYG{p}{)}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}=\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{mc/unmark\PYGZhy{}previous\PYGZhy{}like\PYGZhy{}this}\PYG{p}{)}
+	\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}]\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{mc/mark\PYGZhy{}next\PYGZhy{}like\PYGZhy{}this}\PYG{p}{)}
+	\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}[\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{mc/mark\PYGZhy{}previous\PYGZhy{}like\PYGZhy{}this}\PYG{p}{)}
+		\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}\PYGZbs{}\PYGZsq{}\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{mc/unmark\PYGZhy{}next\PYGZhy{}like\PYGZhy{}this}\PYG{p}{)}
+		\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}\PYGZbs{}\PYGZbs{}\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{mc/mark\PYGZhy{}all\PYGZhy{}like\PYGZhy{}this}\PYG{p}{)}
+		\PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}S\PYGZhy{}\PYGZlt{}mouse\PYGZhy{}1\PYGZgt{}\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{mc/add\PYGZhy{}cursor\PYGZhy{}on\PYGZhy{}click}\PYG{p}{)}
+\PYG{p}{)}
+\end{Verbatim}

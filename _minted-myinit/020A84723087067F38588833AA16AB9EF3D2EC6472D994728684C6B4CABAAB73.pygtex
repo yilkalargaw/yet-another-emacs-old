@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org fontify}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}src\PYGZhy{}fontify\PYGZhy{}natively} \PYG{n+no}{t}
+    \PYG{n+nv}{org\PYGZhy{}src\PYGZhy{}tab\PYGZhy{}acts\PYGZhy{}natively} \PYG{n+no}{t}
+    \PYG{n+nv}{org\PYGZhy{}confirm\PYGZhy{}babel\PYGZhy{}evaluate} \PYG{n+no}{nil}
+    \PYG{n+nv}{org\PYGZhy{}edit\PYGZhy{}src\PYGZhy{}content\PYGZhy{}indentation} \PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{;org\PYGZhy{}md}
+ \PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s}{\PYGZdq{}org\PYGZdq{}}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}md} \PYG{n+no}{nil} \PYG{n+no}{t}\PYG{p}{))}
+
+\PYG{c+c1}{;pygment minted}
+\PYG{c+c1}{;(require \PYGZsq{}org\PYGZhy{}latex)}
+
+\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}latex}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}latex\PYGZhy{}packages\PYGZhy{}alist} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZdq{}} \PYG{l+s}{\PYGZdq{}minted\PYGZdq{}}\PYG{p}{))}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}listings} \PYG{l+s+ss}{\PYGZsq{}minted}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}pdf\PYGZhy{}process}
+      \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}
+	\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}
+	\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

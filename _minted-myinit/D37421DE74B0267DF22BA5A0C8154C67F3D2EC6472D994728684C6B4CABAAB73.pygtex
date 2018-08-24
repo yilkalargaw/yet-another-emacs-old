@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;latex/auctex}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package}  \PYG{n+nv}{company\PYGZhy{}auctex}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:config}  \PYG{p}{(}\PYG{n+nv}{company\PYGZhy{}auctex\PYGZhy{}init}\PYG{p}{)}
+  \PYG{l+s+ss}{:defer} \PYG{l+m+mi}{5}
+  \PYG{p}{)}
+
+  \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}LaTeX\PYGZhy{}mode\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}visual\PYGZhy{}line\PYGZhy{}mode}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}LaTeX\PYGZhy{}mode\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}flyspell\PYGZhy{}mode}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}LaTeX\PYGZhy{}mode\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}LaTeX\PYGZhy{}math\PYGZhy{}mode}\PYG{p}{)}
+\end{Verbatim}

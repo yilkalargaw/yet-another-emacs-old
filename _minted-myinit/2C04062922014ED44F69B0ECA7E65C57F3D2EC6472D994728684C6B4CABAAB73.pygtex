@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}dired\PYGZhy{}load\PYGZhy{}hook}
+	  \PYG{p}{(}\PYG{k}{function} \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{()} \PYG{p}{(}\PYG{n+nb}{load} \PYG{l+s}{\PYGZdq{}dired\PYGZhy{}x\PYGZdq{}}\PYG{p}{))))}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}dired\PYGZhy{}load\PYGZhy{}hook}
+	  \PYG{p}{(}\PYG{k}{function} \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{()} \PYG{p}{(}\PYG{n+nb}{load} \PYG{l+s}{\PYGZdq{}dired\PYGZhy{}aux\PYGZdq{}}\PYG{p}{))))}
+\end{Verbatim}

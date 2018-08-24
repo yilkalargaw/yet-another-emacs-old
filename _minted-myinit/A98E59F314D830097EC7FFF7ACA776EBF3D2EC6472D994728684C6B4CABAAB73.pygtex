@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;backups}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{backup\PYGZhy{}directory\PYGZhy{}alist} \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{l+s}{\PYGZdq{}.\PYGZdq{}} \PYG{o}{.} \PYG{l+s}{\PYGZdq{}\PYGZti{}/.emacs.d/backups\PYGZdq{}}\PYG{p}{)))}
+\end{Verbatim}

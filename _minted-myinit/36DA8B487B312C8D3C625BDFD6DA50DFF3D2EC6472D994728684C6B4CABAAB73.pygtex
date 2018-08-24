@@ -1,0 +1,57 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;; Turn off mouse interface early in startup to avoid momentary display}
+\PYG{c+c1}{;; (if (fboundp \PYGZsq{}menu\PYGZhy{}bar\PYGZhy{}mode) (menu\PYGZhy{}bar\PYGZhy{}mode \PYGZhy{}1))}
+\PYG{c+c1}{;; (if (fboundp \PYGZsq{}tool\PYGZhy{}bar\PYGZhy{}mode) (tool\PYGZhy{}bar\PYGZhy{}mode \PYGZhy{}1))}
+\PYG{c+c1}{;; (if (fboundp \PYGZsq{}scroll\PYGZhy{}bar\PYGZhy{}mode) (scroll\PYGZhy{}bar\PYGZhy{}mode \PYGZhy{}1))}
+\PYG{c+c1}{;; although things could be done here the above settings are taken to init.el}
+\PYG{c+c1}{;; to avoid the early show}
+\PYG{c+c1}{;interface settings}
+\PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)}
+    \PYG{p}{(}\PYG{k}{progn}
+      \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{initial\PYGZhy{}frame\PYGZhy{}alist}
+	    \PYG{o}{\PYGZsq{}}\PYG{p}{(}
+	      \PYG{p}{(}\PYG{n+nv}{tool\PYGZhy{}bar\PYGZhy{}lines} \PYG{o}{.} \PYG{l+m+mi}{0}\PYG{p}{)}
+	      \PYG{p}{(}\PYG{n+nv}{width} \PYG{o}{.} \PYG{l+m+mi}{94}\PYG{p}{)} \PYG{c+c1}{; chars}
+	      \PYG{p}{(}\PYG{n+nv}{height} \PYG{o}{.} \PYG{l+m+mi}{52}\PYG{p}{)} \PYG{c+c1}{; lines}
+\PYG{c+c1}{;              (background\PYGZhy{}color . \PYGZdq{}honeydew\PYGZdq{})}
+	      \PYG{c+c1}{;;}
+	      \PYG{p}{))}
+
+      \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{default\PYGZhy{}frame\PYGZhy{}alist}
+	    \PYG{o}{\PYGZsq{}}\PYG{p}{(}
+	      \PYG{p}{(}\PYG{n+nv}{tool\PYGZhy{}bar\PYGZhy{}lines} \PYG{o}{.} \PYG{l+m+mi}{0}\PYG{p}{)}
+	      \PYG{p}{(}\PYG{n+nv}{width} \PYG{o}{.} \PYG{l+m+mi}{94}\PYG{p}{)}
+	      \PYG{p}{(}\PYG{n+nv}{height} \PYG{o}{.} \PYG{l+m+mi}{52}\PYG{p}{)}
+\PYG{c+c1}{;              (background\PYGZhy{}color . \PYGZdq{}honeydew\PYGZdq{})}
+	      \PYG{c+c1}{;;}
+	      \PYG{p}{))}
+
+\PYG{p}{(}\PYG{n+nv}{set\PYGZhy{}frame\PYGZhy{}position} \PYG{p}{(}\PYG{n+nv}{selected\PYGZhy{}frame}\PYG{p}{)} \PYG{l+m+mi}{0} \PYG{l+m+mi}{15}\PYG{p}{)}
+\PYG{c+c1}{;(set\PYGZhy{}face\PYGZhy{}attribute \PYGZsq{}default nil :height 93 )}
+
+\PYG{p}{))}
+
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}after\PYGZhy{}make\PYGZhy{}frame\PYGZhy{}functions}
+	  \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{(}\PYG{n+nv}{frame}\PYG{p}{)}
+	      \PYG{p}{(}\PYG{n+nv}{select\PYGZhy{}frame} \PYG{n+nv}{frame}\PYG{p}{)}
+	      \PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)}
+		  \PYG{p}{(}\PYG{k}{progn}
+		    \PYG{p}{(}\PYG{n+nv}{set\PYGZhy{}frame\PYGZhy{}size} \PYG{n+nv}{frame} \PYG{l+m+mi}{94} \PYG{l+m+mi}{52}\PYG{p}{)}
+		    \PYG{p}{(}\PYG{n+nv}{set\PYGZhy{}frame\PYGZhy{}position} \PYG{n+nv}{frame} \PYG{l+m+mi}{0} \PYG{l+m+mi}{15}\PYG{p}{)}
+		    \PYG{p}{(}\PYG{n+nv}{set\PYGZhy{}frame\PYGZhy{}font} \PYG{l+s}{\PYGZdq{}Liberation Mono\PYGZhy{}9.5\PYGZdq{}} \PYG{n+no}{nil} \PYG{n+no}{t}\PYG{p}{)}
+		    \PYG{p}{(}\PYG{n+nv}{set\PYGZhy{}face\PYGZhy{}attribute} \PYG{l+s+ss}{\PYGZsq{}default} \PYG{n+no}{nil} \PYG{l+s+ss}{:height} \PYG{l+m+mi}{93} \PYG{p}{)}
+		    \PYG{p}{)))}
+	    \PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}default\PYGZhy{}frame\PYGZhy{}alist} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{font} \PYG{o}{.} \PYG{l+s}{\PYGZdq{}Liberation Mono\PYGZhy{}9.5\PYGZdq{}}\PYG{p}{)} \PYG{p}{)}
+
+\PYG{c+c1}{;(load\PYGZhy{}theme \PYGZsq{}dracula t)}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{inhibit\PYGZhy{}startup\PYGZhy{}message} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{show\PYGZhy{}paren\PYGZhy{}mode} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{global\PYGZhy{}set\PYGZhy{}key} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}C\PYGZhy{}c m b\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}menu\PYGZhy{}bar\PYGZhy{}mode}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{column\PYGZhy{}number\PYGZhy{}mode} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{toggle\PYGZhy{}indicate\PYGZhy{}empty\PYGZhy{}lines} \PYG{n+no}{t}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}default\PYGZhy{}frame\PYGZhy{}alist} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{font} \PYG{o}{.} \PYG{l+s}{\PYGZdq{}Liberation Mono\PYGZhy{}9.5\PYGZdq{}}\PYG{p}{)} \PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}to\PYGZhy{}pdf\PYGZhy{}process}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}xelatex \PYGZhy{}interaction nonstopmode \PYGZpc{}f\PYGZdq{}}
+     \PYG{l+s}{\PYGZdq{}xelatex \PYGZhy{}interaction nonstopmode \PYGZpc{}f\PYGZdq{}}\PYG{p}{))} \PYG{c+c1}{;; for multiple passes}
+\end{Verbatim}

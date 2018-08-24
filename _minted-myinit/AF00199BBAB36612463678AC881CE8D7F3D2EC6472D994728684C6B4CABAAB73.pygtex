@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org\PYGZhy{}babel}
+\PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{version\PYGZlt{}} \PYG{n+nv}{emacs\PYGZhy{}version} \PYG{l+s}{\PYGZdq{}26.0\PYGZdq{}}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}babel\PYGZhy{}do\PYGZhy{}load\PYGZhy{}languages}
+ \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}babel\PYGZhy{}load\PYGZhy{}languages}
+ \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{sh} \PYG{o}{.} \PYG{n+nv}{true}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{python} \PYG{o}{.} \PYG{n+nv}{true}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{ruby} \PYG{o}{.}\PYG{n+nv}{true}\PYG{p}{)}
+   \PYG{p}{(}\PYG{n+nv}{emacs\PYGZhy{}lisp} \PYG{o}{.}\PYG{n+nv}{true}\PYG{p}{)))}
+\PYG{p}{(}\PYG{n+nv}{org\PYGZhy{}babel\PYGZhy{}do\PYGZhy{}load\PYGZhy{}languages}
+ \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}babel\PYGZhy{}load\PYGZhy{}languages}
+ \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{shell} \PYG{o}{.} \PYG{n+nv}{true}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{python} \PYG{o}{.} \PYG{n+nv}{true}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{ruby} \PYG{o}{.}\PYG{n+nv}{true}\PYG{p}{)}
+   \PYG{p}{(}\PYG{n+nv}{emacs\PYGZhy{}lisp} \PYG{o}{.}\PYG{n+nv}{true}\PYG{p}{))))}
+\end{Verbatim}

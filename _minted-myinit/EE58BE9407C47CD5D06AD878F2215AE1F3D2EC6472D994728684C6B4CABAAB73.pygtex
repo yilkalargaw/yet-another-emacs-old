@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;projectile}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{projectile}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:init} \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{counsel\PYGZhy{}projectile}
+	\PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+	\PYG{c+c1}{; :defer t}
+	\PYG{p}{)}
+  \PYG{l+s+ss}{:config} \PYG{p}{(}\PYG{n+nv}{counsel\PYGZhy{}projectile\PYGZhy{}mode}\PYG{p}{)}
+  \PYG{p}{)}
+
+
+
+  \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}prog\PYGZhy{}mode\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}projectile\PYGZhy{}mode}\PYG{p}{)}
+\end{Verbatim}

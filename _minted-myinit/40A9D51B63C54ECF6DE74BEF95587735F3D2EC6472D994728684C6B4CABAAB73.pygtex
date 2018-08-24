@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org\PYGZhy{}latex}
+\PYG{c+c1}{;pygment minted}
+\PYG{c+c1}{;(require \PYGZsq{}org\PYGZhy{}latex)}
+\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}ox\PYGZhy{}latex}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}org\PYGZhy{}latex\PYGZhy{}packages\PYGZhy{}alist} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZdq{}} \PYG{l+s}{\PYGZdq{}minted\PYGZdq{}}\PYG{p}{))}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}listings} \PYG{l+s+ss}{\PYGZsq{}minted}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}latex\PYGZhy{}pdf\PYGZhy{}process}
+      \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}
+	\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}
+	\PYG{l+s}{\PYGZdq{}pdflatex \PYGZhy{}shell\PYGZhy{}escape \PYGZhy{}interaction nonstopmode \PYGZhy{}output\PYGZhy{}directory \PYGZpc{}o \PYGZpc{}f\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

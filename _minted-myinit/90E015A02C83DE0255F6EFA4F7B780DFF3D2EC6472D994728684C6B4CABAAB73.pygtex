@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;avy}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{avy}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}c a c\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{avy\PYGZhy{}goto\PYGZhy{}char}\PYG{p}{)}
+  \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}c a 2\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{avy\PYGZhy{}goto\PYGZhy{}char\PYGZhy{}2}\PYG{p}{)}
+  \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}c a w\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{avy\PYGZhy{}goto\PYGZhy{}word\PYGZhy{}1}\PYG{p}{)}
+  \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}c a l\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{avy\PYGZhy{}goto\PYGZhy{}line}\PYG{p}{)}
+  \PYG{l+s+ss}{:config}  \PYG{p}{(}\PYG{n+nv}{local\PYGZhy{}set\PYGZhy{}key} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}C\PYGZhy{};\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}iedit\PYGZhy{}mode}\PYG{p}{)}
+  \PYG{p}{)}
+
+\PYG{c+c1}{;ace\PYGZhy{}window}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{ace\PYGZhy{}window}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+\PYG{c+c1}{;  :defer 3}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}o\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{ace\PYGZhy{}window}\PYG{p}{))}
+\end{Verbatim}

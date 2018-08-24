@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{skewer\PYGZhy{}mode}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:init}
+  \PYG{p}{(}\PYG{n+nv}{skewer\PYGZhy{}setup}\PYG{p}{))}
+
+\PYG{c+c1}{;(use\PYGZhy{}package skewer\PYGZhy{}repl}
+\PYG{c+c1}{;  :ensure t}
+\PYG{c+c1}{;  :defer t}
+\PYG{c+c1}{;  :config (define\PYGZhy{}key skewer\PYGZhy{}repl\PYGZhy{}mode\PYGZhy{}map (kbd \PYGZdq{}C\PYGZhy{}c C\PYGZhy{}z\PYGZdq{}) \PYGZsh{}\PYGZsq{}quit\PYGZhy{}window))}
+\end{Verbatim}

@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{php\PYGZhy{}mode}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:mode} \PYG{l+s}{\PYGZdq{}\PYGZbs{}\PYGZbs{}.php\PYGZbs{}\PYGZbs{}\PYGZsq{}\PYGZdq{}}
+  \PYG{l+s+ss}{:config} \PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}php\PYGZhy{}extras}\PYG{p}{)}
+ \PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{company\PYGZhy{}php}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{php\PYGZhy{}extras}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}php\PYGZhy{}mode\PYGZhy{}hook}
+	  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{k}{lambda} \PYG{p}{()}
+	     \PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}php}\PYG{p}{)}
+	     \PYG{p}{(}\PYG{n+nv}{company\PYGZhy{}mode} \PYG{n+no}{t}\PYG{p}{)}
+	     \PYG{p}{(}\PYG{n+nv}{ac\PYGZhy{}php\PYGZhy{}core\PYGZhy{}eldoc\PYGZhy{}setup}\PYG{p}{)} \PYG{c+c1}{;; enable eldoc}
+	     \PYG{p}{(}\PYG{n+nv}{make\PYGZhy{}local\PYGZhy{}variable} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}backends}\PYG{p}{)}
+	     \PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}to\PYGZhy{}list} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}backends} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}ac\PYGZhy{}php\PYGZhy{}backend}\PYG{p}{)))}
+\PYG{c+c1}{;(eval\PYGZhy{}after\PYGZhy{}load \PYGZsq{}php\PYGZhy{}mode}
+\PYG{c+c1}{;  (require \PYGZsq{}php\PYGZhy{}extras))}
+\end{Verbatim}

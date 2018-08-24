@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;ecb}
+  \PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{ecb}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:init} \PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{ecb\PYGZhy{}tip\PYGZhy{}of\PYGZhy{}the\PYGZhy{}day} \PYG{n+no}{nil}\PYG{p}{)}
+  \PYG{l+s+ss}{:bind} \PYG{p}{((} \PYG{l+s}{\PYGZdq{}C\PYGZhy{}c e b\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{ecb\PYGZhy{}minor\PYGZhy{}mode}\PYG{p}{)}
+	\PYG{l+s+ss}{:map} \PYG{n+nv}{ecb\PYGZhy{}mode\PYGZhy{}map}
+		\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}1\PYGZdq{}} \PYG{o}{.} \PYG{l+s+ss}{\PYGZsq{}ecb\PYGZhy{}goto\PYGZhy{}window\PYGZhy{}edit1}\PYG{p}{)}
+		\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}2\PYGZdq{}} \PYG{o}{.} \PYG{l+s+ss}{\PYGZsq{}ecb\PYGZhy{}goto\PYGZhy{}window\PYGZhy{}directories}\PYG{p}{)}
+		\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}3\PYGZdq{}} \PYG{o}{.} \PYG{l+s+ss}{\PYGZsq{}ecb\PYGZhy{}goto\PYGZhy{}window\PYGZhy{}sources}\PYG{p}{)}
+		\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}4\PYGZdq{}} \PYG{o}{.} \PYG{l+s+ss}{\PYGZsq{}ecb\PYGZhy{}goto\PYGZhy{}window\PYGZhy{}methods}\PYG{p}{)}
+		\PYG{p}{(}\PYG{l+s}{\PYGZdq{}H\PYGZhy{}5\PYGZdq{}} \PYG{o}{.} \PYG{l+s+ss}{\PYGZsq{}ecb\PYGZhy{}goto\PYGZhy{}window\PYGZhy{}history}\PYG{p}{))}
+\PYG{p}{)}
+\end{Verbatim}

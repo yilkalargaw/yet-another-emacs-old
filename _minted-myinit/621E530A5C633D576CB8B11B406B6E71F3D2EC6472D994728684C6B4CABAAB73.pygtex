@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;hydra}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{hydra}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+\PYG{c+c1}{;  :defer t}
+  \PYG{p}{)}
+\end{Verbatim}

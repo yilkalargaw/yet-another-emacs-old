@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;expand\PYGZhy{}region}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{expand\PYGZhy{}region}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{l+m+mi}{3}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}=\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{er/expand\PYGZhy{}region}\PYG{p}{)}
+\PYG{c+c1}{;     :config  (local\PYGZhy{}set\PYGZhy{}key (kbd \PYGZdq{}C\PYGZhy{};\PYGZdq{}) \PYGZsq{}iedit\PYGZhy{}mode)}
+  \PYG{p}{)}
+\end{Verbatim}

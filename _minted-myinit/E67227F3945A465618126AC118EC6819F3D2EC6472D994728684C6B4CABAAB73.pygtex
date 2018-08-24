@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;org fontify}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}src\PYGZhy{}fontify\PYGZhy{}natively} \PYG{n+no}{t}
+    \PYG{n+nv}{org\PYGZhy{}src\PYGZhy{}tab\PYGZhy{}acts\PYGZhy{}natively} \PYG{n+no}{t}
+    \PYG{n+nv}{org\PYGZhy{}confirm\PYGZhy{}babel\PYGZhy{}evaluate} \PYG{n+no}{nil}
+    \PYG{n+nv}{org\PYGZhy{}edit\PYGZhy{}src\PYGZhy{}content\PYGZhy{}indentation} \PYG{l+m+mi}{0}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{peep\PYGZhy{}dired}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:defer} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:bind} \PYG{p}{((}\PYG{l+s+ss}{:map} \PYG{n+nv}{peep\PYGZhy{}dired\PYGZhy{}mode\PYGZhy{}map}
+	       \PYG{p}{(}\PYG{l+s}{\PYGZdq{}SPC\PYGZdq{}} \PYG{o}{.} \PYG{n+no}{nil}\PYG{p}{)}
+	       \PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZlt{}backspace\PYGZgt{}\PYGZdq{}} \PYG{o}{.} \PYG{n+no}{nil}\PYG{p}{))))}
+\PYG{p}{(}\PYG{n+nv}{add\PYGZhy{}hook} \PYG{l+s+ss}{\PYGZsq{}dired\PYGZhy{}mode\PYGZhy{}hook} \PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nv}{display\PYGZhy{}graphic\PYGZhy{}p}\PYG{p}{)(}\PYG{k}{lambda} \PYG{p}{()} \PYG{p}{(}\PYG{n+nv}{define\PYGZhy{}key} \PYG{n+nv}{dired\PYGZhy{}mode\PYGZhy{}map} \PYG{p}{(}\PYG{n+nv}{kbd} \PYG{l+s}{\PYGZdq{}C\PYGZhy{}.\PYGZdq{}}\PYG{p}{)} \PYG{l+s+ss}{\PYGZsq{}peep\PYGZhy{}dired}\PYG{p}{))))}
+\end{Verbatim}

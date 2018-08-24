@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{robe}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}
+  \PYG{l+s+ss}{:bind} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}C\PYGZhy{}c r s\PYGZdq{}} \PYG{o}{.} \PYG{n+nv}{robe\PYGZhy{}start}\PYG{p}{)}
+  \PYG{l+s+ss}{:hook} \PYG{p}{(}\PYG{n+nv}{ruby\PYGZhy{}mode} \PYG{o}{.} \PYG{n+nv}{robe\PYGZhy{}mode}\PYG{p}{)}
+\PYG{p}{)}
+\PYG{c+c1}{;  (add\PYGZhy{}hook \PYGZsq{}ruby\PYGZhy{}mode\PYGZhy{}hook \PYGZsq{}robe\PYGZhy{}mode))}
+
+\PYG{p}{(}\PYG{n+nv}{eval\PYGZhy{}after\PYGZhy{}load} \PYG{l+s+ss}{\PYGZsq{}company}
+  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{push} \PYG{l+s+ss}{\PYGZsq{}company\PYGZhy{}robe} \PYG{n+nv}{company\PYGZhy{}backends}\PYG{p}{))}
+\end{Verbatim}

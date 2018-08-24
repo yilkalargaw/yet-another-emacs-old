@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;smooth\PYGZhy{}scrolling}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{smooth\PYGZhy{}scrolling}
+  \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;;(use\PYGZhy{}package org :ensure t)}
+\PYG{p}{(}\PYG{n+nb}{use\PYGZhy{}package} \PYG{n+nv}{htmlize} \PYG{l+s+ss}{:ensure} \PYG{n+no}{t}\PYG{p}{)}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}html\PYGZhy{}html5\PYGZhy{}fancy} \PYG{n+no}{t}
+\PYG{n+nv}{org\PYGZhy{}html\PYGZhy{}doctype} \PYG{l+s}{\PYGZdq{}html5\PYGZdq{}}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{org\PYGZhy{}html\PYGZhy{}html5\PYGZhy{}fancy} \PYG{n+no}{t}
+      \PYG{n+nv}{org\PYGZhy{}html\PYGZhy{}doctype} \PYG{l+s}{\PYGZdq{}html5\PYGZdq{}}\PYG{p}{)}
+\PYG{c+c1}{;;; Loading custom backend}
+\PYG{c+c1}{;(add\PYGZhy{}to\PYGZhy{}list \PYGZsq{}load\PYGZhy{}path \PYGZdq{}lisp/\PYGZdq{})}
+\PYG{c+c1}{;(load\PYGZhy{}file \PYGZdq{}\PYGZti{}/.emacs.d/lisp/pelican\PYGZhy{}html.el\PYGZdq{})}
+\PYG{p}{(}\PYG{n+nb}{require} \PYG{l+s+ss}{\PYGZsq{}pelican\PYGZhy{}html}\PYG{p}{)}
+\end{Verbatim}
