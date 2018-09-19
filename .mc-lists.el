@@ -10,9 +10,9 @@
 	electric-newline-and-maybe-indent
 	eval-print-last-sexp
 	indent-for-tab-command
+	insert-parentheses
 	iy-go-to-char--command
 	kill-region
-;;	mouse-set-region
 	org-beginning-of-line
 	org-end-of-line
 	org-self-insert-command
@@ -22,6 +22,15 @@
 (setq mc/cmds-to-run-once
       '(
 	counsel-M-x
+	hydra-multiple-cursors/body
+	hydra-multiple-cursors/mc/edit-lines-and-exit
+	hydra-multiple-cursors/mc/mark-all-like-this-and-exit
+	hydra-multiple-cursors/mc/mark-next-like-this
+	hydra-multiple-cursors/mc/mark-previous-like-this
+	hydra-multiple-cursors/mc/skip-to-next-like-this
+	hydra-multiple-cursors/mc/skip-to-previous-like-this
+	hydra-multiple-cursors/mc/unmark-next-like-this
+	hydra-multiple-cursors/mc/unmark-previous-like-this
 	iedit-switch-to-mc-mode
 	mouse-buffer-menu
 	text-scale-adjust

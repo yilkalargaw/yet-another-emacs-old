@@ -31,7 +31,7 @@
               ))
    
 (set-frame-position (selected-frame) 0 15)
-;(set-face-attribute 'default nil :height 93 )
+;;(set-face-attribute 'default nil :height 93 )
 
 ))
 
@@ -64,7 +64,7 @@
 
 #+BEGIN_SRC emacs-lisp
 
-;dracula-theme
+;;dracula-theme
 (use-package dracula-theme
   :ensure t
   :defer t
@@ -211,7 +211,7 @@
 
 #+BEGIN_SRC elisp
 
-;; to setup tabs
+;;; to setup tabs
 (setq c-basic-indent 2)
 (setq tab-width 4)
 (setq indent-tabs-mode nil)
@@ -222,11 +222,15 @@
 
 #+BEGIN_SRC emacs-lisp
 
-;hydra
+;;hydra
 (use-package hydra
   :ensure t
 ;  :defer t
   )
+#+END_SRC
+
+** hydra-zoom
+#+BEGIN_SRC emacs-lisp
 
 (defhydra hydra-zoom (global-map "<f10>")
   "zoom"
@@ -261,7 +265,7 @@ _SPC_ cancel
    ("SPC" nil)
 )
 
-(global-set-key (kbd "C-c @") 'hydra-hs/body) ;;example-binding
+;;(global-set-key (kbd "C-c @") 'hydra-hs/body) ;;example-binding
 
 #+END_SRC
 
@@ -290,6 +294,8 @@ _SPC_ cancel
   ("g" customize-apropos-groups "groups")
   ("o" customize-apropos-options "options"))
 
+
+(global-set-key (kbd "C-H") 'hydra-apropos/body) ;;example-binding
 #+END_SRC
 
 * ivy,consel and swiper
@@ -351,7 +357,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;backups
+;;backups
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups")))
 (setq auto-save-file-name-transforms
       `((".*" ,"~/.emacs.d/backups" t)))
@@ -379,7 +385,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;undo-tree
+;;undo-tree
 (use-package undo-tree
   :diminish undo-tree-mode
   :defer 2
@@ -423,7 +429,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;nlinum mode
+;;nlinum mode
 (use-package nlinum
   :ensure t
   :config  (setq nlinum-highlight-current-line t)
@@ -439,7 +445,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;which mode
+;;which mode
 (use-package which-key
   :ensure t
   :defer 2
@@ -452,7 +458,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;neotree
+;;neotree
 (use-package neotree
   :ensure t
   :defer t
@@ -477,7 +483,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;magit
+;;magit
 (use-package magit
   :ensure t
   :defer t
@@ -492,7 +498,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;yasnippet
+;;yasnippet
 (use-package yasnippet
   :ensure t
   :defer 1
@@ -508,7 +514,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;flycheck
+;;flycheck
 (use-package flycheck
   :ensure t
 ;      :config
@@ -522,12 +528,12 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;expand-region
+;;;expand-region
 (use-package expand-region
   :ensure t
   :defer 3
   :bind ("C-=" . er/expand-region)
-;     :config  (local-set-key (kbd "C-;") 'iedit-mode)
+;;     :config  (local-set-key (kbd "C-;") 'iedit-mode)
   )
 
 #+END_SRC
@@ -536,7 +542,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;avy
+;;;avy
 (use-package avy
   :ensure t
   :defer t
@@ -553,7 +559,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;ace-window
+;;ace-window
 (use-package ace-window
   :ensure t
 ;  :defer 3
@@ -567,7 +573,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;ag
+;;ag
 (use-package ag
   :ensure t
   :defer t
@@ -579,7 +585,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;rust
+;;rust
     (use-package rust-mode
       :ensure t
       :defer t)
@@ -590,7 +596,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;go
+;;go
     (use-package go-mode
       :ensure t
       :defer t)
@@ -601,7 +607,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;csv
+;;csv
     (use-package csv-mode
       :ensure t
       :defer t)
@@ -612,7 +618,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;yaml,toml and json
+;;yaml,toml and json
     (use-package yaml-mode
       :ensure t
       :defer t)
@@ -625,11 +631,171 @@ _SPC_ cancel
 
 #+END_SRC
 
+* org
+** org-fontify
+
+#+BEGIN_SRC emacs-lisp
+
+;;org fontify
+(setq org-src-fontify-natively t
+    org-src-tab-acts-natively t
+    org-confirm-babel-evaluate nil
+    org-edit-src-content-indentation 0)
+#+END_SRC
+
+** ox-md
+
+#+BEGIN_SRC emacs-lisp
+;org-md
+ (eval-after-load "org"
+  '(require 'ox-md nil t))
+
+#+END_SRC
+
+** ox-beamer
+
+#+BEGIN_SRC emacs-lisp
+;org-beamer
+ (eval-after-load "org"
+  '(require 'ox-beamer nil t))
+
+#+END_SRC
+
+** ox-odt
+
+#+BEGIN_SRC emacs-lisp
+;org-odt
+ (eval-after-load "org"
+  '(require 'ox-odt nil t))
+
+#+END_SRC
+
+** org-babel
+
+#+BEGIN_SRC emacs-lisp
+;org-babel
+(if (version< emacs-version "26.0")
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sh . true) (python . true) (ruby .true)
+   (emacs-lisp .true)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((shell . true) (python . true) (ruby .true)
+   (emacs-lisp .true))))
+
+#+END_SRC
+
+** ox-gfm
+
+#+BEGIN_SRC emacs-lisp
+;org-gfm
+(use-package ox-gfm :ensure t :defer t)
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
+
+
+#+END_SRC
+
+** org-latex with pygment minted
+
+#+BEGIN_SRC emacs-lisp
+;org-latex
+;pygment minted
+;(require 'org-latex)
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
+
+** htmlize
+
+#+BEGIN_SRC emacs-lisp
+;;(use-package org :ensure t)
+(use-package htmlize :ensure t)
+(setq org-html-html5-fancy t
+org-html-doctype "html5")
+
+(setq org-html-html5-fancy t
+      org-html-doctype "html5")
+;;; Loading custom backend
+;(add-to-list 'load-path "lisp/")
+;(load-file "~/.emacs.d/lisp/pelican-html.el")
+(require 'pelican-html)
+
+#+END_SRC
+
+** xelatex
+
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-to-pdf-process 
+  '("xelatex -interaction nonstopmode %f"
+     "xelatex -interaction nonstopmode %f")) ;; for multiple passes
+
+#+END_SRC
+
+** org-bullets
+
+#+BEGIN_SRC emacs-lisp
+;org-bullets
+(use-package org-bullets 
+  :ensure t
+  :hook (org-mode . (lambda () (org-bullets-mode 1))))
+
+#+END_SRC
+
+** org-beautify
+
+#+BEGIN_SRC emacs-lisp
+
+;;org-beautify-theme
+(use-package org-beautify-theme 
+  :ensure t
+  :defer t)
+;;(add-hook 'org-mode-hook (if (display-graphic-p)(lambda () (load-theme 'org-beautify))))
+(if (not (null (display-graphic-p))) (add-hook 'org-mode-hook (load-theme 'org-beautify)))
+;;(add-hook 'org-mode-hook (load-theme 'org-beautify))
+#+END_SRC
+
+** org-tree-slide
+
+#+BEGIN_SRC emacs-lisp
+
+;;org-tree-slide
+(use-package org-tree-slide
+  :ensure t
+  :defer t)
+(define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
+(define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
+
+(with-eval-after-load "org-tree-slide"
+  (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
+  (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
+  )
+
+#+END_SRC
+
+** epresent
+
+#+BEGIN_SRC emacs-lisp
+
+;;epresent
+(use-package epresent
+  :ensure t
+  :defer t)
+
+#+END_SRC
+
 * multiple-cursors
 
 #+BEGIN_SRC emacs-lisp
 
-;multiple-cursors
+;;multiple-cursors
 (use-package multiple-cursors
   :ensure t
   :defer t
@@ -667,6 +833,8 @@ _SPC_ cancel
   ("M-p" mc/unmark-previous-like-this)
   ("r" mc/mark-all-in-region-regexp :exit t)
   ("q" nil))
+
+(global-set-key (kbd "C-c m c") 'hydra-multiple-cursors/body) ;;example-binding
 
 #+END_SRC
 
@@ -747,7 +915,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;esup
+;;esup
 ;(use-package esup
 ;  :ensure t
 ;  :defer t)
@@ -830,7 +998,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;company
+;;company
   (use-package company
     :ensure t
         :defer t
@@ -852,7 +1020,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;latex/auctex
+;;latex/auctex
   (use-package  company-auctex
   :ensure t
   :config  (company-auctex-init)
@@ -869,7 +1037,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;lua
+;;lua
 (use-package lua-mode
   :ensure t
   :defer t)
@@ -906,11 +1074,11 @@ _SPC_ cancel
 
  (use-package web-mode
    :ensure t
-   :mode ("\\.html\\'" 
-          "\\.css?\\'" 
+   :mode (;;"\\.html\\'" 
+          ;;"\\.css?\\'" 
           "\\.phtml\\'" 
           "\\.erb\\'" 
-          "\\.html?\\'" 
+	  ;;"\\.html?\\'" 
           )
   
    :config
@@ -918,6 +1086,7 @@ _SPC_ cancel
  ;  (setq web-mode-engines-alist
  ;        '(("django" . "focus/.*\\.html\\'")
  ;          ("ctemplate" . "realtimecrm/.*\\.html\\'")))
+   (setq web-mode-enable-auto-pairing nil)
  )
 
  (use-package company-web
@@ -1036,7 +1205,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;smooth-scrolling
+;;smooth-scrolling
 ;; (use-package smooth-scrolling
 ;;   :ensure t
 ;;   :config (setq smooth-scroll-margin 2)
@@ -1054,7 +1223,7 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;ecb
+;;ecb
   (use-package ecb
   :ensure t
   :defer t
@@ -1070,170 +1239,11 @@ _SPC_ cancel
 
 #+END_SRC
 
-* org
-** org-fontify
-
-#+BEGIN_SRC emacs-lisp
-
-;org fontify
-(setq org-src-fontify-natively t
-    org-src-tab-acts-natively t
-    org-confirm-babel-evaluate nil
-    org-edit-src-content-indentation 0)
-#+END_SRC
-
-** ox-md
-
-#+BEGIN_SRC emacs-lisp
-;org-md
- (eval-after-load "org"
-  '(require 'ox-md nil t))
-
-#+END_SRC
-
-** ox-beamer
-
-#+BEGIN_SRC emacs-lisp
-;org-beamer
- (eval-after-load "org"
-  '(require 'ox-beamer nil t))
-
-#+END_SRC
-
-** ox-odt
-
-#+BEGIN_SRC emacs-lisp
-;org-odt
- (eval-after-load "org"
-  '(require 'ox-odt nil t))
-
-#+END_SRC
-
-** org-babel
-
-#+BEGIN_SRC emacs-lisp
-;org-babel
-(if (version< emacs-version "26.0")
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((sh . true) (python . true) (ruby .true)
-   (emacs-lisp .true)))
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((shell . true) (python . true) (ruby .true)
-   (emacs-lisp .true))))
-
-#+END_SRC
-
-** ox-gfm
-
-#+BEGIN_SRC emacs-lisp
-;org-gfm
-(use-package ox-gfm :ensure t :defer t)
-(eval-after-load "org"
-  '(require 'ox-gfm nil t))
-
-
-#+END_SRC
-
-** org-latex with pygment minted
-
-#+BEGIN_SRC emacs-lisp
-;org-latex
-;pygment minted
-;(require 'org-latex)
-(require 'ox-latex)
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted)
-
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-#+END_SRC
-
-** htmlize
-
-#+BEGIN_SRC emacs-lisp
-;;(use-package org :ensure t)
-(use-package htmlize :ensure t)
-(setq org-html-html5-fancy t
-org-html-doctype "html5")
-
-(setq org-html-html5-fancy t
-      org-html-doctype "html5")
-;;; Loading custom backend
-;(add-to-list 'load-path "lisp/")
-;(load-file "~/.emacs.d/lisp/pelican-html.el")
-(require 'pelican-html)
-
-#+END_SRC
-
-** xelatex
-
-#+BEGIN_SRC emacs-lisp
-(setq org-latex-to-pdf-process 
-  '("xelatex -interaction nonstopmode %f"
-     "xelatex -interaction nonstopmode %f")) ;; for multiple passes
-
-#+END_SRC
-
-** org-bullets
-
-#+BEGIN_SRC emacs-lisp
-;org-bullets
-(use-package org-bullets 
-  :ensure t
-  :hook (org-mode . (lambda () (org-bullets-mode 1))))
-
-#+END_SRC
-
-** org-beautify
-
-#+BEGIN_SRC emacs-lisp
-
-;org-beautify-theme
-(use-package org-beautify-theme 
-  :ensure t
-  :defer t)
-(add-hook 'org-mode-hook (if (display-graphic-p)(lambda () (load-theme 'org-beautify))))
-
-#+END_SRC
-
-** org-tree-slide
-
-#+BEGIN_SRC emacs-lisp
-
-;org-tree-slide
-(use-package org-tree-slide
-  :ensure t
-  :defer t)
-(define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
-(define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
-
-(with-eval-after-load "org-tree-slide"
-  (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
-  (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
-  )
-
-#+END_SRC
-
-** epresent
-
-#+BEGIN_SRC emacs-lisp
-
-;epresent
-(use-package epresent
-  :ensure t
-  :defer t)
-
-#+END_SRC
-
 * markdown
 
 #+BEGIN_SRC emacs-lisp
 
-;markdown
+;;markdown
   (use-package markdown-mode
   :ensure t
   :defer t
@@ -1314,6 +1324,12 @@ org-html-doctype "html5")
 
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (add-hook 'markdown-mode-hook #'smartparens-mode)
+;;(add-hook 'web-mode-hook (lambda () (smartparens-mode -1)))
+(sp-local-pair 'web-mode  "<%" "%>" :wrap "C-%")
+;;(sp-local-pair 'web-mode  "<%=" "%>" :wrap "C-%")
+
+
+
 
 #+END_SRC
 

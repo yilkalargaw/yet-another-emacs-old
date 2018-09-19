@@ -26,7 +26,7 @@
               ))
    
 (set-frame-position (selected-frame) 0 15)
-;(set-face-attribute 'default nil :height 93 )
+;;(set-face-attribute 'default nil :height 93 )
 
 ))
 
@@ -53,7 +53,7 @@
 
 (add-to-list 'default-frame-alist '(font . "Liberation Mono-9.5") )
 
-;dracula-theme
+;;dracula-theme
 (use-package dracula-theme
   :ensure t
   :defer t
@@ -186,7 +186,7 @@
 ;
 ;;(telephone-line-mode)
 
-;hydra
+;;hydra
 (use-package hydra
   :ensure t
 ;  :defer t
@@ -218,7 +218,7 @@ _SPC_ cancel
    ("SPC" nil)
 )
 
-(global-set-key (kbd "C-c @") 'hydra-hs/body) ;;example-binding
+;;(global-set-key (kbd "C-c @") 'hydra-hs/body) ;;example-binding
 
 (defhydra hydra-apropos (:color blue)
   "Apropos"
@@ -240,6 +240,9 @@ _SPC_ cancel
   ("f" customize-apropos-faces "faces")
   ("g" customize-apropos-groups "groups")
   ("o" customize-apropos-options "options"))
+
+
+(global-set-key (kbd "C-H") 'hydra-apropos/body) ;;example-binding
 
 (use-package ivy :demand
   :ensure t
@@ -289,7 +292,7 @@ _SPC_ cancel
   :ensure t
   :after (ivy hydra))
 
-;backups
+;;backups
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups")))
 (setq auto-save-file-name-transforms
       `((".*" ,"~/.emacs.d/backups" t)))
@@ -299,7 +302,7 @@ _SPC_ cancel
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;undo-tree
+;;undo-tree
 (use-package undo-tree
   :diminish undo-tree-mode
   :defer 2
@@ -319,7 +322,7 @@ _SPC_ cancel
   :defer t
   )
 
-;nlinum mode
+;;nlinum mode
 (use-package nlinum
   :ensure t
   :config  (setq nlinum-highlight-current-line t)
@@ -329,14 +332,14 @@ _SPC_ cancel
     )
 (add-hook 'after-init-hook 'global-nlinum-mode t)
 
-;which mode
+;;which mode
 (use-package which-key
   :ensure t
   :defer 2
   :config (which-key-mode)
     )
 
-;neotree
+;;neotree
 (use-package neotree
   :ensure t
   :defer t
@@ -355,7 +358,7 @@ _SPC_ cancel
 (defun my-neotree-hook ()
   (nlinum-mode 0))
 
-;magit
+;;magit
 (use-package magit
   :ensure t
   :defer t
@@ -364,7 +367,7 @@ _SPC_ cancel
 (global-set-key (kbd "C-C g m") 'magit-status)
 (global-set-key (kbd "H-g") 'magit-status)
 
-;yasnippet
+;;yasnippet
 (use-package yasnippet
   :ensure t
   :defer 1
@@ -374,7 +377,7 @@ _SPC_ cancel
 
 (add-hook 'prog-mode-hook 'yas-minor-mode)
 
-;flycheck
+;;flycheck
 (use-package flycheck
   :ensure t
 ;      :config
@@ -382,15 +385,15 @@ _SPC_ cancel
 
 (add-hook 'prog-mode-hook 'flycheck-mode)
 
-;expand-region
+;;;expand-region
 (use-package expand-region
   :ensure t
   :defer 3
   :bind ("C-=" . er/expand-region)
-;     :config  (local-set-key (kbd "C-;") 'iedit-mode)
+;;     :config  (local-set-key (kbd "C-;") 'iedit-mode)
   )
 
-;avy
+;;;avy
 (use-package avy
   :ensure t
   :defer t
@@ -401,7 +404,7 @@ _SPC_ cancel
 ;  :config  (local-set-key (kbd "C-;") 'iedit-mode)
   )
 
-;ace-window
+;;ace-window
 (use-package ace-window
   :ensure t
 ;  :defer 3
@@ -409,28 +412,28 @@ _SPC_ cancel
   ("C-c w n" . ace-window)
   )
 
-;ag
+;;ag
 (use-package ag
   :ensure t
   :defer t
   )
 
-;rust
+;;rust
     (use-package rust-mode
       :ensure t
       :defer t)
 
-;go
+;;go
     (use-package go-mode
       :ensure t
       :defer t)
 
-;csv
+;;csv
     (use-package csv-mode
       :ensure t
       :defer t)
 
-;yaml,toml and json
+;;yaml,toml and json
     (use-package yaml-mode
       :ensure t
       :defer t)
@@ -441,7 +444,99 @@ _SPC_ cancel
       :ensure t
       :defer t)
 
-;multiple-cursors
+;;org fontify
+(setq org-src-fontify-natively t
+    org-src-tab-acts-natively t
+    org-confirm-babel-evaluate nil
+    org-edit-src-content-indentation 0)
+
+;org-md
+ (eval-after-load "org"
+  '(require 'ox-md nil t))
+
+;org-beamer
+ (eval-after-load "org"
+  '(require 'ox-beamer nil t))
+
+;org-odt
+ (eval-after-load "org"
+  '(require 'ox-odt nil t))
+
+;org-babel
+(if (version< emacs-version "26.0")
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sh . true) (python . true) (ruby .true)
+   (emacs-lisp .true)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((shell . true) (python . true) (ruby .true)
+   (emacs-lisp .true))))
+
+;org-gfm
+(use-package ox-gfm :ensure t :defer t)
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
+
+;org-latex
+;pygment minted
+;(require 'org-latex)
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+;;(use-package org :ensure t)
+(use-package htmlize :ensure t)
+(setq org-html-html5-fancy t
+org-html-doctype "html5")
+
+(setq org-html-html5-fancy t
+      org-html-doctype "html5")
+;;; Loading custom backend
+;(add-to-list 'load-path "lisp/")
+;(load-file "~/.emacs.d/lisp/pelican-html.el")
+(require 'pelican-html)
+
+(setq org-latex-to-pdf-process 
+  '("xelatex -interaction nonstopmode %f"
+     "xelatex -interaction nonstopmode %f")) ;; for multiple passes
+
+;org-bullets
+(use-package org-bullets 
+  :ensure t
+  :hook (org-mode . (lambda () (org-bullets-mode 1))))
+
+;;org-beautify-theme
+(use-package org-beautify-theme 
+  :ensure t
+  :defer t)
+;;(add-hook 'org-mode-hook (if (display-graphic-p)(lambda () (load-theme 'org-beautify))))
+(if (not (null (display-graphic-p))) (add-hook 'org-mode-hook (load-theme 'org-beautify)))
+;;(add-hook 'org-mode-hook (load-theme 'org-beautify))
+
+;;org-tree-slide
+(use-package org-tree-slide
+  :ensure t
+  :defer t)
+(define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
+(define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
+
+(with-eval-after-load "org-tree-slide"
+  (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
+  (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
+  )
+
+;;epresent
+(use-package epresent
+  :ensure t
+  :defer t)
+
+;;multiple-cursors
 (use-package multiple-cursors
   :ensure t
   :defer t
@@ -473,6 +568,8 @@ _SPC_ cancel
   ("M-p" mc/unmark-previous-like-this)
   ("r" mc/mark-all-in-region-regexp :exit t)
   ("q" nil))
+
+(global-set-key (kbd "C-c m c") 'hydra-multiple-cursors/body) ;;example-binding
 
 (use-package projectile
   :ensure t
@@ -535,7 +632,7 @@ _SPC_ cancel
   ("`"   hydra-projectile-other-window/body "other window")
   ("q"   nil "cancel" :color blue))
 
-;esup
+;;esup
 ;(use-package esup
 ;  :ensure t
 ;  :defer t)
@@ -576,7 +673,7 @@ _SPC_ cancel
 (define-key dired-mode-map (kbd "C-c C-w") 'wdired-change-to-wdired-mode)
 (define-key dired-mode-map (kbd "C-c C-d") 'wdired-change-to-dired-mode)
 
-;company
+;;company
   (use-package company
     :ensure t
         :defer t
@@ -592,7 +689,7 @@ _SPC_ cancel
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (add-to-list 'company-backends 'company-c-headers))
 
-;latex/auctex
+;;latex/auctex
   (use-package  company-auctex
   :ensure t
   :config  (company-auctex-init)
@@ -603,7 +700,7 @@ _SPC_ cancel
   (add-hook 'LaTeX-mode-hook 'flyspell-mode)
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
-;lua
+;;lua
 (use-package lua-mode
   :ensure t
   :defer t)
@@ -629,11 +726,11 @@ _SPC_ cancel
 
  (use-package web-mode
    :ensure t
-   :mode ("\\.html\\'" 
-          "\\.css?\\'" 
+   :mode (;;"\\.html\\'" 
+          ;;"\\.css?\\'" 
           "\\.phtml\\'" 
           "\\.erb\\'" 
-          "\\.html?\\'" 
+	  ;;"\\.html?\\'" 
           )
   
    :config
@@ -641,6 +738,7 @@ _SPC_ cancel
  ;  (setq web-mode-engines-alist
  ;        '(("django" . "focus/.*\\.html\\'")
  ;          ("ctemplate" . "realtimecrm/.*\\.html\\'")))
+   (setq web-mode-enable-auto-pairing nil)
  )
 
  (use-package company-web
@@ -730,7 +828,7 @@ _SPC_ cancel
   :ensure t
   :defer t)
 
-;smooth-scrolling
+;;smooth-scrolling
 ;; (use-package smooth-scrolling
 ;;   :ensure t
 ;;   :config (setq smooth-scroll-margin 2)
@@ -742,7 +840,7 @@ _SPC_ cancel
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-;ecb
+;;ecb
   (use-package ecb
   :ensure t
   :defer t
@@ -756,97 +854,7 @@ _SPC_ cancel
 		("H-5" . 'ecb-goto-window-history)) 
 )
 
-;org fontify
-(setq org-src-fontify-natively t
-    org-src-tab-acts-natively t
-    org-confirm-babel-evaluate nil
-    org-edit-src-content-indentation 0)
-
-;org-md
- (eval-after-load "org"
-  '(require 'ox-md nil t))
-
-;org-beamer
- (eval-after-load "org"
-  '(require 'ox-beamer nil t))
-
-;org-odt
- (eval-after-load "org"
-  '(require 'ox-odt nil t))
-
-;org-babel
-(if (version< emacs-version "26.0")
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((sh . true) (python . true) (ruby .true)
-   (emacs-lisp .true)))
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((shell . true) (python . true) (ruby .true)
-   (emacs-lisp .true))))
-
-;org-gfm
-(use-package ox-gfm :ensure t :defer t)
-(eval-after-load "org"
-  '(require 'ox-gfm nil t))
-
-;org-latex
-;pygment minted
-;(require 'org-latex)
-(require 'ox-latex)
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted)
-
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-;;(use-package org :ensure t)
-(use-package htmlize :ensure t)
-(setq org-html-html5-fancy t
-org-html-doctype "html5")
-
-(setq org-html-html5-fancy t
-      org-html-doctype "html5")
-;;; Loading custom backend
-;(add-to-list 'load-path "lisp/")
-;(load-file "~/.emacs.d/lisp/pelican-html.el")
-(require 'pelican-html)
-
-(setq org-latex-to-pdf-process 
-  '("xelatex -interaction nonstopmode %f"
-     "xelatex -interaction nonstopmode %f")) ;; for multiple passes
-
-;org-bullets
-(use-package org-bullets 
-  :ensure t
-  :hook (org-mode . (lambda () (org-bullets-mode 1))))
-
-;org-beautify-theme
-(use-package org-beautify-theme 
-  :ensure t
-  :defer t)
-(add-hook 'org-mode-hook (if (display-graphic-p)(lambda () (load-theme 'org-beautify))))
-
-;org-tree-slide
-(use-package org-tree-slide
-  :ensure t
-  :defer t)
-(define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
-(define-key org-mode-map (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle)
-
-(with-eval-after-load "org-tree-slide"
-  (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
-  (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
-  )
-
-;epresent
-(use-package epresent
-  :ensure t
-  :defer t)
-
-;markdown
+;;markdown
   (use-package markdown-mode
   :ensure t
   :defer t
@@ -903,3 +911,6 @@ org-html-doctype "html5")
 
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (add-hook 'markdown-mode-hook #'smartparens-mode)
+;;(add-hook 'web-mode-hook (lambda () (smartparens-mode -1)))
+(sp-local-pair 'web-mode  "<%" "%>" :wrap "C-%")
+;;(sp-local-pair 'web-mode  "<%=" "%>" :wrap "C-%")

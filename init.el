@@ -40,7 +40,7 @@
  '(indicate-empty-lines nil)
  '(package-selected-packages
    (quote
-    (smartparens counsel-projectile fold-dwim typing tabbar dired-narrow epresent telephone-line tern-mode esup org markdown-preview-eww markdown-toc minted ecb smooth-scrolling company-lua lua-mode auctex company company-auctex company-c-headers peep-dired dired+ dired-details dracula-theme multiple-cursors json-mode toml-mode yaml-mode csv-mode go-mode rust-mode ag avy expand-region flycheck yasnippet undo-tree counsel ivy flx use-package))))
+    (counsel-projectile fold-dwim tabbar dired-narrow epresent tern-mode esup org markdown-preview-eww markdown-toc minted ecb smooth-scrolling company-lua lua-mode auctex company company-auctex company-c-headers peep-dired dired+ dired-details dracula-theme multiple-cursors json-mode toml-mode yaml-mode csv-mode go-mode rust-mode ag avy expand-region flycheck yasnippet undo-tree counsel ivy flx use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
