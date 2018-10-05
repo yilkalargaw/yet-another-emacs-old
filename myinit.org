@@ -1,5 +1,37 @@
 #+TITLE: Init File
 #+AUTHOR: Yilkal Argaw , StackOverflow, Github and Emacs-wiki
+
+* initial setup
+#+BEGIN_SRC emacs-lisp
+
+(setq package-list
+    '(use-package telephone-line hydra ivy flx counsel swiper ivy-hydra nlinum 
+       undo-tree which-key magit yasnippet yasnippet-snippets flycheck expand-region
+       avy ace-window ag rust-mode go-mode csv-mode yaml-mode toml-mode json-mode
+       multiple-cursors projectile markdown-mode markdown-mode+ markdown-preview-mode
+       markdown-toc smartparens ecb restclient neotree all-the-icons company 
+       company-c-headers lua-mode company-lua robe inf-ruby auctex company-auctex
+       web-mode company-web emmet-mode js2-mode tern company-tern php-mode 
+       company-php ox-gfm htmlize org-bullets org-beautify-theme org-tree-slide
+       epresent skewer-mode))
+
+
+; activate all the packages
+(package-initialize)
+
+; fetch the list of packages available 
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+(require 'use-package)
+
+#+END_SRC
+
 * Interface settings
 
 #+BEGIN_SRC emacs-lisp
@@ -64,68 +96,8 @@
 
 #+BEGIN_SRC emacs-lisp
 
-;;dracula-theme
-(use-package dracula-theme
-  :ensure t
-  :defer t
-  )
-
-(use-package solarized-theme
-  :ensure t
-  :defer t
-  )
-
-(use-package silkworm-theme
-  :ensure t
-  :defer t
-  )
-
-(use-package pastels-on-dark-theme
-  :ensure t
-  :defer t
-  )
-(use-package iodine-theme
-  :ensure t
-  :defer t
-  )
-
-(use-package klere-theme
-  :ensure t
-  :defer t
-  )
-
-(use-package gotham-theme
-  :ensure t
-  :defer t
-  )
-
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t
-  :defer t
-  )
-
-(use-package sublime-themes
-  :ensure t
-  :defer t
-  )
-
-(use-package melancholy-theme
-  :ensure t
-  :defer t
-  )
-
-(use-package planet-theme
-  :ensure t
-  :defer t
-  )
-
-(use-package flatui-dark-theme
-  :ensure t
-  :defer t
-)
-
 (load-theme 'modified-dracula t)
-;(load-theme 'dorsey t)
+
 #+END_SRC
 
 * Default directory
@@ -178,6 +150,7 @@
 		  )
 ;(telephone-line-mode)
 ));)
+
 ;
 ;(add-hook 'after-init-hook
 ;(add-hook 'telephone-line-mode-hook
@@ -205,11 +178,12 @@
 ;;))
 ;
 ;;(telephone-line-mode)
+
 #+END_SRC
 
 * Indentation Stuff
 
-#+BEGIN_SRC elisp
+#+BEGIN_SRC emacs-lisp
 
 ;;; to setup tabs
 (setq c-basic-indent 2)
@@ -227,9 +201,11 @@
   :ensure t
 ;  :defer t
   )
+
 #+END_SRC
 
 ** hydra-zoom
+
 #+BEGIN_SRC emacs-lisp
 
 (defhydra hydra-zoom (global-map "<f10>")
@@ -296,12 +272,12 @@ _SPC_ cancel
 
 
 (global-set-key (kbd "C-H") 'hydra-apropos/body) ;;example-binding
+
 #+END_SRC
 
 * ivy,consel and swiper
 
 #+BEGIN_SRC emacs-lisp
-
 
 (use-package ivy :demand
   :ensure t
@@ -381,27 +357,6 @@ _SPC_ cancel
 
 #+END_SRC
 
-* undo-tree
-
-#+BEGIN_SRC emacs-lisp
-
-;;undo-tree
-(use-package undo-tree
-  :diminish undo-tree-mode
-  :defer 2
- ;:bind ("H-/" . undo-tree-visualize)
-  :config (global-undo-tree-mode))
-
-#+END_SRC
-
-* line-highlight
-
-#+BEGIN_SRC emacs-lisp
-
-(global-hl-line-mode)
-
-#+END_SRC
-
 * line-number
 
 #+BEGIN_SRC emacs-lisp
@@ -411,17 +366,6 @@ _SPC_ cancel
     (progn  (setq display-line-numbers-type (quote relative))
 	    (global-display-line-numbers-mode))
     )
-
-#+END_SRC
-
-* iy-go-to-char
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package iy-go-to-char
-  :ensure t
-  :defer t
-  )
 
 #+END_SRC
 
@@ -441,7 +385,28 @@ _SPC_ cancel
 
 #+END_SRC
 
-* which-mode
+* line-highlight
+
+#+BEGIN_SRC emacs-lisp
+
+(global-hl-line-mode)
+
+#+END_SRC
+
+* undo-tree
+
+#+BEGIN_SRC emacs-lisp
+
+;;undo-tree
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :defer 4
+ ;:bind ("H-/" . undo-tree-visualize)
+  :config (global-undo-tree-mode))
+
+#+END_SRC
+
+* which-key
 
 #+BEGIN_SRC emacs-lisp
 
@@ -450,32 +415,7 @@ _SPC_ cancel
   :ensure t
   :defer 2
   :config (which-key-mode)
-    )
-
-#+END_SRC
-
-* neotree
-
-#+BEGIN_SRC emacs-lisp
-
-;;neotree
-(use-package neotree
-  :ensure t
-  :defer t
-  :bind ("H-." . 'neotree-toggle)
-        ("C-c n t" . 'neotree-toggle)
-  :config
-         (use-package all-the-icons
-                 :ensure t
-                 )
-         (setq neo-theme (if (display-graphic-p) 'icons 'arrows))
-					;          (setq neo-theme 'icons)
-	 (setq neo-window-fixed-size nil)
-)
-
-(add-hook 'neotree-mode-hook 'my-neotree-hook)
-(defun my-neotree-hook ()
-  (nlinum-mode 0))
+  )
 
 #+END_SRC
 
@@ -501,12 +441,17 @@ _SPC_ cancel
 ;;yasnippet
 (use-package yasnippet
   :ensure t
-  :defer 1
+  :defer 2
   :diminish yas-minor-mode
-  :config
-  (yas-global-mode 1))
+  :init (use-package yasnippet-snippets
+	  :ensure t
+	  :defer t
+	  )
+  :config (yas-global-mode 1)
+  )
 
-(add-hook 'prog-mode-hook 'yas-minor-mode)
+
+;;(add-hook 'prog-mode-hook 'yas-minor-mode)
 
 #+END_SRC
 
@@ -516,11 +461,11 @@ _SPC_ cancel
 
 ;;flycheck
 (use-package flycheck
-  :ensure t
-;      :config
-  :defer t)
+:ensure t
+:init
+(global-flycheck-mode t))
 
-(add-hook 'prog-mode-hook 'flycheck-mode)
+;(add-hook 'prog-mode-hook 'flycheck-mode)
 
 #+END_SRC
 
@@ -628,6 +573,363 @@ _SPC_ cancel
     (use-package json-mode
       :ensure t
       :defer t)
+
+#+END_SRC
+
+* multiple-cursors
+
+#+BEGIN_SRC emacs-lisp
+
+;;multiple-cursors
+(use-package multiple-cursors
+  :ensure t
+  :defer t
+  :config (define-key mc/keymap (kbd "<return>") nil)
+  :bind ("H-=" . mc/unmark-previous-like-this)
+        ("H-]" . mc/mark-next-like-this)
+        ("H-[" . mc/mark-previous-like-this)
+		("H-\'" . mc/unmark-next-like-this)
+		("H-\\" . mc/mark-all-like-this)
+		("C-S-<mouse-1>" . mc/add-cursor-on-click)
+)
+
+#+END_SRC
+
+** Hydra-multiple-cursors
+
+#+BEGIN_SRC emacs-lisp
+
+(defhydra hydra-multiple-cursors (:hint nil)
+  "
+     ^Up^            ^Down^        ^Other^
+----------------------------------------------
+[_p_]   Next    [_n_]   Next    [_l_] Edit lines
+[_P_]   Skip    [_N_]   Skip    [_a_] Mark all
+[_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp
+^ ^             ^ ^             [_q_] Quit
+"
+  ("l" mc/edit-lines :exit t)
+  ("a" mc/mark-all-like-this :exit t)
+  ("n" mc/mark-next-like-this)
+  ("N" mc/skip-to-next-like-this)
+  ("M-n" mc/unmark-next-like-this)
+  ("p" mc/mark-previous-like-this)
+  ("P" mc/skip-to-previous-like-this)
+  ("M-p" mc/unmark-previous-like-this)
+  ("r" mc/mark-all-in-region-regexp :exit t)
+  ("q" nil))
+
+(global-set-key (kbd "C-c m c") 'hydra-multiple-cursors/body) ;;example-binding
+
+#+END_SRC
+
+* markdown
+
+#+BEGIN_SRC emacs-lisp
+
+;;markdown
+  (use-package markdown-mode
+  :ensure t
+  :defer t
+  :config 
+  (use-package markdown-mode+
+  :ensure t)
+  (use-package markdown-preview-mode
+  :ensure t)
+  (use-package markdown-toc
+  :ensure t)
+  )
+(autoload 'markdown-mode "markdown-mode" "Major mode for Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(setq markdown-command "pandoc -c ~/.emacs.d/github-pandoc.css --from gfm -t html5 --mathjax --highlight-style pygments --standalone")
+
+#+END_SRC
+
+* smartparens
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package smartparens-config
+    :ensure smartparens
+    :config
+    (progn
+      (show-smartparens-global-mode t)))
+
+(add-hook 'prog-mode-hook #'smartparens-mode)
+(add-hook 'markdown-mode-hook #'smartparens-mode)
+;;(add-hook 'web-mode-hook (lambda () (smartparens-mode -1)))
+(sp-local-pair 'web-mode  "<%" "%>" :wrap "C-%")
+;;(sp-local-pair 'web-mode  "<%=" "%>" :wrap "C-%")
+
+
+#+END_SRC
+
+* ecb
+
+#+BEGIN_SRC emacs-lisp
+
+;;ecb
+  (use-package ecb
+  :ensure t
+  :defer t
+  :init (setq ecb-tip-of-the-day nil)
+  :bind (( "C-c e b" . ecb-minor-mode)
+        :map ecb-mode-map
+		("H-1" . 'ecb-goto-window-edit1)
+		("H-2" . 'ecb-goto-window-directories)
+		("H-3" . 'ecb-goto-window-sources)
+		("H-4" . 'ecb-goto-window-methods)
+		("H-5" . 'ecb-goto-window-history)) 
+)
+
+#+END_SRC
+
+* rest client
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package restclient
+  :ensure t
+  :defer t)
+
+#+END_SRC
+
+* smooth-scrolling
+
+#+BEGIN_SRC emacs-lisp
+
+;;smooth-scrolling
+;; (use-package smooth-scrolling
+;;   :ensure t
+;;   :config (setq smooth-scroll-margin 2)
+;;   )
+;; scroll one line at a time (less "jumpy" than defaults)
+    
+(setq mouse-wheel-scroll-amount '(10 ((shift) . 10))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+
+#+END_SRC
+
+* neotree
+
+#+BEGIN_SRC emacs-lisp
+
+;;neotree
+(use-package neotree
+  :ensure t
+  :defer t
+  :bind ("H-." . 'neotree-toggle)
+        ("C-c n t" . 'neotree-toggle)
+  :config
+         (use-package all-the-icons
+                 :ensure t
+                 )
+         (setq neo-theme (if (display-graphic-p) 'icons 'arrows))
+					;          (setq neo-theme 'icons)
+	 (setq neo-window-fixed-size nil)
+)
+
+(add-hook 'neotree-mode-hook 'my-neotree-hook)
+(defun my-neotree-hook ()
+  (nlinum-mode 0))
+
+#+END_SRC
+
+* company
+
+#+BEGIN_SRC emacs-lisp
+
+;;company
+  (use-package company
+    :ensure t
+        :defer t
+        :config (require 'company)
+
+        (use-package company-c-headers
+          :ensure t)
+
+  (add-hook 'after-init-hook 'global-company-mode)
+  (global-set-key (kbd "<backtab>") 'company-complete-common)
+  (global-set-key (kbd "C-`") 'company-yasnippet)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (add-to-list 'company-backends 'company-c-headers))
+
+#+END_SRC
+
+* lua
+
+#+BEGIN_SRC emacs-lisp
+
+;;lua
+(use-package lua-mode
+  :ensure t
+  :defer t)
+
+(use-package company-lua
+  :ensure t
+  :defer 2
+  :config;(require 'company-lua)
+      ;(add-to-list 'company-backends 'company-lua)
+  (eval-after-load 'company
+    '(push 'company-lua company-backends)))
+
+#+END_SRC
+  
+* ruby 
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package inf-ruby
+  :ensure t
+  :defer t
+)
+(use-package robe
+  :ensure t
+  :defer t
+  :bind ("C-c r s" . robe-start)
+  :hook (ruby-mode . robe-mode)
+)
+;  (add-hook 'ruby-mode-hook 'robe-mode))
+
+(eval-after-load 'company
+  '(push 'company-robe company-backends))
+
+#+END_SRC
+
+* latex/auctex
+
+#+BEGIN_SRC emacs-lisp
+
+;;latex/auctex
+
+  (use-package auctex
+    :ensure t
+    :defer t
+    )
+  (use-package  company-auctex
+  :ensure t
+  :config  (company-auctex-init)
+  :defer 5
+  )
+
+  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+#+END_SRC
+
+* web
+
+#+BEGIN_SRC emacs-lisp
+;web-mode
+
+ (use-package web-mode
+   :ensure t
+   :mode (;;"\\.html\\'" 
+          ;;"\\.css?\\'" 
+          "\\.phtml\\'" 
+          "\\.erb\\'" 
+	  ;;"\\.html?\\'" 
+          )
+  
+   :config
+   (setq web-mode-markup-indent-offset 2)
+ ;  (setq web-mode-engines-alist
+ ;        '(("django" . "focus/.*\\.html\\'")
+ ;          ("ctemplate" . "realtimecrm/.*\\.html\\'")))
+   (setq web-mode-enable-auto-pairing nil)
+ )
+
+ (use-package company-web
+   :config
+   (add-hook 'web-mode-hook
+             (lambda ()
+               (add-to-list 'company-backends 'company-web-html)))
+   (add-hook 'html-mode-hook
+             (lambda ()
+               (add-to-list 'company-backends 'company-web-html))))
+
+(use-package emmet-mode
+  :ensure t
+  :hook (sgml-mode css-mode web-mode))
+
+;(defadvice company-tern (before web-mode-set-up-ac-sources activate)
+;  "Set `tern-mode' based on current language before running company-tern."
+;  (if (equal major-mode 'web-mode)
+;      (let ((web-mode-cur-language
+;             (web-mode-language-at-pos)))
+;        (if (string= web-mode-cur-language "javascript")
+;            (unless tern-mode (tern-mode))
+;          (if tern-mode (tern-mode ))))))
+
+#+END_SRC
+
+* javascript
+
+  #+BEGIN_SRC emacs-lisp
+
+   (use-package js2-mode
+     :ensure t
+     :defer t
+      :mode "\\.js\\'"
+     :interpreter "node"
+     )
+
+   (use-package company-tern
+     :ensure t
+     :defer 3
+     :config
+     (eval-after-load 'company
+       '(push 'company-tern company-backends)))
+
+
+  (use-package tern
+    :ensure t
+    :defer t
+    :hook (web-mode js2-mode)
+    :config
+	(progn (defun kill-tern-process ()
+		 "Kill the tern process if any. The process will be restarted.  This is useful if tern becomes unreachable."
+		 (interactive)
+		 (delete-process "Tern"))))
+
+  ;      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+  #+END_SRC
+
+* php
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package php-mode
+  :ensure t
+  :mode "\\.php\\'"
+  :config (require 'php-extras)
+ )
+
+(use-package company-php
+  :ensure t
+  :defer t)
+
+;; (use-package php-extras
+;;   :ensure t
+;;   :defer t)
+
+(eval-after-load 'php-mode
+  (require 'php-extras))
+
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (require 'company-php)
+             (company-mode t)
+             (ac-php-core-eldoc-setup) ;; enable eldoc
+             (make-local-variable 'company-backends)
+             (add-to-list 'company-backends 'company-ac-php-backend)))
+;(eval-after-load 'php-mode
+;  (require 'php-extras))
 
 #+END_SRC
 
@@ -791,54 +1093,23 @@ org-html-doctype "html5")
 
 #+END_SRC
 
-* multiple-cursors
-
+* skewer
 #+BEGIN_SRC emacs-lisp
 
-;;multiple-cursors
-(use-package multiple-cursors
+(use-package skewer-mode
   :ensure t
   :defer t
-  :config (define-key mc/keymap (kbd "<return>") nil)
-  :bind ("H-=" . mc/unmark-previous-like-this)
-        ("H-]" . mc/mark-next-like-this)
-        ("H-[" . mc/mark-previous-like-this)
-		("H-\'" . mc/unmark-next-like-this)
-		("H-\\" . mc/mark-all-like-this)
-		("C-S-<mouse-1>" . mc/add-cursor-on-click)
-)
+  :init
+  (skewer-setup))
+
+;(use-package skewer-repl
+;  :ensure t
+;  :defer t
+;  :config (define-key skewer-repl-mode-map (kbd "C-c C-z") #'quit-window))
 
 #+END_SRC
 
-** Hydra-multiple-cursors
-
-#+BEGIN_SRC emacs-lisp
-
-(defhydra hydra-multiple-cursors (:hint nil)
-  "
-     ^Up^            ^Down^        ^Other^
-----------------------------------------------
-[_p_]   Next    [_n_]   Next    [_l_] Edit lines
-[_P_]   Skip    [_N_]   Skip    [_a_] Mark all
-[_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp
-^ ^             ^ ^             [_q_] Quit
-"
-  ("l" mc/edit-lines :exit t)
-  ("a" mc/mark-all-like-this :exit t)
-  ("n" mc/mark-next-like-this)
-  ("N" mc/skip-to-next-like-this)
-  ("M-n" mc/unmark-next-like-this)
-  ("p" mc/mark-previous-like-this)
-  ("P" mc/skip-to-previous-like-this)
-  ("M-p" mc/unmark-previous-like-this)
-  ("r" mc/mark-all-in-region-regexp :exit t)
-  ("q" nil))
-
-(global-set-key (kbd "C-c m c") 'hydra-multiple-cursors/body) ;;example-binding
-
-#+END_SRC
-
-* projectile
+* Projectile
 
 #+BEGIN_SRC emacs-lisp
 
@@ -908,428 +1179,6 @@ org-html-doctype "html5")
   ("z"   projectile-cache-current-file)
   ("`"   hydra-projectile-other-window/body "other window")
   ("q"   nil "cancel" :color blue))
-
-#+END_SRC
-
-* esup
-
-#+BEGIN_SRC emacs-lisp
-
-;;esup
-;(use-package esup
-;  :ensure t
-;  :defer t)
-
-#+END_SRC
-
-* dired
-** start dired
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package dired
-;  :defer t
-;   :init (setq dired-dwim-target t)
-   )
-#+END_SRC
-
-
-** peep dired
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package peep-dired
-  :ensure t
-  :defer t
-  :bind (("C-." . peep-dired)
-	 (:map peep-dired-mode-map
-               ("SPC" . nil)
-               ("<backspace>" . nil))))
-;(if (display-graphic-p)(add-hook 'dired-mode-hook (lambda () (define-key dired-mode-map (kbd "C-.") 'peep-dired))))
-
-#+END_SRC
-
-
-** quick-preview
-
-#+BEGIN_SRC emacs-lisp
-(use-package quick-preview
-  :ensure t
-  :defer t
-  :bind ((:map dired-mode-map 
-	       ("C-Q" . quick-preview-at-point)))
-  )
-;(if (display-graphic-p)(add-hook 'dired-mode-hook (lambda () (define-key dired-mode-map (kbd "Q") 'quick-preview-at-point))))
-
-#+END_SRC
-
-
-** dired-narrow
-
-#+BEGIN_SRC emacs-lisp
-(use-package dired-narrow
-  :ensure t
-  :bind (:map dired-mode-map
-              ("/" . dired-narrow)))
-
-#+END_SRC
-
-
-** dired-x and dired-aux
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'dired-load-hook
-          (function (lambda () (load "dired-x"))))
-(add-hook 'dired-load-hook
-	  (function (lambda () (load "dired-aux"))))
-
-#+END_SRC
-
-
-** wdired and dired reuse
-
-#+BEGIN_SRC emacs-lisp
-(eval-after-load 'dired '(progn (require 'joseph-single-dired)))
-(define-key dired-mode-map (kbd "C-c C-w") 'wdired-change-to-wdired-mode)
-(define-key dired-mode-map (kbd "C-c C-d") 'wdired-change-to-dired-mode)
-#+END_SRC
-
-* company
-
-#+BEGIN_SRC emacs-lisp
-
-;;company
-  (use-package company
-    :ensure t
-        :defer t
-        :config (require 'company)
-
-        (use-package company-c-headers
-          :ensure t)
-
-  (add-hook 'after-init-hook 'global-company-mode)
-  (global-set-key (kbd "<backtab>") 'company-complete-common)
-  (global-set-key (kbd "C-`") 'company-yasnippet)
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (add-to-list 'company-backends 'company-c-headers))
-
-#+END_SRC
-
-* latex/auctex
-
-#+BEGIN_SRC emacs-lisp
-
-;;latex/auctex
-  (use-package  company-auctex
-  :ensure t
-  :config  (company-auctex-init)
-  :defer 5
-  )
-
-  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-
-#+END_SRC
-
-* lua
-
-#+BEGIN_SRC emacs-lisp
-
-;;lua
-(use-package lua-mode
-  :ensure t
-  :defer t)
-
-(use-package company-lua
-  :ensure t
-  :config;(require 'company-lua)
-      ;(add-to-list 'company-backends 'company-lua)
-  (eval-after-load 'company
-    '(push 'company-lua company-backends)))
-
-#+END_SRC
-  
-* ruby 
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package robe
-  :ensure t
-  :bind ("C-c r s" . robe-start)
-  :hook (ruby-mode . robe-mode)
-)
-;  (add-hook 'ruby-mode-hook 'robe-mode))
-
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
-
-#+END_SRC
-
-* web
-
-#+BEGIN_SRC emacs-lisp
-;web-mode
-
- (use-package web-mode
-   :ensure t
-   :mode (;;"\\.html\\'" 
-          ;;"\\.css?\\'" 
-          "\\.phtml\\'" 
-          "\\.erb\\'" 
-	  ;;"\\.html?\\'" 
-          )
-  
-   :config
-   (setq web-mode-markup-indent-offset 2)
- ;  (setq web-mode-engines-alist
- ;        '(("django" . "focus/.*\\.html\\'")
- ;          ("ctemplate" . "realtimecrm/.*\\.html\\'")))
-   (setq web-mode-enable-auto-pairing nil)
- )
-
- (use-package company-web
-   :config
-   (add-hook 'web-mode-hook
-             (lambda ()
-               (add-to-list 'company-backends 'company-web-html)))
-   (add-hook 'html-mode-hook
-             (lambda ()
-               (add-to-list 'company-backends 'company-web-html))))
-
-(use-package emmet-mode
-  :ensure t
-  :hook (sgml-mode css-mode web-mode))
-
-;(defadvice company-tern (before web-mode-set-up-ac-sources activate)
-;  "Set `tern-mode' based on current language before running company-tern."
-;  (if (equal major-mode 'web-mode)
-;      (let ((web-mode-cur-language
-;             (web-mode-language-at-pos)))
-;        (if (string= web-mode-cur-language "javascript")
-;            (unless tern-mode (tern-mode))
-;          (if tern-mode (tern-mode ))))))
-
-#+END_SRC
-
-* javascript
-
-  #+BEGIN_SRC emacs-lisp
-
-   (use-package js2-mode
-     :ensure t
-   ;        :defer t
-     :mode "\\.js\\'"
-     :interpreter "node"
-     )
-
-   (use-package company-tern
-     :ensure t
-     :config
-     (eval-after-load 'company
-       '(push 'company-tern company-backends)))
-
-
-   (use-package tern
-         :ensure t
-         :hook ((js-mode . tern-mode)
-                (js2-mode . tern-mode))
-         :config (progn (defun kill-tern-process ()
-                    "Kill the tern process if any. The process will be restarted.  This is useful if tern becomes unreachable."
-                    (interactive)
-                    (delete-process "Tern")))
-     )
-
-
-
-  ;      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-  #+END_SRC
-
-* skewer
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package skewer-mode
-  :ensure t
-  :defer t
-  :init
-  (skewer-setup))
-
-;(use-package skewer-repl
-;  :ensure t
-;  :defer t
-;  :config (define-key skewer-repl-mode-map (kbd "C-c C-z") #'quit-window))
-
-#+END_SRC
-
-* php
-
-#+BEGIN_SRC emacs-lisp
-(use-package php-mode
-  :ensure t
-  :mode "\\.php\\'"
-  :config (require 'php-extras)
- )
-(use-package company-php
-  :ensure t
-  :defer t)
-(use-package php-extras
-  :ensure t
-  :defer t)
-
-(add-hook 'php-mode-hook
-          '(lambda ()
-             (require 'company-php)
-             (company-mode t)
-             (ac-php-core-eldoc-setup) ;; enable eldoc
-             (make-local-variable 'company-backends)
-             (add-to-list 'company-backends 'company-ac-php-backend)))
-;(eval-after-load 'php-mode
-;  (require 'php-extras))
-
-#+END_SRC
-
-* rest client
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package restclient
-  :ensure t
-  :defer t)
-
-#+END_SRC
-
-* smooth-scrolling
-
-#+BEGIN_SRC emacs-lisp
-
-;;smooth-scrolling
-;; (use-package smooth-scrolling
-;;   :ensure t
-;;   :config (setq smooth-scroll-margin 2)
-;;   )
-;; scroll one line at a time (less "jumpy" than defaults)
-    
-(setq mouse-wheel-scroll-amount '(10 ((shift) . 10))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-(setq scroll-step 1) ;; keyboard scroll one line at a time
-
-#+END_SRC
-
-* ecb
-
-#+BEGIN_SRC emacs-lisp
-
-;;ecb
-  (use-package ecb
-  :ensure t
-  :defer t
-  :init (setq ecb-tip-of-the-day nil)
-  :bind (( "C-c e b" . ecb-minor-mode)
-        :map ecb-mode-map
-		("H-1" . 'ecb-goto-window-edit1)
-		("H-2" . 'ecb-goto-window-directories)
-		("H-3" . 'ecb-goto-window-sources)
-		("H-4" . 'ecb-goto-window-methods)
-		("H-5" . 'ecb-goto-window-history)) 
-)
-
-#+END_SRC
-
-* markdown
-
-#+BEGIN_SRC emacs-lisp
-
-;;markdown
-  (use-package markdown-mode
-  :ensure t
-  :defer t
-  :config 
-  (use-package markdown-mode+
-  :ensure t)
-  (use-package markdown-preview-mode
-  :ensure t)
-  (use-package markdown-toc
-  :ensure t)
-  )
-(autoload 'markdown-mode "markdown-mode" "Major mode for Markdown files" t)
-(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
-(setq markdown-command "pandoc -c ~/.emacs.d/github-pandoc.css --from markdown_github -t html5 --mathjax --highlight-style pygments --standalone")
-
-#+END_SRC
-
-* key-chord
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package key-chord
-  :ensure t
-  :init 
-  ;; Max time delay between two key presses to be considered a key chord
-  (setq key-chord-two-keys-delay 0.1) ; default 0.1    
-  ;; Max time delay between two presses of the same key to be considered a key chord.
-  ;; Should normally be a little longer than `key-chord-two-keys-delay'.
-  (setq key-chord-one-key-delay 0.2) ; default 0.2
-  )
-
-;(use-package key-seq
-;  :ensure t
-;)
-
-;;      (key-chord-define-global "cv"     'reindent-then-newline-and-indent)
-;;      (key-chord-define-global "4r"     "$")
-;;      (key-chord-define c++-mode-map ";;"  "\C-e;")
-
-(key-chord-mode 1)
-
-#+END_SRC
-
-* additional-key-bindings
-
-#+BEGIN_SRC emacs-lisp
-
-(global-set-key (kbd "C-<f9>") 'key-chord-mode)
-(global-set-key (kbd "C-x ^") 'enlarge-window)
-(global-set-key (kbd "C-x C-^") 'shrink-window)
-(key-chord-define-global "QQ" 'iy-go-to-char)
-(key-chord-define-global "ZZ" 'iy-go-to-char-backward)
-
-#+END_SRC
-
-* typing
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package typing
-  :ensure t
-  :defer t
-)
-
-;;(add-hook 'projectile-mode-hook 'counsel-projectile-mode)
-
-#+END_SRC
-
-* smartparens
-
-#+BEGIN_SRC emacs-lisp
-
-(use-package smartparens-config
-    :ensure smartparens
-    :config
-    (progn
-      (show-smartparens-global-mode t)))
-
-(add-hook 'prog-mode-hook #'smartparens-mode)
-(add-hook 'markdown-mode-hook #'smartparens-mode)
-;;(add-hook 'web-mode-hook (lambda () (smartparens-mode -1)))
-(sp-local-pair 'web-mode  "<%" "%>" :wrap "C-%")
-;;(sp-local-pair 'web-mode  "<%=" "%>" :wrap "C-%")
-
-
-
 
 #+END_SRC
 
