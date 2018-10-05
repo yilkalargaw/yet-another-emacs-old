@@ -63,3 +63,6 @@ network-security.data
 
 recentf
 recentf/
+
+.mc-lists.el
+myinit.el
