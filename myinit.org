@@ -1,3 +1,4 @@
+
 #+TITLE: Init File
 #+AUTHOR: Yilkal Argaw , StackOverflow, Github and Emacs-wiki
 
@@ -271,8 +272,7 @@ _SPC_ cancel
   ("o" customize-apropos-options "options"))
 
 
-(global-set-key (kbd "C-H") 'hydra-apropos/body) ;;example-binding
-
+(global-set-key (kbd "C-h @") 'hydra-apropos/body) ;;example-bindingg
 #+END_SRC
 
 * ivy,consel and swiper
@@ -498,6 +498,21 @@ _SPC_ cancel
 ;  :config  (local-set-key (kbd "C-;") 'iedit-mode)
   )
 
+(defhydra hydra-avy ( :hint nil)
+  "
+     ^Char^            ^other^        
+-------------------------------------
+[_c_]   char         [_w_]   word
+[_C_]   char-2       [_s_]   subword
+[_t_]   char-timer   [_l_]   line
+"
+    ("c" avy-goto-char :exit t)
+    ("C" avy-goto-char-2 :exit t)
+    ("t" avy-goto-char-timer :exit t)
+    ("w" avy-goto-word-1 :exit t)
+    ("s" avy-goto-subword-1 :exit t)
+    ("l" avy-goto-line :exit t))
+(global-set-key (kbd "C-;") 'hydra-avy/body) ;;example-binding
 #+END_SRC
 
 * ace-window
@@ -826,8 +841,14 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 ;web-mode
 
+(use-package emmet-mode
+  :ensure t
+  :hook (web-mode sgml-mode css-mode))
+
+
  (use-package web-mode
    :ensure t
+   :defer t
    :mode (;;"\\.html\\'" 
           ;;"\\.css?\\'" 
           "\\.phtml\\'" 
@@ -837,10 +858,12 @@ _SPC_ cancel
   
    :config
    (setq web-mode-markup-indent-offset 2)
+   (emmet-mode)
  ;  (setq web-mode-engines-alist
  ;        '(("django" . "focus/.*\\.html\\'")
  ;          ("ctemplate" . "realtimecrm/.*\\.html\\'")))
    (setq web-mode-enable-auto-pairing nil)
+ ;  (emmet-mode)
  )
 
  (use-package company-web
@@ -851,10 +874,6 @@ _SPC_ cancel
    (add-hook 'html-mode-hook
              (lambda ()
                (add-to-list 'company-backends 'company-web-html))))
-
-(use-package emmet-mode
-  :ensure t
-  :hook (sgml-mode css-mode web-mode))
 
 ;(defadvice company-tern (before web-mode-set-up-ac-sources activate)
 ;  "Set `tern-mode' based on current language before running company-tern."
@@ -1182,3 +1201,14 @@ org-html-doctype "html5")
 
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+#+END_SRC
+* Eshell
+#+BEGIN_SRC emacs-lisp
+(add-hook 'eshell-mode-hook '(lambda ()
+			       (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)))
+(add-hook 'eshell-mode-hook '(lambda ()
+			       (define-key eshell-mode-map (kbd "<backtab>") 'completion-at-point)))
+
+#+END_SRC
+  
