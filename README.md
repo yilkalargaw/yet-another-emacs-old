@@ -4,7 +4,7 @@ Pretty Much self explanatory config it contains the bare minimum in the init.el 
 
 # It Uses
   + ivy as a completion framework
-  + telephone line with a customization for both emacsclient and emacs as a powerlin
+  + telephone line with a customization for both emacsclient and emacs as a powerline
   + neotree for side tab file manager
   + hydra
   + projectile
