@@ -1212,3 +1212,20 @@ org-html-doctype "html5")
 
 #+END_SRC
   
+* Input method
+#+BEGIN_SRC emacs-lisp
+
+
+(defun myinput-settings ()
+  "Settings based on input method."
+  (cond ((string= current-input-method "ethiopic")
+         (progn (setq ethio-primary-language 'amharic)
+                (ethio-select-a-translation)))
+        (t nil))
+
+  )
+
+(add-hook 'input-method-activate-hook #'myinput-settings)
+
+
+#+END_SRC
