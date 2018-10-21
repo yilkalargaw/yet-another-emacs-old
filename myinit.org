@@ -64,7 +64,6 @@
               ))
    
 (set-frame-position (selected-frame) 0 15)
-;;(set-face-attribute 'default nil :height 93 )
 
 ))
 
@@ -76,12 +75,11 @@
 		  (progn
 		    (set-frame-size frame 94 52)
 		    (set-frame-position frame 0 15)
-		    (set-frame-font "Liberation Mono-9.5" nil t)
-		    (set-face-attribute 'default nil :height 93 )
+;;		    (set-frame-font "Liberation Mono-9.5" nil t)
+;;		    (set-face-attribute 'default nil :height 93 )
 		    )))
 	    )
 
-(add-to-list 'default-frame-alist '(font . "Liberation Mono-9.5") )
 
 (setq inhibit-startup-message t)
 (show-paren-mode t)
@@ -1204,17 +1202,57 @@ org-html-doctype "html5")
 #+BEGIN_SRC emacs-lisp
 #+END_SRC
 * Eshell
+
 #+BEGIN_SRC emacs-lisp
+
 (add-hook 'eshell-mode-hook '(lambda ()
 			       (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)))
 (add-hook 'eshell-mode-hook '(lambda ()
 			       (define-key eshell-mode-map (kbd "<backtab>") 'completion-at-point)))
 
+
+(defun eshell-clear-buffer ()
+  "Clear terminal"
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+(add-hook 'eshell-mode-hook
+	  '(lambda()
+	     (local-set-key (kbd "H-l") 'eshell-clear-buffer)))
+
+
+(add-hook 'eshell-mode-hook
+          (defun my-eshell-mode-setup ()
+            (remove-hook 'eshell-output-filter-functions
+                         'eshell-postoutput-scroll-to-bottom)))
+
+#+END_SRC
+
+* Shell-mode
+
+#+BEGIN_SRC emacs-lisp
+
+(add-hook 'shell-mode-hook '(lambda ()
+			       (define-key shell-mode-map (kbd "<tab>") 'completion-at-point)))
+(add-hook 'shell-mode-hook '(lambda ()
+			       (define-key shell-mode-map (kbd "<backtab>") 'completion-at-point)))
+
+#+END_SRC
+
+* Comint-mode
+
+#+BEGIN_SRC emacs-lisp
+
+(setq comint-scroll-show-maximum-output nil)
+(setq comint-scroll-to-bottom-on-input nil)
+(setq comint-scroll-to-bottom-on-output nil)
+
 #+END_SRC
   
 * Input method
-#+BEGIN_SRC emacs-lisp
 
+#+BEGIN_SRC emacs-lisp
 
 (defun myinput-settings ()
   "Settings based on input method."
@@ -1226,6 +1264,5 @@ org-html-doctype "html5")
   )
 
 (add-hook 'input-method-activate-hook #'myinput-settings)
-
 
 #+END_SRC
