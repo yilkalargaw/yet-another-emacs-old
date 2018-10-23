@@ -1,4 +1,3 @@
-
 #+TITLE: Init File
 #+AUTHOR: Yilkal Argaw , StackOverflow, Github and Emacs-wiki
 
@@ -85,7 +84,7 @@
 (show-paren-mode t)
 (global-set-key (kbd "C-c m b") 'menu-bar-mode)
 (column-number-mode 1)
-(toggle-indicate-empty-lines t)
+(setq indicate-empty-lines t)
 
 (add-to-list 'default-frame-alist '(font . "Liberation Mono-9.5") )
 
@@ -102,7 +101,9 @@
 * Default directory
 
 #+BEGIN_SRC emacs-lisp
+
 (setq default-directory "~/")
+
 #+END_SRC
 
 * telephone-line
@@ -191,15 +192,36 @@
 
 #+END_SRC
 
+* Dired
+
+#+BEGIN_SRC emacs-lisp
+
+(with-eval-after-load 'dired
+  (progn
+    (require 'dired-x)
+    (put 'dired-find-alternate-file 'disabled nil)
+    (define-key dired-mode-map (kbd "C-<return>") 'dired-find-file)
+    (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+    (define-key dired-mode-map (kbd "M-<return>") 'dired-find-file-other-window)
+    ;; allow dired to delete or copy dir
+    (setq dired-recursive-copies (quote always)) ; “always” means no asking
+    (setq dired-recursive-deletes (quote top)) ; “top” means ask once
+    (setq dired-dwim-target t)))
+
+(add-hook 'dired-mode-hook
+ (lambda ()
+  (define-key dired-mode-map (kbd "^")
+    (lambda () (interactive) (find-alternate-file "..")))))
+
+#+END_SRC
+
 * hydra
 
 #+BEGIN_SRC emacs-lisp
 
 ;;hydra
 (use-package hydra
-  :ensure t
-;  :defer t
-  )
+  :ensure t)
 
 #+END_SRC
 
@@ -237,8 +259,7 @@ _SPC_ cancel
    ("l" hs-hide-level)
    ("n" forward-line)
    ("p" (forward-line -1))
-   ("SPC" nil)
-)
+   ("SPC" nil))
 
 ;;(global-set-key (kbd "C-c @") 'hydra-hs/body) ;;example-binding
 
@@ -271,6 +292,7 @@ _SPC_ cancel
 
 
 (global-set-key (kbd "C-h @") 'hydra-apropos/body) ;;example-bindingg
+
 #+END_SRC
 
 * ivy,consel and swiper
@@ -281,8 +303,7 @@ _SPC_ cancel
   :ensure t
   :init (ivy-mode 1)
         (use-package flx
-	  :ensure t
-	  )
+	  :ensure t)
     
 	(setq ivy-re-builders-alist
 	      '((swiper . ivy--regex-plus)
@@ -298,8 +319,7 @@ _SPC_ cancel
 
 	:bind ("C-x b" . ivy-switch-buffer)
               ("C-x C-b" . ivy-switch-buffer)
-	      ("C-c C-r" . ivy-resume)
-  )
+	      ("C-c C-r" . ivy-resume))
 
 (use-package counsel
   :ensure t
@@ -308,13 +328,12 @@ _SPC_ cancel
 	("C-x C-f" . counsel-find-file)
 	("M-x" . counsel-M-x)
 	("H-f" . counsel-ag)
-	("C-c M-?" . counsel-ag))
-  )
+	("C-c M-?" . counsel-ag)))
+
 (use-package swiper
   :ensure t
   :defer t
-  :bind (("M-s s" . swiper))
-  )
+  :bind (("M-s s" . swiper)))
 
 ;;(use-package hydra
 ;;  :ensure t
@@ -362,8 +381,7 @@ _SPC_ cancel
 (if (version< emacs-version "26.0")
     (linum-relative-global-mode)
     (progn  (setq display-line-numbers-type (quote relative))
-	    (global-display-line-numbers-mode))
-    )
+	    (global-display-line-numbers-mode)))
 
 #+END_SRC
 
@@ -377,8 +395,8 @@ _SPC_ cancel
   :config  (setq nlinum-highlight-current-line t)
            (setq nlinum-use-right-margin t)
 
-  :defer t
-    )
+  :defer t)
+
 (add-hook 'after-init-hook 'global-nlinum-mode t)
 
 #+END_SRC
@@ -412,8 +430,7 @@ _SPC_ cancel
 (use-package which-key
   :ensure t
   :defer 2
-  :config (which-key-mode)
-  )
+  :config (which-key-mode))
 
 #+END_SRC
 
@@ -424,8 +441,7 @@ _SPC_ cancel
 ;;magit
 (use-package magit
   :ensure t
-  :defer t
-  )
+  :defer t)
 
 (global-set-key (kbd "C-C g m") 'magit-status)
 (global-set-key (kbd "H-g") 'magit-status)
@@ -443,11 +459,8 @@ _SPC_ cancel
   :diminish yas-minor-mode
   :init (use-package yasnippet-snippets
 	  :ensure t
-	  :defer t
-	  )
-  :config (yas-global-mode 1)
-  )
-
+	  :defer t)
+  :config (yas-global-mode 1))
 
 ;;(add-hook 'prog-mode-hook 'yas-minor-mode)
 
@@ -475,9 +488,7 @@ _SPC_ cancel
 (use-package expand-region
   :ensure t
   :defer 3
-  :bind ("C-=" . er/expand-region)
-;;     :config  (local-set-key (kbd "C-;") 'iedit-mode)
-  )
+  :bind ("C-=" . er/expand-region))
 
 #+END_SRC
 
@@ -492,9 +503,7 @@ _SPC_ cancel
   :bind ("C-c v c" . avy-goto-char)
   ("C-c v 2" . avy-goto-char-2)
   ("C-c v w" . avy-goto-word-1)
-  ("C-c v l" . avy-goto-line)
-;  :config  (local-set-key (kbd "C-;") 'iedit-mode)
-  )
+  ("C-c v l" . avy-goto-line))
 
 (defhydra hydra-avy ( :hint nil)
   "
@@ -511,6 +520,7 @@ _SPC_ cancel
     ("s" avy-goto-subword-1 :exit t)
     ("l" avy-goto-line :exit t))
 (global-set-key (kbd "C-;") 'hydra-avy/body) ;;example-binding
+
 #+END_SRC
 
 * ace-window
@@ -522,8 +532,7 @@ _SPC_ cancel
   :ensure t
 ;  :defer 3
   :bind ("H-o" . ace-window)
-  ("C-c w n" . ace-window)
-  )
+  ("C-c w n" . ace-window))
 
 #+END_SRC
 
@@ -534,8 +543,7 @@ _SPC_ cancel
 ;;ag
 (use-package ag
   :ensure t
-  :defer t
-  )
+  :defer t)
 
 #+END_SRC
 
@@ -603,8 +611,7 @@ _SPC_ cancel
         ("H-[" . mc/mark-previous-like-this)
 		("H-\'" . mc/unmark-next-like-this)
 		("H-\\" . mc/mark-all-like-this)
-		("C-S-<mouse-1>" . mc/add-cursor-on-click)
-)
+		("C-S-<mouse-1>" . mc/add-cursor-on-click))
 
 #+END_SRC
 
@@ -650,8 +657,7 @@ _SPC_ cancel
   (use-package markdown-preview-mode
   :ensure t)
   (use-package markdown-toc
-  :ensure t)
-  )
+  :ensure t))
 (autoload 'markdown-mode "markdown-mode" "Major mode for Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 (setq markdown-command "pandoc -c ~/.emacs.d/github-pandoc.css --from gfm -t html5 --mathjax --highlight-style pygments --standalone")
@@ -692,8 +698,7 @@ _SPC_ cancel
 		("H-2" . 'ecb-goto-window-directories)
 		("H-3" . 'ecb-goto-window-sources)
 		("H-4" . 'ecb-goto-window-methods)
-		("H-5" . 'ecb-goto-window-history)) 
-)
+		("H-5" . 'ecb-goto-window-history)))
 
 #+END_SRC
 
@@ -741,8 +746,7 @@ _SPC_ cancel
                  )
          (setq neo-theme (if (display-graphic-p) 'icons 'arrows))
 					;          (setq neo-theme 'icons)
-	 (setq neo-window-fixed-size nil)
-)
+	 (setq neo-window-fixed-size nil))
 
 (add-hook 'neotree-mode-hook 'my-neotree-hook)
 (defun my-neotree-hook ()
@@ -797,14 +801,14 @@ _SPC_ cancel
 
 (use-package inf-ruby
   :ensure t
-  :defer t
-)
+  :defer t)
+
 (use-package robe
   :ensure t
   :defer t
   :bind ("C-c r s" . robe-start)
-  :hook (ruby-mode . robe-mode)
-)
+  :hook (ruby-mode . robe-mode))
+
 ;  (add-hook 'ruby-mode-hook 'robe-mode))
 
 (eval-after-load 'company
@@ -820,13 +824,12 @@ _SPC_ cancel
 
   (use-package auctex
     :ensure t
-    :defer t
-    )
+    :defer t)
+
   (use-package  company-auctex
   :ensure t
   :config  (company-auctex-init)
-  :defer 5
-  )
+  :defer 5)
 
   (add-hook 'LaTeX-mode-hook 'visual-line-mode)
   (add-hook 'LaTeX-mode-hook 'flyspell-mode)
@@ -892,8 +895,7 @@ _SPC_ cancel
      :ensure t
      :defer t
       :mode "\\.js\\'"
-     :interpreter "node"
-     )
+     :interpreter "node")
 
    (use-package company-tern
      :ensure t
@@ -924,8 +926,7 @@ _SPC_ cancel
 (use-package php-mode
   :ensure t
   :mode "\\.php\\'"
-  :config (require 'php-extras)
- )
+  :config (require 'php-extras))
 
 (use-package company-php
   :ensure t
@@ -1199,8 +1200,6 @@ org-html-doctype "html5")
 
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-#+END_SRC
 * Eshell
 
 #+BEGIN_SRC emacs-lisp
@@ -1259,10 +1258,9 @@ org-html-doctype "html5")
   (cond ((string= current-input-method "ethiopic")
          (progn (setq ethio-primary-language 'amharic)
                 (ethio-select-a-translation)))
-        (t nil))
-
-  )
+        (t nil)))
 
 (add-hook 'input-method-activate-hook #'myinput-settings)
 
 #+END_SRC
+
