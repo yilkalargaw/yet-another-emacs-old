@@ -2,7 +2,10 @@
 #+AUTHOR: Yilkal Argaw , StackOverflow, Github and Emacs-wiki
 
 * initial setup
+
 #+BEGIN_SRC emacs-lisp
+
+;;initial-setup
 
 (setq package-list
     '(use-package telephone-line hydra ivy flx counsel swiper ivy-hydra nlinum 
@@ -13,7 +16,7 @@
        company-c-headers lua-mode company-lua robe inf-ruby auctex company-auctex
        web-mode company-web emmet-mode js2-mode tern company-tern php-mode 
        company-php ox-gfm htmlize org-bullets org-beautify-theme org-tree-slide
-       epresent skewer-mode))
+       epresent skewer-mode magithub))
 
 
 ; activate all the packages
@@ -113,19 +116,11 @@
 (use-package telephone-line
   :ensure t
   :defer t
-
   :config (progn (setq telephone-line-lhs
   		     '((accent . (telephone-line-vc-segment
   				  telephone-line-erc-modified-channels-segment
   				  telephone-line-process-segment))
-  		       (evil    . (telephone-line-buffer-segment
-  				 ; telephone-line-minor-mode-segment
-				  ))))
-  	       ;; (setq telephone-line-rhs
-  	       ;; 	     '((nil    . (telephone-line-misc-info-segment))
-  	       ;; 	       (accent . (telephone-line-major-mode-segment))
-  	       ;; 	        ))
-))
+  		       (evil    . (telephone-line-buffer-segment))))))
 
 (add-hook 'after-make-frame-functions
 	  (lambda (frame)
@@ -145,39 +140,27 @@
 			telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-left)
 		  (setq telephone-line-subseparator-faces '())
 		  (setq telephone-line-height 25)
-                  (telephone-line-mode 1)
-                  )
-		  )
-;(telephone-line-mode)
-));)
+                  (telephone-line-mode 1)))))
 
-;
-;(add-hook 'after-init-hook
-;(add-hook 'telephone-line-mode-hook
-;	  (lambda ()
-	    (if (not (display-graphic-p))
-		(progn
-		  (setq telephone-line-primary-right-separator 'telephone-line-abs-left
-			telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left
-			telephone-line-primary-left-separator 'telephone-line-abs-left
-			telephone-line-secondary-left-separator 'telephone-line-abs-hollow-left)
-		  (setq telephone-line-subseparator '())
-		  
-		  (telephone-line-mode 1))
-		(progn
-		  (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-			telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-			telephone-line-primary-right-separator 'telephone-line-cubed-left
-			telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-left)
-		  (setq telephone-line-subseparator-faces '())
-		  (setq telephone-line-height 25)
-		  (telephone-line-mode 1)
-                  )
-;                  (telephone-line-mode)
-)
-;;))
-;
-;;(telephone-line-mode)
+
+(if (not (display-graphic-p))
+    (progn
+      (setq telephone-line-primary-right-separator 'telephone-line-abs-left
+	    telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left
+	    telephone-line-primary-left-separator 'telephone-line-abs-left
+	    telephone-line-secondary-left-separator 'telephone-line-abs-hollow-left)
+      (setq telephone-line-subseparator '())
+      
+      (telephone-line-mode 1))
+
+  (progn
+    (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
+	  telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
+	  telephone-line-primary-right-separator 'telephone-line-cubed-left
+	  telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-left)
+    (setq telephone-line-subseparator-faces '())
+    (setq telephone-line-height 25)
+    (telephone-line-mode 1)))
 
 #+END_SRC
 
@@ -195,6 +178,8 @@
 * Dired
 
 #+BEGIN_SRC emacs-lisp
+
+;;dired
 
 (with-eval-after-load 'dired
   (progn
@@ -220,6 +205,7 @@
 #+BEGIN_SRC emacs-lisp
 
 ;;hydra
+
 (use-package hydra
   :ensure t)
 
@@ -299,6 +285,8 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
+;;ivy,console and swiper
+
 (use-package ivy :demand
   :ensure t
   :init (ivy-mode 1)
@@ -335,11 +323,6 @@ _SPC_ cancel
   :defer t
   :bind (("M-s s" . swiper)))
 
-;;(use-package hydra
-;;  :ensure t
-;;  :after ivy
-;;)
-
 (use-package ivy-hydra
   :ensure t
   :after (ivy hydra))
@@ -351,6 +334,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;backups
+
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups")))
 (setq auto-save-file-name-transforms
       `((".*" ,"~/.emacs.d/backups" t)))
@@ -362,6 +346,8 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
+;;clipboard
+
 (setq select-enable-clipboard t)
 
 #+END_SRC
@@ -370,6 +356,8 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
+;;yes,no
+
 (fset 'yes-or-no-p 'y-or-n-p)
 
 #+END_SRC
@@ -377,6 +365,8 @@ _SPC_ cancel
 * line-number
 
 #+BEGIN_SRC emacs-lisp
+
+;;line-number
 
 (if (version< emacs-version "26.0")
     (linum-relative-global-mode)
@@ -390,11 +380,11 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;nlinum mode
+
 (use-package nlinum
   :ensure t
   :config  (setq nlinum-highlight-current-line t)
            (setq nlinum-use-right-margin t)
-
   :defer t)
 
 (add-hook 'after-init-hook 'global-nlinum-mode t)
@@ -405,6 +395,8 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
+;;line-highlight
+
 (global-hl-line-mode)
 
 #+END_SRC
@@ -414,6 +406,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;undo-tree
+
 (use-package undo-tree
   :diminish undo-tree-mode
   :defer 4
@@ -427,6 +420,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;which mode
+
 (use-package which-key
   :ensure t
   :defer 2
@@ -434,17 +428,24 @@ _SPC_ cancel
 
 #+END_SRC
 
-* magit
+* magit & magithub
 
 #+BEGIN_SRC emacs-lisp
 
 ;;magit
+
 (use-package magit
   :ensure t
+  :config (setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
   :defer t)
 
 (global-set-key (kbd "C-C g m") 'magit-status)
 (global-set-key (kbd "H-g") 'magit-status)
+
+(use-package magithub
+  :after magit
+  :ensure t
+  :config (magithub-feature-autoinject t))
 
 #+END_SRC
 
@@ -453,6 +454,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;yasnippet
+
 (use-package yasnippet
   :ensure t
   :defer 2
@@ -471,10 +473,10 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;flycheck
+
 (use-package flycheck
 :ensure t
-:init
-(global-flycheck-mode t))
+:init (global-flycheck-mode t))
 
 ;(add-hook 'prog-mode-hook 'flycheck-mode)
 
@@ -484,11 +486,13 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;;;expand-region
+;;expand-region
+
 (use-package expand-region
   :ensure t
   :defer 3
-  :bind ("C-=" . er/expand-region))
+  :bind ("<C-iso-lefttab>". er/expand-region))
+  
 
 #+END_SRC
 
@@ -496,7 +500,8 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-;;;avy
+;;avy
+
 (use-package avy
   :ensure t
   :defer t
@@ -528,11 +533,11 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;ace-window
+
 (use-package ace-window
   :ensure t
-;  :defer 3
   :bind ("H-o" . ace-window)
-  ("C-c w n" . ace-window))
+        ("C-c w n" . ace-window))
 
 #+END_SRC
 
@@ -541,6 +546,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;ag
+
 (use-package ag
   :ensure t
   :defer t)
@@ -552,9 +558,10 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;rust
-    (use-package rust-mode
-      :ensure t
-      :defer t)
+
+(use-package rust-mode
+  :ensure t
+  :defer t)
 
 #+END_SRC
 
@@ -563,9 +570,10 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;go
-    (use-package go-mode
-      :ensure t
-      :defer t)
+
+(use-package go-mode
+  :ensure t
+  :defer t)
 
 #+END_SRC
 
@@ -574,9 +582,10 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;csv
-    (use-package csv-mode
-      :ensure t
-      :defer t)
+
+(use-package csv-mode
+  :ensure t
+  :defer t)
 
 #+END_SRC
 
@@ -585,15 +594,16 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;yaml,toml and json
-    (use-package yaml-mode
-      :ensure t
-      :defer t)
-    (use-package toml-mode
-      :ensure t
-      :defer t)
-    (use-package json-mode
-      :ensure t
-      :defer t)
+
+(use-package yaml-mode
+  :ensure t
+  :defer t)
+(use-package toml-mode
+  :ensure t
+  :defer t)
+(use-package json-mode
+  :ensure t
+  :defer t)
 
 #+END_SRC
 
@@ -602,6 +612,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;multiple-cursors
+
 (use-package multiple-cursors
   :ensure t
   :defer t
@@ -648,16 +659,17 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;markdown
-  (use-package markdown-mode
+
+(use-package markdown-mode
   :ensure t
   :defer t
   :config 
   (use-package markdown-mode+
-  :ensure t)
+    :ensure t)
   (use-package markdown-preview-mode
-  :ensure t)
+    :ensure t)
   (use-package markdown-toc
-  :ensure t))
+    :ensure t))
 (autoload 'markdown-mode "markdown-mode" "Major mode for Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 (setq markdown-command "pandoc -c ~/.emacs.d/github-pandoc.css --from gfm -t html5 --mathjax --highlight-style pygments --standalone")
@@ -668,6 +680,8 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
+;;smartparens
+
 (use-package smartparens-config
     :ensure smartparens
     :config
@@ -676,10 +690,7 @@ _SPC_ cancel
 
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (add-hook 'markdown-mode-hook #'smartparens-mode)
-;;(add-hook 'web-mode-hook (lambda () (smartparens-mode -1)))
 (sp-local-pair 'web-mode  "<%" "%>" :wrap "C-%")
-;;(sp-local-pair 'web-mode  "<%=" "%>" :wrap "C-%")
-
 
 #+END_SRC
 
@@ -688,23 +699,26 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;ecb
-  (use-package ecb
+
+(use-package ecb
   :ensure t
   :defer t
   :init (setq ecb-tip-of-the-day nil)
   :bind (( "C-c e b" . ecb-minor-mode)
-        :map ecb-mode-map
-		("H-1" . 'ecb-goto-window-edit1)
-		("H-2" . 'ecb-goto-window-directories)
-		("H-3" . 'ecb-goto-window-sources)
-		("H-4" . 'ecb-goto-window-methods)
-		("H-5" . 'ecb-goto-window-history)))
+	 :map ecb-mode-map
+	 ("H-1" . 'ecb-goto-window-edit1)
+	 ("H-2" . 'ecb-goto-window-directories)
+	 ("H-3" . 'ecb-goto-window-sources)
+	 ("H-4" . 'ecb-goto-window-methods)
+	 ("H-5" . 'ecb-goto-window-history)))
 
 #+END_SRC
 
 * rest client
 
 #+BEGIN_SRC emacs-lisp
+
+;;restclient
 
 (use-package restclient
   :ensure t
@@ -717,6 +731,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;smooth-scrolling
+
 ;; (use-package smooth-scrolling
 ;;   :ensure t
 ;;   :config (setq smooth-scroll-margin 2)
@@ -735,6 +750,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;neotree
+
 (use-package neotree
   :ensure t
   :defer t
@@ -759,13 +775,14 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;company
-  (use-package company
-    :ensure t
-        :defer t
-        :config (require 'company)
 
-        (use-package company-c-headers
-          :ensure t)
+(use-package company
+  :ensure t
+  :defer t
+  :config (require 'company)
+  
+  (use-package company-c-headers
+    :ensure t)
 
   (add-hook 'after-init-hook 'global-company-mode)
   (global-set-key (kbd "<backtab>") 'company-complete-common)
@@ -781,6 +798,7 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;lua
+
 (use-package lua-mode
   :ensure t
   :defer t)
@@ -798,6 +816,8 @@ _SPC_ cancel
 * ruby 
 
 #+BEGIN_SRC emacs-lisp
+
+;;ruby
 
 (use-package inf-ruby
   :ensure t
@@ -840,7 +860,8 @@ _SPC_ cancel
 * web
 
 #+BEGIN_SRC emacs-lisp
-;web-mode
+
+;;web-mode
 
 (use-package emmet-mode
   :ensure t
@@ -891,37 +912,40 @@ _SPC_ cancel
 
   #+BEGIN_SRC emacs-lisp
 
-   (use-package js2-mode
-     :ensure t
-     :defer t
-      :mode "\\.js\\'"
-     :interpreter "node")
+  ;;javascript
 
-   (use-package company-tern
-     :ensure t
-     :defer 3
-     :config
-     (eval-after-load 'company
-       '(push 'company-tern company-backends)))
+  (use-package js2-mode
+    :ensure t
+    :defer t
+    :mode "\\.js\\'"
+    :interpreter "node")
 
+  (use-package company-tern
+    :ensure t
+    :defer 3
+    :config
+    (eval-after-load 'company
+      '(push 'company-tern company-backends)))
 
   (use-package tern
     :ensure t
     :defer t
     :hook (web-mode js2-mode)
     :config
-	(progn (defun kill-tern-process ()
-		 "Kill the tern process if any. The process will be restarted.  This is useful if tern becomes unreachable."
-		 (interactive)
-		 (delete-process "Tern"))))
+    (progn (defun kill-tern-process ()
+	     "Kill the tern process if any. The process will be restarted.  This is useful if tern becomes unreachable."
+	     (interactive)
+	     (delete-process "Tern"))))
 
-  ;      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  ;;      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
   #+END_SRC
 
 * php
 
 #+BEGIN_SRC emacs-lisp
+
+;;php
 
 (use-package php-mode
   :ensure t
@@ -957,16 +981,20 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;org fontify
+
 (setq org-src-fontify-natively t
     org-src-tab-acts-natively t
     org-confirm-babel-evaluate nil
     org-edit-src-content-indentation 0)
+
 #+END_SRC
 
 ** ox-md
 
 #+BEGIN_SRC emacs-lisp
-;org-md
+
+;;org-md
+
  (eval-after-load "org"
   '(require 'ox-md nil t))
 
@@ -975,7 +1003,9 @@ _SPC_ cancel
 ** ox-beamer
 
 #+BEGIN_SRC emacs-lisp
-;org-beamer
+
+;;org-beamer
+
  (eval-after-load "org"
   '(require 'ox-beamer nil t))
 
@@ -984,7 +1014,9 @@ _SPC_ cancel
 ** ox-odt
 
 #+BEGIN_SRC emacs-lisp
-;org-odt
+
+;;org-odt
+
  (eval-after-load "org"
   '(require 'ox-odt nil t))
 
@@ -993,7 +1025,9 @@ _SPC_ cancel
 ** org-babel
 
 #+BEGIN_SRC emacs-lisp
-;org-babel
+
+;;org-babel
+
 (if (version< emacs-version "26.0")
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -1009,18 +1043,21 @@ _SPC_ cancel
 ** ox-gfm
 
 #+BEGIN_SRC emacs-lisp
-;org-gfm
+
+;;org-gfm
+
 (use-package ox-gfm :ensure t :defer t)
 (eval-after-load "org"
   '(require 'ox-gfm nil t))
-
 
 #+END_SRC
 
 ** org-latex with pygment minted
 
 #+BEGIN_SRC emacs-lisp
-;org-latex
+
+;;org-latex
+
 ;pygment minted
 ;(require 'org-latex)
 (require 'ox-latex)
@@ -1031,11 +1068,15 @@ _SPC_ cancel
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
 #+END_SRC
 
 ** htmlize
 
 #+BEGIN_SRC emacs-lisp
+
+;;htmlize
+
 ;;(use-package org :ensure t)
 (use-package htmlize :ensure t)
 (setq org-html-html5-fancy t
@@ -1053,6 +1094,9 @@ org-html-doctype "html5")
 ** xelatex
 
 #+BEGIN_SRC emacs-lisp
+
+;;xelatex
+
 (setq org-latex-to-pdf-process 
   '("xelatex -interaction nonstopmode %f"
      "xelatex -interaction nonstopmode %f")) ;; for multiple passes
@@ -1062,24 +1106,16 @@ org-html-doctype "html5")
 ** org-bullets
 
 #+BEGIN_SRC emacs-lisp
-;org-bullets
+
+;;org-bullets
+
 (use-package org-bullets 
   :ensure t
+  :defer t
   :hook (org-mode . (lambda () (org-bullets-mode 1))))
 
-#+END_SRC
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode)))
 
-** org-beautify
-
-#+BEGIN_SRC emacs-lisp
-
-;;org-beautify-theme
-(use-package org-beautify-theme 
-  :ensure t
-  :defer t)
-;;(add-hook 'org-mode-hook (if (display-graphic-p)(lambda () (load-theme 'org-beautify))))
-(if (not (null (display-graphic-p))) (add-hook 'org-mode-hook (load-theme 'org-beautify)))
-;;(add-hook 'org-mode-hook (load-theme 'org-beautify))
 #+END_SRC
 
 ** org-tree-slide
@@ -1087,6 +1123,7 @@ org-html-doctype "html5")
 #+BEGIN_SRC emacs-lisp
 
 ;;org-tree-slide
+
 (use-package org-tree-slide
   :ensure t
   :defer t)
@@ -1095,8 +1132,7 @@ org-html-doctype "html5")
 
 (with-eval-after-load "org-tree-slide"
   (define-key org-tree-slide-mode-map (kbd "<f9>") 'org-tree-slide-move-previous-tree)
-  (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree)
-  )
+  (define-key org-tree-slide-mode-map (kbd "<f10>") 'org-tree-slide-move-next-tree))
 
 #+END_SRC
 
@@ -1105,6 +1141,7 @@ org-html-doctype "html5")
 #+BEGIN_SRC emacs-lisp
 
 ;;epresent
+
 (use-package epresent
   :ensure t
   :defer t)
@@ -1112,7 +1149,10 @@ org-html-doctype "html5")
 #+END_SRC
 
 * skewer
+
 #+BEGIN_SRC emacs-lisp
+
+;;skewer
 
 (use-package skewer-mode
   :ensure t
@@ -1130,6 +1170,8 @@ org-html-doctype "html5")
 * Projectile
 
 #+BEGIN_SRC emacs-lisp
+
+;;projectile
 
 (use-package projectile
   :ensure t
@@ -1204,6 +1246,8 @@ org-html-doctype "html5")
 
 #+BEGIN_SRC emacs-lisp
 
+;;eshell
+
 (add-hook 'eshell-mode-hook '(lambda ()
 			       (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)))
 (add-hook 'eshell-mode-hook '(lambda ()
@@ -1232,6 +1276,8 @@ org-html-doctype "html5")
 
 #+BEGIN_SRC emacs-lisp
 
+;;shell-mode
+
 (add-hook 'shell-mode-hook '(lambda ()
 			       (define-key shell-mode-map (kbd "<tab>") 'completion-at-point)))
 (add-hook 'shell-mode-hook '(lambda ()
@@ -1239,9 +1285,22 @@ org-html-doctype "html5")
 
 #+END_SRC
 
+* term-mode
+
+#+BEGIN_SRC emacs-lisp
+
+;;(defun my-display-line-number (lambda () (display-line-numbers-mode -1)))
+
+(add-hook 'term-mode-hook (lambda () (display-line-numbers-mode -1)))
+(add-hook 'term-mode-hook (lambda () (nlinum-mode -1)))
+
+#+END_SRC
+
 * Comint-mode
 
 #+BEGIN_SRC emacs-lisp
+
+;;conmint-mode
 
 (setq comint-scroll-show-maximum-output nil)
 (setq comint-scroll-to-bottom-on-input nil)
@@ -1253,6 +1312,8 @@ org-html-doctype "html5")
 
 #+BEGIN_SRC emacs-lisp
 
+;;input-method
+
 (defun myinput-settings ()
   "Settings based on input method."
   (cond ((string= current-input-method "ethiopic")
@@ -1261,6 +1322,32 @@ org-html-doctype "html5")
         (t nil)))
 
 (add-hook 'input-method-activate-hook #'myinput-settings)
+
+#+END_SRC
+
+* org-beautify
+
+#+BEGIN_SRC emacs-lisp
+
+;;org-beautify-theme
+
+(use-package org-beautify-theme 
+  :ensure t
+  :defer t
+  :init 
+  :hook (org-bullets-mode . (load-theme 'org-beautify)))
+
+;(eval-after-load "org" (load-theme 'org-beautify))
+;;(add-hook 'org-mode-hook (if (display-graphic-p)(lambda () (load-theme 'org-beautify))))
+;;(add-hook 'org-mode-hook (load-theme 'org-beautify))
+;; (defun org-beautifyer ()
+;;     (if (not (null (display-graphic-p))) (progn (require 'org-beautify-theme)(load-theme 'org-beautify))))
+
+;;(add-hook 'after-make-frame-functions      (if (not (null (display-graphic-p))) (or (progn (require 'org-beautify-theme) (load-theme 'org-beautify)))))
+
+;(if (not (null (display-graphic-p))) (add-hook 'org-mode-hook (load-theme 'org-beautify)))
+;(add-hook 'org-mode-hook (setq org-bullets-mode t))
+;(add-hook 'org-mode-hook (org-bullets-mode))
 
 #+END_SRC
 
