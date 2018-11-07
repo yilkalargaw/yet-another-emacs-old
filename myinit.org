@@ -14,10 +14,10 @@
        multiple-cursors projectile markdown-mode markdown-mode+ markdown-preview-mode
        markdown-toc smartparens ecb restclient neotree all-the-icons company 
        company-c-headers lua-mode company-lua robe inf-ruby auctex company-auctex
-       web-mode company-web emmet-mode js2-mode tern company-tern php-mode 
+       web-mode company-web emmet-mode js2-mode company-tern php-mode 
        company-php ox-gfm htmlize org-bullets org-beautify-theme org-tree-slide
-       epresent skewer-mode magithub))
-
+       epresent skewer-mode magithub company-jedi ox-pandoc irony company-irony
+       flycheck-irony irony-eldoc racer))
 
 ; activate all the packages
 (package-initialize)
@@ -89,7 +89,7 @@
 (column-number-mode 1)
 (setq indicate-empty-lines t)
 
-(add-to-list 'default-frame-alist '(font . "Liberation Mono-9.5") )
+(add-to-list 'default-frame-alist '(font . "Liberation Mono-9.5"))
 
 #+END_SRC
 
@@ -197,6 +197,25 @@
  (lambda ()
   (define-key dired-mode-map (kbd "^")
     (lambda () (interactive) (find-alternate-file "..")))))
+
+
+(defun dired-dotfiles-toggle ()
+  "Show/hide dot-files"
+  (interactive)
+  (when (equal major-mode 'dired-mode)
+    (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
+	(progn 
+	  (set (make-local-variable 'dired-dotfiles-show-p) nil)
+	  (message "h")
+	  (dired-mark-files-regexp "^\\\.")
+	  (dired-do-kill-lines))
+      (progn (revert-buffer) ; otherwise just revert to re-show
+	     (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+
+(add-hook 'dired-mode-hook
+ (lambda ()
+  (define-key dired-mode-map (kbd "H-l")
+    (lambda () (interactive) (dired-dotfiles-toggle)))))
 
 #+END_SRC
 
@@ -316,7 +335,11 @@ _SPC_ cancel
 	("C-x C-f" . counsel-find-file)
 	("M-x" . counsel-M-x)
 	("H-f" . counsel-ag)
-	("C-c M-?" . counsel-ag)))
+	("C-c M-?" . counsel-ag)
+	("M-y" . counsel-yank-pop)
+	;; :map ivy-minibuffer-map
+	;; ("M-y" . ivy-next-line)
+	))
 
 (use-package swiper
   :ensure t
@@ -563,6 +586,11 @@ _SPC_ cancel
   :ensure t
   :defer t)
 
+(use-package racer
+  :ensure t
+  :defer t
+  :hook (rust-mode . racer-mode))
+
 #+END_SRC
 
 * go
@@ -574,6 +602,22 @@ _SPC_ cancel
 (use-package go-mode
   :ensure t
   :defer t)
+
+#+END_SRC
+
+* python
+#+BEGIN_SRC emacs-lisp
+
+(use-package company-jedi
+  :defer t
+  :ensure t
+  )
+
+  
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my/python-mode-hook)
 
 #+END_SRC
 
@@ -793,6 +837,41 @@ _SPC_ cancel
 
 #+END_SRC
 
+* C/C++
+#+BEGIN_SRC emacs-lisp
+
+;;C/C++
+
+(use-package irony
+  :ensure t
+  :defer t
+  :hook (c++-mode . (lambda () irony-mode 1))
+        (c-mode . (lambda () (irony-mode 1)))
+	(objc-mode . (lambda () ('irony-mode 1))))
+
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+(use-package company-irony
+  :ensure t
+  :defer t)
+
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
+(use-package flycheck-irony
+  :ensure t
+  :defer t)
+
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+(use-package irony-eldoc
+  :ensure t
+  :defer t)
+(add-hook 'irony-mode-hook #'irony-eldoc)
+
+#+END_SRC
+
 * lua
 
 #+BEGIN_SRC emacs-lisp
@@ -865,7 +944,7 @@ _SPC_ cancel
 
 (use-package emmet-mode
   :ensure t
-  :hook (web-mode sgml-mode css-mode))
+  :hook (sgml-mode css-mode))
 
 
  (use-package web-mode
@@ -880,13 +959,12 @@ _SPC_ cancel
   
    :config
    (setq web-mode-markup-indent-offset 2)
-   (emmet-mode)
  ;  (setq web-mode-engines-alist
  ;        '(("django" . "focus/.*\\.html\\'")
  ;          ("ctemplate" . "realtimecrm/.*\\.html\\'")))
    (setq web-mode-enable-auto-pairing nil)
- ;  (emmet-mode)
  )
+
 
  (use-package company-web
    :config
@@ -897,14 +975,6 @@ _SPC_ cancel
              (lambda ()
                (add-to-list 'company-backends 'company-web-html))))
 
-;(defadvice company-tern (before web-mode-set-up-ac-sources activate)
-;  "Set `tern-mode' based on current language before running company-tern."
-;  (if (equal major-mode 'web-mode)
-;      (let ((web-mode-cur-language
-;             (web-mode-language-at-pos)))
-;        (if (string= web-mode-cur-language "javascript")
-;            (unless tern-mode (tern-mode))
-;          (if tern-mode (tern-mode ))))))
 
 #+END_SRC
 
@@ -912,13 +982,18 @@ _SPC_ cancel
 
   #+BEGIN_SRC emacs-lisp
 
-  ;;javascript
+      ;;javascript
 
   (use-package js2-mode
     :ensure t
     :defer t
     :mode "\\.js\\'"
     :interpreter "node")
+
+  (add-to-list 'load-path "~/node_modules/tern/emacs/")
+  (autoload 'tern-mode "tern.el" nil t)
+  (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+  (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
 
   (use-package company-tern
     :ensure t
@@ -927,17 +1002,17 @@ _SPC_ cancel
     (eval-after-load 'company
       '(push 'company-tern company-backends)))
 
-  (use-package tern
-    :ensure t
-    :defer t
-    :hook (web-mode js2-mode)
-    :config
-    (progn (defun kill-tern-process ()
-	     "Kill the tern process if any. The process will be restarted.  This is useful if tern becomes unreachable."
-	     (interactive)
-	     (delete-process "Tern"))))
+  ;; (use-package tern
+  ;;   :ensure t
+  ;;   :defer t
+  ;;   :hook (js2-mode)
+  ;;   :config
+  ;;   (progn (defun kill-tern-process ()
+  ;; 	   "Kill the tern process if any. The process will be restarted.  This is useful if tern becomes unreachable."
+  ;; 	   (interactive)
+  ;; 	   (delete-process "Tern"))))
 
-  ;;      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  ;;     ;;      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
   #+END_SRC
 
@@ -1145,6 +1220,17 @@ org-html-doctype "html5")
 (use-package epresent
   :ensure t
   :defer t)
+
+#+END_SRC
+
+** ox-pandoc
+#+BEGIN_SRC emacs-lisp
+
+;;ox-pandoc
+(use-package ox-pandoc
+  :ensure t
+  :defer t
+  :hook (org-mode . (lambda () (require 'ox-pandoc))))
 
 #+END_SRC
 
