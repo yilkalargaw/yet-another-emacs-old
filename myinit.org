@@ -17,7 +17,7 @@
        web-mode company-web emmet-mode js2-mode company-tern php-mode 
        company-php ox-gfm htmlize org-bullets org-beautify-theme org-tree-slide
        epresent skewer-mode magithub company-jedi ox-pandoc irony company-irony
-       flycheck-irony irony-eldoc racer))
+       flycheck-irony irony-eldoc racer monky company-go))
 
 ; activate all the packages
 (package-initialize)
@@ -116,11 +116,24 @@
 (use-package telephone-line
   :ensure t
   :defer t
-  :config (progn (setq telephone-line-lhs
-  		     '((accent . (telephone-line-vc-segment
-  				  telephone-line-erc-modified-channels-segment
-  				  telephone-line-process-segment))
-  		       (evil    . (telephone-line-buffer-segment))))))
+  :config (progn 
+	    (telephone-line-defsegment* telephone-vc-dir-segment ()
+	     (if (null vc-mode)
+		 (elt 
+		  (mapcar (function (lambda (c) (replace-regexp-in-string "[\t ]" "" c))) 
+			  (split-string (apply 'string
+					       (string-to-list 
+						(vc-call-backend (elt vc-handled-backends 6)
+								 'dir-extra-headers
+								 (expand-file-name "."))))
+					"\n"))
+		  0)))
+	     (setq telephone-line-lhs
+		   '((accent . (telephone-line-vc-segment
+				telephone-line-erc-modified-channels-segment
+				telephone-line-process-segment
+				telephone-vc-dir-segment))
+		     (evil    . (telephone-line-buffer-segment))))))
 
 (add-hook 'after-make-frame-functions
 	  (lambda (frame)
@@ -472,6 +485,18 @@ _SPC_ cancel
 
 #+END_SRC
 
+* monky
+
+#+BEGIN_SRC emacs-lisp
+
+;;monky
+
+(use-package monky
+  :ensure t
+  :defer t)
+
+#+END_SRC
+
 * yasnippet
 
 #+BEGIN_SRC emacs-lisp
@@ -576,244 +601,6 @@ _SPC_ cancel
 
 #+END_SRC
 
-* rust
-
-#+BEGIN_SRC emacs-lisp
-
-;;rust
-
-(use-package rust-mode
-  :ensure t
-  :defer t)
-
-(use-package racer
-  :ensure t
-  :defer t
-  :hook (rust-mode . racer-mode))
-
-#+END_SRC
-
-* go
-
-#+BEGIN_SRC emacs-lisp
-
-;;go
-
-(use-package go-mode
-  :ensure t
-  :defer t)
-
-#+END_SRC
-
-* python
-#+BEGIN_SRC emacs-lisp
-
-(use-package company-jedi
-  :defer t
-  :ensure t
-  )
-
-  
-(defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-
-(add-hook 'python-mode-hook 'my/python-mode-hook)
-
-#+END_SRC
-
-* csv
-
-#+BEGIN_SRC emacs-lisp
-
-;;csv
-
-(use-package csv-mode
-  :ensure t
-  :defer t)
-
-#+END_SRC
-
-* yaml,toml and json
-
-#+BEGIN_SRC emacs-lisp
-
-;;yaml,toml and json
-
-(use-package yaml-mode
-  :ensure t
-  :defer t)
-(use-package toml-mode
-  :ensure t
-  :defer t)
-(use-package json-mode
-  :ensure t
-  :defer t)
-
-#+END_SRC
-
-* multiple-cursors
-
-#+BEGIN_SRC emacs-lisp
-
-;;multiple-cursors
-
-(use-package multiple-cursors
-  :ensure t
-  :defer t
-  :config (define-key mc/keymap (kbd "<return>") nil)
-  :bind ("H-=" . mc/unmark-previous-like-this)
-        ("H-]" . mc/mark-next-like-this)
-        ("H-[" . mc/mark-previous-like-this)
-		("H-\'" . mc/unmark-next-like-this)
-		("H-\\" . mc/mark-all-like-this)
-		("C-S-<mouse-1>" . mc/add-cursor-on-click))
-
-#+END_SRC
-
-** Hydra-multiple-cursors
-
-#+BEGIN_SRC emacs-lisp
-
-(defhydra hydra-multiple-cursors (:hint nil)
-  "
-     ^Up^            ^Down^        ^Other^
-----------------------------------------------
-[_p_]   Next    [_n_]   Next    [_l_] Edit lines
-[_P_]   Skip    [_N_]   Skip    [_a_] Mark all
-[_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp
-^ ^             ^ ^             [_q_] Quit
-"
-  ("l" mc/edit-lines :exit t)
-  ("a" mc/mark-all-like-this :exit t)
-  ("n" mc/mark-next-like-this)
-  ("N" mc/skip-to-next-like-this)
-  ("M-n" mc/unmark-next-like-this)
-  ("p" mc/mark-previous-like-this)
-  ("P" mc/skip-to-previous-like-this)
-  ("M-p" mc/unmark-previous-like-this)
-  ("r" mc/mark-all-in-region-regexp :exit t)
-  ("q" nil))
-
-(global-set-key (kbd "C-c m c") 'hydra-multiple-cursors/body) ;;example-binding
-
-#+END_SRC
-
-* markdown
-
-#+BEGIN_SRC emacs-lisp
-
-;;markdown
-
-(use-package markdown-mode
-  :ensure t
-  :defer t
-  :config 
-  (use-package markdown-mode+
-    :ensure t)
-  (use-package markdown-preview-mode
-    :ensure t)
-  (use-package markdown-toc
-    :ensure t))
-(autoload 'markdown-mode "markdown-mode" "Major mode for Markdown files" t)
-(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
-(setq markdown-command "pandoc -c ~/.emacs.d/github-pandoc.css --from gfm -t html5 --mathjax --highlight-style pygments --standalone")
-
-#+END_SRC
-
-* smartparens
-
-#+BEGIN_SRC emacs-lisp
-
-;;smartparens
-
-(use-package smartparens-config
-    :ensure smartparens
-    :config
-    (progn
-      (show-smartparens-global-mode t)))
-
-(add-hook 'prog-mode-hook #'smartparens-mode)
-(add-hook 'markdown-mode-hook #'smartparens-mode)
-(sp-local-pair 'web-mode  "<%" "%>" :wrap "C-%")
-
-#+END_SRC
-
-* ecb
-
-#+BEGIN_SRC emacs-lisp
-
-;;ecb
-
-(use-package ecb
-  :ensure t
-  :defer t
-  :init (setq ecb-tip-of-the-day nil)
-  :bind (( "C-c e b" . ecb-minor-mode)
-	 :map ecb-mode-map
-	 ("H-1" . 'ecb-goto-window-edit1)
-	 ("H-2" . 'ecb-goto-window-directories)
-	 ("H-3" . 'ecb-goto-window-sources)
-	 ("H-4" . 'ecb-goto-window-methods)
-	 ("H-5" . 'ecb-goto-window-history)))
-
-#+END_SRC
-
-* rest client
-
-#+BEGIN_SRC emacs-lisp
-
-;;restclient
-
-(use-package restclient
-  :ensure t
-  :defer t)
-
-#+END_SRC
-
-* smooth-scrolling
-
-#+BEGIN_SRC emacs-lisp
-
-;;smooth-scrolling
-
-;; (use-package smooth-scrolling
-;;   :ensure t
-;;   :config (setq smooth-scroll-margin 2)
-;;   )
-;; scroll one line at a time (less "jumpy" than defaults)
-    
-(setq mouse-wheel-scroll-amount '(10 ((shift) . 10))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-(setq scroll-step 1) ;; keyboard scroll one line at a time
-
-#+END_SRC
-
-* neotree
-
-#+BEGIN_SRC emacs-lisp
-
-;;neotree
-
-(use-package neotree
-  :ensure t
-  :defer t
-  :bind ("H-." . 'neotree-toggle)
-        ("C-c n t" . 'neotree-toggle)
-  :config
-         (use-package all-the-icons
-                 :ensure t
-                 )
-         (setq neo-theme (if (display-graphic-p) 'icons 'arrows))
-					;          (setq neo-theme 'icons)
-	 (setq neo-window-fixed-size nil))
-
-(add-hook 'neotree-mode-hook 'my-neotree-hook)
-(defun my-neotree-hook ()
-  (nlinum-mode 0))
-
-#+END_SRC
-
 * company
 
 #+BEGIN_SRC emacs-lisp
@@ -834,105 +621,6 @@ _SPC_ cancel
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (add-to-list 'company-backends 'company-c-headers))
-
-#+END_SRC
-
-* C/C++
-#+BEGIN_SRC emacs-lisp
-
-;;C/C++
-
-(use-package irony
-  :ensure t
-  :defer t
-  :hook (c++-mode . (lambda () irony-mode 1))
-        (c-mode . (lambda () (irony-mode 1)))
-	(objc-mode . (lambda () ('irony-mode 1))))
-
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
-(use-package company-irony
-  :ensure t
-  :defer t)
-
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-(use-package flycheck-irony
-  :ensure t
-  :defer t)
-
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-
-(use-package irony-eldoc
-  :ensure t
-  :defer t)
-(add-hook 'irony-mode-hook #'irony-eldoc)
-
-#+END_SRC
-
-* lua
-
-#+BEGIN_SRC emacs-lisp
-
-;;lua
-
-(use-package lua-mode
-  :ensure t
-  :defer t)
-
-(use-package company-lua
-  :ensure t
-  :defer 2
-  :config;(require 'company-lua)
-      ;(add-to-list 'company-backends 'company-lua)
-  (eval-after-load 'company
-    '(push 'company-lua company-backends)))
-
-#+END_SRC
-  
-* ruby 
-
-#+BEGIN_SRC emacs-lisp
-
-;;ruby
-
-(use-package inf-ruby
-  :ensure t
-  :defer t)
-
-(use-package robe
-  :ensure t
-  :defer t
-  :bind ("C-c r s" . robe-start)
-  :hook (ruby-mode . robe-mode))
-
-;  (add-hook 'ruby-mode-hook 'robe-mode))
-
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
-
-#+END_SRC
-
-* latex/auctex
-
-#+BEGIN_SRC emacs-lisp
-
-;;latex/auctex
-
-  (use-package auctex
-    :ensure t
-    :defer t)
-
-  (use-package  company-auctex
-  :ensure t
-  :config  (company-auctex-init)
-  :defer 5)
-
-  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
 #+END_SRC
 
@@ -1016,6 +704,25 @@ _SPC_ cancel
 
   #+END_SRC
 
+** skewer
+
+ #+BEGIN_SRC emacs-lisp
+
+ ;;skewer
+
+ (use-package skewer-mode
+   :ensure t
+   :defer t
+   :init
+   (skewer-setup))
+
+ ;(use-package skewer-repl
+ ;  :ensure t
+ ;  :defer t
+ ;  :config (define-key skewer-repl-mode-map (kbd "C-c C-z") #'quit-window))
+
+ #+END_SRC
+
 * php
 
 #+BEGIN_SRC emacs-lisp
@@ -1050,7 +757,341 @@ _SPC_ cancel
 
 #+END_SRC
 
+* C/C++
+#+BEGIN_SRC emacs-lisp
+
+;;C/C++
+
+(use-package irony
+  :ensure t
+  :defer t
+  :hook (c++-mode . (lambda () irony-mode 1))
+        (c-mode . (lambda () (irony-mode 1)))
+	(objc-mode . (lambda () ('irony-mode 1))))
+
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+(use-package company-irony
+  :ensure t
+  :defer t)
+
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+
+(use-package flycheck-irony
+  :ensure t
+  :defer t)
+
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+(use-package irony-eldoc
+  :ensure t
+  :defer t)
+(add-hook 'irony-mode-hook #'irony-eldoc)
+
+#+END_SRC
+
+* rust
+
+#+BEGIN_SRC emacs-lisp
+
+;;rust
+
+(use-package rust-mode
+  :ensure t
+  :defer t)
+
+(use-package racer
+  :ensure t
+  :defer t
+  :hook (rust-mode . racer-mode))
+
+#+END_SRC
+
+* go
+
+#+BEGIN_SRC emacs-lisp
+
+;;go
+
+(use-package go-mode
+  :ensure t
+  :defer t)
+
+(use-package company-go
+  :ensure t
+  :defer t
+  :hook (go-mode . (lambda ()
+		     (set (make-local-variable 'company-backends) '(company-go))
+		     (company-mode))))
+
+#+END_SRC
+
+* python
+#+BEGIN_SRC emacs-lisp
+
+(use-package company-jedi
+  :defer t
+  :ensure t
+  )
+
+  
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my/python-mode-hook)
+
+#+END_SRC
+  
+* ruby 
+
+#+BEGIN_SRC emacs-lisp
+
+;;ruby
+
+(use-package inf-ruby
+  :ensure t
+  :defer t)
+
+(use-package robe
+  :ensure t
+  :defer t
+  :bind ("C-c r s" . robe-start)
+  :hook (ruby-mode . robe-mode))
+
+;  (add-hook 'ruby-mode-hook 'robe-mode))
+
+(eval-after-load 'company
+  '(push 'company-robe company-backends))
+
+#+END_SRC
+
+* lua
+
+#+BEGIN_SRC emacs-lisp
+
+;;lua
+
+(use-package lua-mode
+  :ensure t
+  :defer t)
+
+(use-package company-lua
+  :ensure t
+  :defer 2
+  :config;(require 'company-lua)
+      ;(add-to-list 'company-backends 'company-lua)
+  (eval-after-load 'company
+    '(push 'company-lua company-backends)))
+
+#+END_SRC
+
+* csv
+
+#+BEGIN_SRC emacs-lisp
+
+;;csv
+
+(use-package csv-mode
+  :ensure t
+  :defer t)
+
+#+END_SRC
+
+* yaml,toml and json
+
+#+BEGIN_SRC emacs-lisp
+
+;;yaml,toml and json
+
+(use-package yaml-mode
+  :ensure t
+  :defer t)
+(use-package toml-mode
+  :ensure t
+  :defer t)
+(use-package json-mode
+  :ensure t
+  :defer t)
+
+#+END_SRC
+
+* markdown
+
+#+BEGIN_SRC emacs-lisp
+
+;;markdown
+
+(use-package markdown-mode
+  :ensure t
+  :defer t
+  :config 
+  (use-package markdown-mode+
+    :ensure t)
+  (use-package markdown-preview-mode
+    :ensure t)
+  (use-package markdown-toc
+    :ensure t))
+(autoload 'markdown-mode "markdown-mode" "Major mode for Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(setq markdown-command "pandoc -c ~/.emacs.d/github-pandoc.css --from gfm -t html5 --mathjax --highlight-style pygments --standalone")
+
+#+END_SRC
+
+* latex/auctex
+
+#+BEGIN_SRC emacs-lisp
+
+;;latex/auctex
+
+  (use-package auctex
+    :ensure t
+    :defer t)
+
+  (use-package  company-auctex
+  :ensure t
+  :config  (company-auctex-init)
+  :defer 5)
+
+  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+#+END_SRC
+
+* multiple-cursors
+
+#+BEGIN_SRC emacs-lisp
+
+;;multiple-cursors
+
+(use-package multiple-cursors
+  :ensure t
+  :defer t
+  :config (define-key mc/keymap (kbd "<return>") nil)
+  :bind ("H-=" . mc/unmark-previous-like-this)
+        ("H-]" . mc/mark-next-like-this)
+        ("H-[" . mc/mark-previous-like-this)
+		("H-\'" . mc/unmark-next-like-this)
+		("H-\\" . mc/mark-all-like-this)
+		("C-S-<mouse-1>" . mc/add-cursor-on-click))
+
+#+END_SRC
+
+** Hydra-multiple-cursors
+
+#+BEGIN_SRC emacs-lisp
+
+(defhydra hydra-multiple-cursors (:hint nil)
+  "
+     ^Up^            ^Down^        ^Other^
+----------------------------------------------
+[_p_]   Next    [_n_]   Next    [_l_] Edit lines
+[_P_]   Skip    [_N_]   Skip    [_a_] Mark all
+[_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp
+^ ^             ^ ^             [_q_] Quit
+"
+  ("l" mc/edit-lines :exit t)
+  ("a" mc/mark-all-like-this :exit t)
+  ("n" mc/mark-next-like-this)
+  ("N" mc/skip-to-next-like-this)
+  ("M-n" mc/unmark-next-like-this)
+  ("p" mc/mark-previous-like-this)
+  ("P" mc/skip-to-previous-like-this)
+  ("M-p" mc/unmark-previous-like-this)
+  ("r" mc/mark-all-in-region-regexp :exit t)
+  ("q" nil))
+
+(global-set-key (kbd "C-c m c") 'hydra-multiple-cursors/body) ;;example-binding
+
+#+END_SRC
+
+* smartparens
+
+#+BEGIN_SRC emacs-lisp
+
+;;smartparens
+
+(use-package smartparens-config
+    :ensure smartparens
+    :config
+    (progn
+      (show-smartparens-global-mode t)))
+
+(add-hook 'prog-mode-hook #'smartparens-mode)
+(add-hook 'markdown-mode-hook #'smartparens-mode)
+(sp-local-pair 'web-mode  "<%" "%>" :wrap "C-%")
+
+#+END_SRC
+
+* ecb
+
+#+BEGIN_SRC emacs-lisp
+
+;;ecb
+
+(use-package ecb
+  :ensure t
+  :defer t
+  :init (setq ecb-tip-of-the-day nil)
+  :bind (( "C-c e b" . ecb-minor-mode)
+	 :map ecb-mode-map
+	 ("H-1" . 'ecb-goto-window-edit1)
+	 ("H-2" . 'ecb-goto-window-directories)
+	 ("H-3" . 'ecb-goto-window-sources)
+	 ("H-4" . 'ecb-goto-window-methods)
+	 ("H-5" . 'ecb-goto-window-history)))
+
+#+END_SRC
+
+* rest client
+
+#+BEGIN_SRC emacs-lisp
+
+;;restclient
+
+(use-package restclient
+  :ensure t
+  :defer t)
+
+#+END_SRC
+
+* smooth-scrolling
+
+#+BEGIN_SRC emacs-lisp
+
+;;smooth-scrolling
+
+;; (use-package smooth-scrolling
+;;   :ensure t
+;;   :config (setq smooth-scroll-margin 2)
+;;   )
+;; scroll one line at a time (less "jumpy" than defaults)
+    
+(setq mouse-wheel-scroll-amount '(10 ((shift) . 10))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+
+#+END_SRC
+
 * org
+
+#+BEGIN_SRC emacs-lisp
+
+(global-set-key (kbd "H-p l") 'org-store-link)
+(global-set-key (kbd "H-p a") 'org-agenda)
+(global-set-key (kbd "H-p c") 'org-capture)
+(global-set-key (kbd "H-p b") 'org-switchb)
+
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c b") 'org-switchb)
+
+#+END_SRC
+
 ** org-fontify
 
 #+BEGIN_SRC emacs-lisp
@@ -1234,22 +1275,28 @@ org-html-doctype "html5")
 
 #+END_SRC
 
-* skewer
+* neotree
 
 #+BEGIN_SRC emacs-lisp
 
-;;skewer
+;;neotree
 
-(use-package skewer-mode
+(use-package neotree
   :ensure t
   :defer t
-  :init
-  (skewer-setup))
+  :bind ("H-." . 'neotree-toggle)
+        ("C-c n t" . 'neotree-toggle)
+  :config
+         (use-package all-the-icons
+                 :ensure t
+                 )
+         (setq neo-theme (if (display-graphic-p) 'icons 'arrows))
+					;          (setq neo-theme 'icons)
+	 (setq neo-window-fixed-size nil))
 
-;(use-package skewer-repl
-;  :ensure t
-;  :defer t
-;  :config (define-key skewer-repl-mode-map (kbd "C-c C-z") #'quit-window))
+(add-hook 'neotree-mode-hook 'my-neotree-hook)
+(defun my-neotree-hook ()
+  (nlinum-mode 0))
 
 #+END_SRC
 
