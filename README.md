@@ -1,4 +1,4 @@
-# My .emacs File (Call it YilMAX config)
+# My .emacs File
 
 Pretty Much self explanatory config it contains the bare minimum in the init.el file and tries to contain all its configuration in the myinit.org file. Then it is loaded by org-bable.
 
@@ -8,7 +8,7 @@ Pretty Much self explanatory config it contains the bare minimum in the init.el 
   + neotree for side tab file manager
   + hydra
   + projectile
-  + the Hyper key for expanding the emacs key config
+  + the Hyper key for expanding the emacs key config (my .Xmodmap is included in this repository and  shows the keyboard mapping changes  I applied.)
   + eshell with ivy tab completion
   + etc ...
 
