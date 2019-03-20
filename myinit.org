@@ -1,3 +1,4 @@
+
 #+TITLE: Init File
 #+AUTHOR: Yilkal Argaw , StackOverflow, Github and Emacs-wiki
 
@@ -14,19 +15,22 @@
        multiple-cursors projectile markdown-mode markdown-mode+ markdown-preview-mode
        markdown-toc smartparens ecb restclient neotree all-the-icons company 
        company-c-headers lua-mode company-lua robe inf-ruby auctex company-auctex
-       web-mode company-web emmet-mode js2-mode company-tern php-mode 
+       web-mode company-web emmet-mode js2-mode company-tern php-mode  rainbow-delimiters
        company-php ox-gfm htmlize org-bullets org-beautify-theme org-tree-slide
-       epresent skewer-mode magithub company-jedi ox-pandoc irony company-irony
-       flycheck-irony irony-eldoc racer monky company-go go-dlv cargo realgud))
+       epresent skewer-mode company-jedi ox-pandoc irony company-irony
+       flycheck-irony irony-eldoc racer monky company-go go-dlv cargo realgud
+       flycheck-rust doom-themes symbol-overlay beacon all-the-icons-ivy git-gutter 
+       git-timemachine origami geiser slime slime-company forge;; magithub
+))
 
-; activate all the packages
+;; activate all the packages
 (package-initialize)
 
-; fetch the list of packages available 
+;; fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
 
-; install the missing packages
+;; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
@@ -64,7 +68,7 @@
 ;              (background-color . "honeydew")
               ;;
               ))
-   
+
 (set-frame-position (selected-frame) 0 15)
 
 ))
@@ -97,11 +101,28 @@
 
 #+BEGIN_SRC emacs-lisp
 
-(load-theme 'modified-dracula t)
+;;(load-theme 'modified-dracula t)
+
+(use-package doom-themes
+  :ensure t
+  :defer t)
+
+(load-theme 'doom-one)
 
 #+END_SRC
 
-* Default directory
+* custom faces
+
+#+BEGIN_SRC emacs-lisp
+
+(custom-set-faces
+ '(symbol-overlay-default-face ((t (:background "#3f444a" :foreground "#9ca0a4"))))
+ '(region ((t (:background "#2db5c5" :foreground "black"))))
+ '(telephone-line-accent-active ((t (:inherit mode-line :background "purple" :foreground "white"))))
+ '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+#+END_SRC
+
+* default directory
 
 #+BEGIN_SRC emacs-lisp
 
@@ -113,27 +134,45 @@
 
 #+BEGIN_SRC emacs-lisp
 
+;; (use-package telephone-line
+;;   :ensure t
+;;   :defer t
+;;   :config (progn
+;; 	    (telephone-line-defsegment* telephone-vc-dir-segment ()
+;; 	     (if (null vc-mode)
+;; 		 (elt
+;; 		  (mapcar (function (lambda (c) (replace-regexp-in-string "[\t ]" "" c)))
+;; 			  (split-string (apply 'string
+;; 					       (string-to-list
+;; 						(vc-call-backend 'Git
+;; 								 'dir-extra-headers
+;; 								 (expand-file-name "."))))
+;; 					"\n"))
+;; 		  0)))
+;; 	     (setq telephone-line-lhs
+;; 		   '((accent . (telephone-line-vc-segment
+;; 				telephone-line-erc-modified-channels-segment
+;; 				telephone-line-process-segment
+;; 				telephone-vc-dir-segment))
+;; 		     (evil    . (telephone-line-buffer-segment))))))
+
 (use-package telephone-line
   :ensure t
   :defer t
-  :config (progn 
-	    (telephone-line-defsegment* telephone-vc-dir-segment ()
-	     (if (null vc-mode)
-		 (elt 
-		  (mapcar (function (lambda (c) (replace-regexp-in-string "[\t ]" "" c))) 
-			  (split-string (apply 'string
-					       (string-to-list 
-						(vc-call-backend (elt vc-handled-backends 6)
-								 'dir-extra-headers
-								 (expand-file-name "."))))
-					"\n"))
-		  0)))
-	     (setq telephone-line-lhs
-		   '((accent . (telephone-line-vc-segment
-				telephone-line-erc-modified-channels-segment
-				telephone-line-process-segment
-				telephone-vc-dir-segment))
-		     (evil    . (telephone-line-buffer-segment))))))
+
+  :config (progn (setq telephone-line-lhs
+  		     '((accent . (telephone-line-vc-segment
+  				  telephone-line-erc-modified-channels-segment
+  				  telephone-line-process-segment))
+  		       (evil    . (telephone-line-buffer-segment
+  				 ; telephone-line-minor-mode-segment
+				  ))))
+  	       ;; (setq telephone-line-rhs
+  	       ;; 	     '((nil    . (telephone-line-misc-info-segment))
+  	       ;; 	       (accent . (telephone-line-major-mode-segment))
+  	       ;; 	        ))
+))
+
 
 (add-hook 'after-make-frame-functions
 	  (lambda (frame)
@@ -163,7 +202,7 @@
 	    telephone-line-primary-left-separator 'telephone-line-abs-left
 	    telephone-line-secondary-left-separator 'telephone-line-abs-hollow-left)
       (setq telephone-line-subseparator '())
-      
+
       (telephone-line-mode 1))
 
   (progn
@@ -177,7 +216,7 @@
 
 #+END_SRC
 
-* Indentation Stuff
+* indentation stuff
 
 #+BEGIN_SRC emacs-lisp
 
@@ -188,7 +227,61 @@
 
 #+END_SRC
 
-* Dired
+* trailing white spaces
+
+#+BEGIN_SRC emacs-lisp
+
+;;(setq show-trailing-whitespace t)
+;;(setq-default show-trailing-whitespace t)
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+(add-hook 'html-mode-hook (lambda () (setq show-trailing-whitespace t)))
+(add-hook 'css-mode-hook (lambda () (setq show-trailing-whitespace t)))
+;;(add-hook 'org-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+(add-hook 'markdown-mode-hook (lambda () (setq show-trailing-whitespace t)))
+
+#+END_SRC
+
+* beacon
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package beacon
+  :ensure t
+  :defer 3
+  :config (beacon-mode 1))
+
+#+END_SRC
+
+* symbol-overlay
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package symbol-overlay
+  :ensure t
+  :defer t
+  :hook (prog-mode . symbol-overlay-mode)
+        (html-mode . symbol-overlay-mode)
+	(web-mode . symbol-overlay-mode)
+	(css-mode . symbol-overlay-mode)
+	(yaml-mode . symbol-overlay-mode)
+	(toml-mode . symbol-overlay-mode)
+	(json-mode . symbol-overlay-mode)
+  :config
+        (progn (defface shackra-orange '((t (:foreground "white" :background "#98fbb8"))) "")
+	       (add-to-list 'symbol-overlay-faces '(symbol-overlay-default-face . (shakra-orange))))
+    ;; (define-key symbol-overlay-mode-map (kbd "M-i") 'symbol-overlay-put)
+    ;; (define-key symbol-overlay-mode-map (kbd "M-n") 'symbol-overlay-jump-next)
+    ;; (define-key symbol-overlay-mode-map (kbd "M-p") 'symbol-overlay-jump-prev)
+)
+
+;; (defface shackra-orange '((t (:foreground "white" :background "#98fbb8"))) "")
+
+;; (add-to-list 'symbol-overlay-faces '(symbol-overlay-default-face . (shakra-orange)))
+
+
+#+END_SRC
+
+* dired
 
 #+BEGIN_SRC emacs-lisp
 
@@ -217,7 +310,7 @@
   (interactive)
   (when (equal major-mode 'dired-mode)
     (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
-	(progn 
+	(progn
 	  (set (make-local-variable 'dired-dotfiles-show-p) nil)
 	  (message "h")
 	  (dired-mark-files-regexp "^\\\.")
@@ -313,6 +406,109 @@ _SPC_ cancel
 
 #+END_SRC
 
+* ibuffer
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package ibuffer
+  :ensure t
+  :bind (("C-x C-b" . ibuffer)
+	 :map ibuffer-mode-map
+	 ("C-." . hydra-ibuffer-main/body))
+  :hook (ibuffer-mode . hydra-ibuffer-main/body)
+  :init
+  (defhydra hydra-ibuffer-main (:color pink :hint nil)
+  "
+ ^Navigation^ | ^Mark^        | ^Actions^        | ^View^
+-^----------^-+-^----^--------+-^-------^--------+-^----^-------
+  _k_:    ʌ   | _m_: mark     | _D_: delete      | _g_: refresh
+ _RET_: visit | _u_: unmark   | _S_: save        | _s_: sort
+  _j_:    v   | _*_: specific | _a_: all actions | _/_: filter
+-^----------^-+-^----^--------+-^-------^--------+-^----^-------
+"
+  ("j" ibuffer-forward-line)
+  ("RET" ibuffer-visit-buffer :color blue)
+  ("k" ibuffer-backward-line)
+
+  ("m" ibuffer-mark-forward)
+  ("u" ibuffer-unmark-forward)
+  ("*" hydra-ibuffer-mark/body :color blue)
+
+  ("D" ibuffer-do-delete)
+  ("S" ibuffer-do-save)
+  ("a" hydra-ibuffer-action/body :color blue)
+
+  ("g" ibuffer-update)
+  ("s" hydra-ibuffer-sort/body :color blue)
+  ("/" hydra-ibuffer-filter/body :color blue)
+
+  ("o" ibuffer-visit-buffer-other-window "other window" :color blue)
+  ("q" quit-window "quit ibuffer" :color blue)
+  ("." nil "toggle hydra" :color blue))
+
+(defhydra hydra-ibuffer-mark (:color teal :columns 5
+                              :after-exit (hydra-ibuffer-main/body))
+  "Mark"
+  ("*" ibuffer-unmark-all "unmark all")
+  ("M" ibuffer-mark-by-mode "mode")
+  ("m" ibuffer-mark-modified-buffers "modified")
+  ("u" ibuffer-mark-unsaved-buffers "unsaved")
+  ("s" ibuffer-mark-special-buffers "special")
+  ("r" ibuffer-mark-read-only-buffers "read-only")
+  ("/" ibuffer-mark-dired-buffers "dired")
+  ("e" ibuffer-mark-dissociated-buffers "dissociated")
+  ("h" ibuffer-mark-help-buffers "help")
+  ("z" ibuffer-mark-compressed-file-buffers "compressed")
+  ("b" hydra-ibuffer-main/body "back" :color blue))
+
+(defhydra hydra-ibuffer-action (:color teal :columns 4
+                                :after-exit
+                                (if (eq major-mode 'ibuffer-mode)
+                                    (hydra-ibuffer-main/body)))
+  "Action"
+  ("A" ibuffer-do-view "view")
+  ("E" ibuffer-do-eval "eval")
+  ("F" ibuffer-do-shell-command-file "shell-command-file")
+  ("I" ibuffer-do-query-replace-regexp "query-replace-regexp")
+  ("H" ibuffer-do-view-other-frame "view-other-frame")
+  ("N" ibuffer-do-shell-command-pipe-replace "shell-cmd-pipe-replace")
+  ("M" ibuffer-do-toggle-modified "toggle-modified")
+  ("O" ibuffer-do-occur "occur")
+  ("P" ibuffer-do-print "print")
+  ("Q" ibuffer-do-query-replace "query-replace")
+  ("R" ibuffer-do-rename-uniquely "rename-uniquely")
+  ("T" ibuffer-do-toggle-read-only "toggle-read-only")
+  ("U" ibuffer-do-replace-regexp "replace-regexp")
+  ("V" ibuffer-do-revert "revert")
+  ("W" ibuffer-do-view-and-eval "view-and-eval")
+  ("X" ibuffer-do-shell-command-pipe "shell-command-pipe")
+  ("b" nil "back"))
+
+(defhydra hydra-ibuffer-sort (:color amaranth :columns 3)
+  "Sort"
+  ("i" ibuffer-invert-sorting "invert")
+  ("a" ibuffer-do-sort-by-alphabetic "alphabetic")
+  ("v" ibuffer-do-sort-by-recency "recently used")
+  ("s" ibuffer-do-sort-by-size "size")
+  ("f" ibuffer-do-sort-by-filename/process "filename")
+  ("m" ibuffer-do-sort-by-major-mode "mode")
+  ("b" hydra-ibuffer-main/body "back" :color blue))
+
+(defhydra hydra-ibuffer-filter (:color amaranth :columns 4)
+  "Filter"
+  ("m" ibuffer-filter-by-used-mode "mode")
+  ("M" ibuffer-filter-by-derived-mode "derived mode")
+  ("n" ibuffer-filter-by-name "name")
+  ("c" ibuffer-filter-by-content "content")
+  ("e" ibuffer-filter-by-predicate "predicate")
+  ("f" ibuffer-filter-by-filename "filename")
+  (">" ibuffer-filter-by-size-gt "size")
+  ("<" ibuffer-filter-by-size-lt "size")
+  ("/" ibuffer-filter-disable "disable")
+  ("b" hydra-ibuffer-main/body "back" :color blue)))
+
+#+END_SRC
+
 * ivy,consel and swiper
 
 #+BEGIN_SRC emacs-lisp
@@ -324,21 +520,23 @@ _SPC_ cancel
   :init (ivy-mode 1)
         (use-package flx
 	  :ensure t)
-    
+
 	(setq ivy-re-builders-alist
 	      '((swiper . ivy--regex-plus)
 		(counsel-grep  . ivy--regex-plus)
 		(counsel-git-grep . ivy--regex-plus)
 		(t . ivy--regex-fuzzy)))
-  
+
 	(setq ivy-initial-inputs-alist nil)
 	(setq ivy-format-function 'ivy-format-function-line)
 
 	:config (setq ivy-use-virtual-buffers t
 		      ivy-count-format "%d/%d ")
+                (setq ivy-use-virtual-buffers t)
+	        (setq ivy-display-style 'fancy)
 
 	:bind ("C-x b" . ivy-switch-buffer)
-              ("C-x C-b" . ivy-switch-buffer)
+;;              ("C-x C-b" . ivy-switch-buffer)
 	      ("C-c C-r" . ivy-resume))
 
 (use-package counsel
@@ -352,7 +550,8 @@ _SPC_ cancel
 	("M-y" . counsel-yank-pop)
 	;; :map ivy-minibuffer-map
 	;; ("M-y" . ivy-next-line)
-	))
+        :map ivy-minibuffer-map
+	      ("M-y" . ivy-next-line)))
 
 (use-package swiper
   :ensure t
@@ -464,7 +663,61 @@ _SPC_ cancel
 
 #+END_SRC
 
-* magit & magithub
+* git
+** git-gutter
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package git-gutter
+  :ensure t
+  :defer t)
+#+END_SRC
+
+** git-timemacine
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package git-timemachine
+  :ensure t
+  :defer t)
+
+#+END_SRC
+
+*** hydra
+
+#+BEGIN_SRC emacs-lisp
+
+(defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
+                            :hint nil)
+  "
+Git gutter:
+  _j_: next hunk        _s_tage hunk     _q_uit
+  _k_: previous hunk    _r_evert hunk    _Q_uit and deactivate git-gutter
+  ^ ^                   _p_opup hunk
+  _h_: first hunk
+  _l_: last hunk        set start _R_evision
+"
+  ("j" git-gutter:next-hunk)
+  ("k" git-gutter:previous-hunk)
+  ("h" (progn (goto-char (point-min))
+              (git-gutter:next-hunk 1)))
+  ("l" (progn (goto-char (point-min))
+              (git-gutter:previous-hunk 1)))
+  ("s" git-gutter:stage-hunk)
+  ("r" git-gutter:revert-hunk)
+  ("p" git-gutter:popup-hunk)
+  ("R" git-gutter:set-start-revision)
+  ("q" nil :color blue)
+  ("Q" (progn (git-gutter-mode -1)
+              ;; git-gutter-fringe doesn't seem to
+              ;; clear the markup right away
+              (sit-for 0.1)
+              (git-gutter:clear))
+       :color blue))
+
+#+END_SRC
+
+** magit & forge
 
 #+BEGIN_SRC emacs-lisp
 
@@ -478,10 +731,16 @@ _SPC_ cancel
 (global-set-key (kbd "C-C g m") 'magit-status)
 (global-set-key (kbd "H-g") 'magit-status)
 
-(use-package magithub
-  :after magit
+
+(use-package forge
   :ensure t
-  :config (magithub-feature-autoinject t))
+  :defer t
+  :after magit)
+
+;; (use-package magithub
+;;   :after magit
+;;   :ensure t
+;;   :config (magithub-feature-autoinject t))
 
 #+END_SRC
 
@@ -524,7 +783,9 @@ _SPC_ cancel
 
 (use-package flycheck
 :ensure t
-:init (global-flycheck-mode t))
+:init (progn
+	(setq flycheck-standard-error-navigation nil)
+	(global-flycheck-mode t)))
 
 ;(add-hook 'prog-mode-hook 'flycheck-mode)
 
@@ -540,7 +801,6 @@ _SPC_ cancel
   :ensure t
   :defer 3
   :bind ("<C-iso-lefttab>". er/expand-region))
-  
 
 #+END_SRC
 
@@ -553,14 +813,17 @@ _SPC_ cancel
 (use-package avy
   :ensure t
   :defer t
-  :bind ("C-c v c" . avy-goto-char)
+  :bind (("C-c v c" . avy-goto-char)
   ("C-c v 2" . avy-goto-char-2)
   ("C-c v w" . avy-goto-word-1)
-  ("C-c v l" . avy-goto-line))
+  ("C-c v l" . avy-goto-line)
+  :map isearch-mode-map
+       ("C-'" . avy-isearch))
+ )
 
 (defhydra hydra-avy ( :hint nil)
   "
-     ^Char^            ^other^        
+     ^Char^            ^other^
 -------------------------------------
 [_c_]   char         [_w_]   word
 [_C_]   char-2       [_s_]   subword
@@ -572,7 +835,7 @@ _SPC_ cancel
     ("w" avy-goto-word-1 :exit t)
     ("s" avy-goto-subword-1 :exit t)
     ("l" avy-goto-line :exit t))
-(global-set-key (kbd "C-;") 'hydra-avy/body) ;;example-binding
+(global-set-key (kbd "H-y") 'hydra-avy/body) ;;example-binding
 
 #+END_SRC
 
@@ -584,8 +847,8 @@ _SPC_ cancel
 
 (use-package ace-window
   :ensure t
-  :bind ("H-o" . ace-window)
-        ("C-c w n" . ace-window))
+  :bind ("H-<f12>" . ace-window)
+        ("C-c <f12>" . ace-window))
 
 #+END_SRC
 
@@ -611,17 +874,210 @@ _SPC_ cancel
   :ensure t
   :defer t
   :config (require 'company)
-  
-  (use-package company-c-headers
-    :ensure t)
-
-  (add-hook 'after-init-hook 'global-company-mode)
   (global-set-key (kbd "<backtab>") 'company-complete-common)
+  (global-set-key (kbd "H-<SPC>") 'company-complete-common)
   (global-set-key (kbd "C-`") 'company-yasnippet)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (add-to-list 'company-backends 'company-c-headers))
+  (define-key company-active-map (kbd "C-p") 'company-select-previous))
 
+(add-hook 'after-init-hook 'global-company-mode)
+
+#+END_SRC
+
+* C/C++
+
+#+BEGIN_SRC emacs-lisp
+
+;;C/C++
+
+(use-package company-c-headers
+  :ensure t)
+
+
+(use-package irony
+  :ensure t
+  :defer t
+  :init ;(add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
+  :hook (c++-mode . (lambda () irony-mode 1))
+        (c-mode . (lambda () (irony-mode 1)))
+	(objc-mode . (lambda () ('irony-mode 1)))
+  :config (add-to-list 'company-backends 'company-irony)
+          (add-to-list 'company-backends 'company-c-headers)
+          (flycheck-irony-setup)
+          (irony-eldoc)
+	 ;; (add-hook 'irony-mode-hook #'irony-eldoc)
+)
+
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+(use-package company-irony
+  :ensure t
+  :defer t)
+
+
+(use-package flycheck-irony
+  :ensure t
+  :defer t)
+
+;; (eval-after-load 'flycheck
+;;   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+(use-package irony-eldoc
+  :ensure t
+  :defer t)
+;;(add-hook 'irony-mode-hook #'irony-eldoc)
+
+#+END_SRC
+
+* rust
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package flycheck-rust
+  :ensure t
+  :config
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+  (add-hook 'rust-mode-hook 'flycheck-mode))
+
+
+(use-package racer
+  :ensure t
+  :defer t
+  :init
+  (setq company-tooltip-align-annotations t)
+  (setq racer-rust-src-path "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"))
+
+(use-package rust-mode
+  :ensure t
+  :defer t
+  :hook (rust-mode . racer-mode)
+        (racer-mode . eldoc-mode)
+  :config
+        (setq rust-format-on-save t))
+
+(use-package cargo
+  :ensure t
+  :defer t
+  :hook (rust-mode . cargo-minor-mode)
+  :config
+  (setq compilation-scroll-output t))
+
+
+#+END_SRC
+
+* go
+
+#+BEGIN_SRC emacs-lisp
+
+;;go
+
+(use-package go-mode
+  :ensure t
+  :defer t)
+
+(use-package company-go
+  :ensure t
+  :defer t
+  :hook (go-mode . (lambda ()
+		     (set (make-local-variable 'company-backends) '(company-go))
+		     (company-mode))))
+
+(use-package go-dlv
+  :ensure t
+  :defer t)
+
+#+END_SRC
+
+* ruby
+
+#+BEGIN_SRC emacs-lisp
+
+;;ruby
+
+(use-package inf-ruby
+  :ensure t
+  :defer t)
+
+(use-package robe
+  :ensure t
+  :defer t
+  :bind ("C-c r s" . robe-start)
+  :hook (ruby-mode . robe-mode)
+  :config (push 'company-robe company-backends))
+
+;  (add-hook 'ruby-mode-hook 'robe-mode))
+
+;; (eval-after-load 'company
+;;   '(push 'company-robe company-backends))
+
+#+END_SRC
+
+* python
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package company-jedi
+  :defer t
+  :ensure t
+  )
+
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my/python-mode-hook)
+
+#+END_SRC
+
+* lua
+
+#+BEGIN_SRC emacs-lisp
+
+;;lua
+
+(use-package lua-mode
+  :ensure t
+  :defer t)
+
+(use-package company-lua
+  :ensure t
+  :defer t
+  :hook
+  (company-mode . (lambda () (push 'company-lua company-backends))))
+
+#+END_SRC
+
+* scheme
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package geiser
+  :ensure t
+  :defer t
+  :bind (:map scheme-mode-map
+              ("C-c C-c" . geiser-eval-last-sexp))
+  :hook (scheme-mode)
+  :init
+    (setq geiser-default-implementation 'guile)
+    (setq geiser-guile-binary "/usr/bin/guile"))
+
+#+END_SRC
+
+* common-lisp
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package slime-company
+  :ensure t
+  :defer t)
+
+(use-package slime
+  :ensure t
+  :init (setq inferior-lisp-program "/home/convolutioner/langs/sbcl/bin/sbcl")
+        (setq slime-contribs '(slime-fancy slime-company))
+  :bind (:map slime-mode-map
+              ("C-t C-e" . slime-eval-last-expression))
+  :defer t)
+;;
 #+END_SRC
 
 * web
@@ -632,19 +1088,18 @@ _SPC_ cancel
 
 (use-package emmet-mode
   :ensure t
-  :hook (sgml-mode css-mode))
+  :hook (sgml-mode css-mode web-mode))
 
 
  (use-package web-mode
    :ensure t
    :defer t
-   :mode (;;"\\.html\\'" 
-          ;;"\\.css?\\'" 
-          "\\.phtml\\'" 
-          "\\.erb\\'" 
-	  ;;"\\.html?\\'" 
+   :mode (;;"\\.html\\'"
+          ;;"\\.css?\\'"
+          "\\.phtml\\'"
+          "\\.erb\\'"
+	  ;;"\\.html?\\'"
           )
-  
    :config
    (setq web-mode-markup-indent-offset 2)
  ;  (setq web-mode-engines-alist
@@ -662,7 +1117,6 @@ _SPC_ cancel
    (add-hook 'html-mode-hook
              (lambda ()
                (add-to-list 'company-backends 'company-web-html))))
-
 
 #+END_SRC
 
@@ -682,13 +1136,13 @@ _SPC_ cancel
   (autoload 'tern-mode "tern.el" nil t)
   (add-hook 'js-mode-hook (lambda () (tern-mode t)))
   (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+  (add-hook 'web-mode-hook (lambda () (tern-mode t)))
 
   (use-package company-tern
     :ensure t
-    :defer 3
-    :config
-    (eval-after-load 'company
-      '(push 'company-tern company-backends)))
+;    :defer 3
+    :hook
+    (company-mode . (lambda () (push 'company-tern company-backends))))
 
   ;; (use-package tern
   ;;   :ensure t
@@ -713,7 +1167,8 @@ _SPC_ cancel
  (use-package skewer-mode
    :ensure t
    :defer t
-   :init
+   :hook (web-mode, html-mode, js2-mode)
+   :config
    (skewer-setup))
 
  ;(use-package skewer-repl
@@ -742,8 +1197,8 @@ _SPC_ cancel
 ;;   :ensure t
 ;;   :defer t)
 
-(eval-after-load 'php-mode
-  (require 'php-extras))
+;; (eval-after-load 'php-mode
+;;   (require 'php-extras))
 
 (add-hook 'php-mode-hook
           '(lambda ()
@@ -754,146 +1209,6 @@ _SPC_ cancel
              (add-to-list 'company-backends 'company-ac-php-backend)))
 ;(eval-after-load 'php-mode
 ;  (require 'php-extras))
-
-#+END_SRC
-
-* C/C++
-
-#+BEGIN_SRC emacs-lisp
-
-;;C/C++
-
-(use-package irony
-  :ensure t
-  :defer t
-  :hook (c++-mode . (lambda () irony-mode 1))
-        (c-mode . (lambda () (irony-mode 1)))
-	(objc-mode . (lambda () ('irony-mode 1))))
-
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
-(use-package company-irony
-  :ensure t
-  :defer t)
-
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-(use-package flycheck-irony
-  :ensure t
-  :defer t)
-
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-
-(use-package irony-eldoc
-  :ensure t
-  :defer t)
-(add-hook 'irony-mode-hook #'irony-eldoc)
-
-#+END_SRC
-
-* rust
-
-#+BEGIN_SRC emacs-lisp
-
-;;rust
-
-(use-package rust-mode
-  :ensure t
-  :defer t)
-
-(use-package racer
-  :ensure t
-  :defer t
-  :hook (rust-mode . racer-mode))
-
-(use-package cargo
-  :ensure t
-  :defer t
-  :hook (rust-mode . cargo-minor-mode))
-
-#+END_SRC
-
-* go
-
-#+BEGIN_SRC emacs-lisp
-
-;;go
-
-(use-package go-mode
-  :ensure t
-  :defer t)
-
-(use-package company-go
-  :ensure t
-  :defer t
-  :hook (go-mode . (lambda ()
-		     (set (make-local-variable 'company-backends) '(company-go))
-		     (company-mode))))
-
-(use-package go-dlv
-  :ensure t
-  :defer t)
-
-#+END_SRC
-
-* python
-#+BEGIN_SRC emacs-lisp
-
-(use-package company-jedi
-  :defer t
-  :ensure t
-  )
-
-  
-(defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-
-(add-hook 'python-mode-hook 'my/python-mode-hook)
-
-#+END_SRC
-  
-* ruby 
-
-#+BEGIN_SRC emacs-lisp
-
-;;ruby
-
-(use-package inf-ruby
-  :ensure t
-  :defer t)
-
-(use-package robe
-  :ensure t
-  :defer t
-  :bind ("C-c r s" . robe-start)
-  :hook (ruby-mode . robe-mode))
-
-;  (add-hook 'ruby-mode-hook 'robe-mode))
-
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
-
-#+END_SRC
-
-* lua
-
-#+BEGIN_SRC emacs-lisp
-
-;;lua
-
-(use-package lua-mode
-  :ensure t
-  :defer t)
-
-(use-package company-lua
-  :ensure t
-  :defer 2
-  :config;(require 'company-lua)
-      ;(add-to-list 'company-backends 'company-lua)
-  (eval-after-load 'company
-    '(push 'company-lua company-backends)))
 
 #+END_SRC
 
@@ -936,7 +1251,7 @@ _SPC_ cancel
 (use-package markdown-mode
   :ensure t
   :defer t
-  :config 
+  :config
   (use-package markdown-mode+
     :ensure t)
   (use-package markdown-preview-mode
@@ -1027,11 +1342,105 @@ _SPC_ cancel
     :ensure smartparens
     :config
     (progn
-      (show-smartparens-global-mode t)))
+      (show-smartparens-global-mode t)
+      (global-set-key
+       (kbd "H-(")
+       (defhydra hydra-learn-sp (:hint nil)
+	 "
+  _B_ backward-sexp            -----
+  _F_ forward-sexp               _s_ splice-sexp
+  _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
+  _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
+^^------                         _da_ splice-sexp-killing-around
+  _k_ down-sexp                -----
+  _j_ up-sexp                    _C-s_ select-next-thing-exchange
+-^^-----                         _C-p_ select-previous-thing
+  _n_ next-sexp                  _C-n_ select-next-thing
+  _p_ previous-sexp            -----
+  _a_ beginning-of-sexp          _C-f_ forward-symbol
+  _z_ end-of-sexp                _C-b_ backward-symbol
+--^^-                          -----
+  _t_ transpose-sexp             _c_ convolute-sexp
+-^^--                            _g_ absorb-sexp
+  _x_ delete-char                _q_ emit-sexp
+  _dw_ kill-word               -----
+  _dd_ kill-sexp                 _,b_ extract-before-sexp
+-^^--                            _,a_ extract-after-sexp
+  _S_ unwrap-sexp              -----
+-^^--                            _AP_ add-to-previous-sexp
+  _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
+  _C-l_ forward-barf-sexp      -----
+  _C-S-h_ backward-slurp-sexp    _ join-sexp
+  _C-S-l_ backward-barf-sexp     _|_ split-sexp
+"
+	 ;; TODO: Use () and [] - + * | <space>
+  ("B" sp-backward-sexp );; similiar to VIM b
+  ("F" sp-forward-sexp );; similar to VIM f
+  ;;
+  ("L" sp-backward-down-sexp )
+  ("H" sp-backward-up-sexp )
+  ;;
+  ("k" sp-down-sexp ) ; root - towards the root
+  ("j" sp-up-sexp )
+  ;;
+  ("n" sp-next-sexp )
+  ("p" sp-previous-sexp )
+  ;; a..z
+  ("a" sp-beginning-of-sexp )
+  ("z" sp-end-of-sexp )
+  ;;
+  ("t" sp-transpose-sexp )
+  ;;
+  ("x" sp-delete-char )
+  ("dw" sp-kill-word )
+  ;;("ds" sp-kill-symbol ) ;; Prefer kill-sexp
+  ("dd" sp-kill-sexp )
+  ;;("yy" sp-copy-sexp ) ;; Don't like it. Pref visual selection
+  ;;
+  ("S" sp-unwrap-sexp ) ;; Strip!
+  ;;("wh" sp-backward-unwrap-sexp ) ;; Too similar to above
+  ;;
+  ("C-h" sp-forward-slurp-sexp )
+  ("C-l" sp-forward-barf-sexp )
+  ("C-S-h" sp-backward-slurp-sexp )
+  ("C-S-l" sp-backward-barf-sexp )
+  ;;
+  ;;("C-[" (bind (sp-wrap-with-pair "[")) ) ;;FIXME
+  ;;("C-(" (bind (sp-wrap-with-pair "(")) )
+  ;;
+  ("s" sp-splice-sexp )
+  ("df" sp-splice-sexp-killing-forward )
+  ("db" sp-splice-sexp-killing-backward )
+  ("da" sp-splice-sexp-killing-around )
+  ;;
+  ("C-s" sp-select-next-thing-exchange )
+  ("C-p" sp-select-previous-thing )
+  ("C-n" sp-select-next-thing )
+  ;;
+  ("C-f" sp-forward-symbol )
+  ("C-b" sp-backward-symbol )
+  ;;
+  ;;("C-t" sp-prefix-tag-object)
+  ;;("H-p" sp-prefix-pair-object)
+  ("c" sp-convolute-sexp )
+  ("g" sp-absorb-sexp )
+  ("q" sp-emit-sexp )
+  ;;
+  (",b" sp-extract-before-sexp )
+  (",a" sp-extract-after-sexp )
+  ;;
+  ("AP" sp-add-to-previous-sexp );; Difference to slurp?
+  ("AN" sp-add-to-next-sexp )
+  ;;
+  ("_" sp-join-sexp ) ;;Good
+  ("|" sp-split-sexp )))))
+
+
 
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (add-hook 'markdown-mode-hook #'smartparens-mode)
 (sp-local-pair 'web-mode  "<%" "%>" :wrap "C-%")
+
 
 #+END_SRC
 
@@ -1052,6 +1461,42 @@ _SPC_ cancel
 	 ("H-3" . 'ecb-goto-window-sources)
 	 ("H-4" . 'ecb-goto-window-methods)
 	 ("H-5" . 'ecb-goto-window-history)))
+
+#+END_SRC
+
+* origami
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package origami
+  :ensure t
+  :defer t
+  :config (progn
+
+	    (global-set-key
+	     (kbd "H-C-f")
+	     (defhydra hydra-folding (:color red)
+	       "
+                 _o_pen node    _n_ext fold       toggle _f_orward
+                  _c_lose node   _p_revious fold   toggle _a_ll
+                "
+	       ("o" origami-open-node)
+	       ("c" origami-close-node)
+	       ("n" origami-next-fold)
+	       ("p" origami-previous-fold)
+	       ("f" origami-forward-toggle-node)
+	       ("a" origami-toggle-all-nodes)))))
+
+#+END_SRC
+
+* rainbow-delimiters
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package rainbow-delimiters
+  :ensure t
+  :defer t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 #+END_SRC
 
@@ -1088,7 +1533,7 @@ _SPC_ cancel
 ;;   :config (setq smooth-scroll-margin 2)
 ;;   )
 ;; scroll one line at a time (less "jumpy" than defaults)
-    
+
 (setq mouse-wheel-scroll-amount '(10 ((shift) . 10))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
@@ -1100,15 +1545,15 @@ _SPC_ cancel
 
 #+BEGIN_SRC emacs-lisp
 
-(global-set-key (kbd "H-p l") 'org-store-link)
-(global-set-key (kbd "H-p a") 'org-agenda)
-(global-set-key (kbd "H-p c") 'org-capture)
-(global-set-key (kbd "H-p b") 'org-switchb)
+(global-set-key (kbd "H-o l") 'org-store-link)
+(global-set-key (kbd "H-o a") 'org-agenda)
+(global-set-key (kbd "H-o c") 'org-capture)
+(global-set-key (kbd "H-o b") 'org-switchb)
 
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c b") 'org-switchb)
+(global-set-key (kbd "C-c 0 l") 'org-store-link)
+(global-set-key (kbd "C-c 0 a") 'org-agenda)
+(global-set-key (kbd "C-c 0 c") 'org-capture)
+(global-set-key (kbd "C-c 0 b") 'org-switchb)
 
 #+END_SRC
 
@@ -1131,8 +1576,7 @@ _SPC_ cancel
 
 ;;org-md
 
- (eval-after-load "org"
-  '(require 'ox-md nil t))
+(add-hook 'org-mode-hook (lambda () (require 'ox-md nil t)))
 
 #+END_SRC
 
@@ -1142,9 +1586,9 @@ _SPC_ cancel
 
 ;;org-beamer
 
- (eval-after-load "org"
-  '(require 'ox-beamer nil t))
-
+;; (eval-after-load "org"
+;;  '(require 'ox-beamer nil t))
+(add-hook 'org-mode-hook (lambda () (require 'ox-beamer nil t)))
 #+END_SRC
 
 ** ox-odt
@@ -1153,8 +1597,9 @@ _SPC_ cancel
 
 ;;org-odt
 
- (eval-after-load "org"
-  '(require 'ox-odt nil t))
+ ;; (eval-after-load "org"
+ ;;  '(require 'ox-odt nil t))
+(add-hook 'org-mode-hook (lambda () (require 'ox-md nil t)))
 
 #+END_SRC
 
@@ -1163,16 +1608,18 @@ _SPC_ cancel
 #+BEGIN_SRC emacs-lisp
 
 ;;org-babel
+(defun my-org-bable-setup ()
+  (if (version< emacs-version "26.0")
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((sh . true) (python . true) (ruby . true)
+	 (emacs-lisp .true) (perl . true)))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((shell . true) (python . true) (ruby . true)
+       (emacs-lisp .true) (perl . true)))))
 
-(if (version< emacs-version "26.0")
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((sh . true) (python . true) (ruby .true)
-   (emacs-lisp .true)))
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((shell . true) (python . true) (ruby .true)
-   (emacs-lisp .true))))
+(add-hook 'org-mode-hook 'my-org-bable-setup)
 
 #+END_SRC
 
@@ -1183,9 +1630,9 @@ _SPC_ cancel
 ;;org-gfm
 
 (use-package ox-gfm :ensure t :defer t)
-(eval-after-load "org"
-  '(require 'ox-gfm nil t))
-
+;; (eval-after-load "org"
+;;   '(require 'ox-gfm nil t))
+(add-hook 'org-mode-hook (lambda () (require 'ox-md nil t)))
 #+END_SRC
 
 ** org-latex with pygment minted
@@ -1214,16 +1661,17 @@ _SPC_ cancel
 ;;htmlize
 
 ;;(use-package org :ensure t)
-(use-package htmlize :ensure t)
-(setq org-html-html5-fancy t
-org-html-doctype "html5")
+(use-package htmlize :ensure t :defer t
+  :config
+  (setq org-html-html5-fancy t
+	org-html-doctype "html5")
 
-(setq org-html-html5-fancy t
-      org-html-doctype "html5")
+  (setq org-html-html5-fancy t
+	org-html-doctype "html5"))
 ;;; Loading custom backend
 ;(add-to-list 'load-path "lisp/")
 ;(load-file "~/.emacs.d/lisp/pelican-html.el")
-(require 'pelican-html)
+;(use-package pelican-html :ensure t :defer t :hook(org-mode))
 
 #+END_SRC
 
@@ -1294,23 +1742,48 @@ org-html-doctype "html5")
   :hook (org-mode . (lambda () (require 'ox-pandoc))))
 
 #+END_SRC
+** ob-lua
+
+#+BEGIN_SRC emacs-lisp
+
+ ;; (eval-after-load "org"
+ ;;  '(require 'ob-lua nil t))
+(add-hook 'org-mode-hook (lambda () (require 'ob-lua nil t)))
+#+END_SRC
+
+* all-the-icons
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package all-the-icons-dired
+  :ensure t
+  :defer t
+  :hook (dired-mode . all-the-icons-dired-mode)
+)
+
+(use-package all-the-icons-ivy
+  :ensure t
+  :hook (ivy-mode)
+  :init
+  (all-the-icons-ivy-setup))
+
+
+#+END_SRC
 
 * neotree
 
 #+BEGIN_SRC emacs-lisp
 
 ;;neotree
+(require 'all-the-icons)
 
 (use-package neotree
   :ensure t
   :defer t
   :bind ("H-." . 'neotree-toggle)
         ("C-c n t" . 'neotree-toggle)
-  :config
-         (use-package all-the-icons
-                 :ensure t
-                 )
-         (setq neo-theme (if (display-graphic-p) 'icons 'arrows))
+  :init (require 'all-the-icons)
+         (setq neo-theme (or 'icons 'arrows))
 					;          (setq neo-theme 'icons)
 	 (setq neo-window-fixed-size nil))
 
@@ -1320,7 +1793,7 @@ org-html-doctype "html5")
 
 #+END_SRC
 
-* Projectile
+* projectile
 
 #+BEGIN_SRC emacs-lisp
 
@@ -1331,12 +1804,6 @@ org-html-doctype "html5")
   :config
   (projectile-global-mode)
 (setq projectile-completion-system 'ivy))
-
-;; (use-package counsel-projectile
-;;   :ensure t)
-;; ;  :config
-;  (counsel-projectile-on))
-
 
 (add-hook 'prog-mode-hook 'projectile-mode)
 ;(add-hook 'projectile-mode-hook 'counsel-projectile-mode)
@@ -1393,9 +1860,12 @@ org-html-doctype "html5")
   ("`"   hydra-projectile-other-window/body "other window")
   ("q"   nil "cancel" :color blue))
 
+(global-set-key (kbd "H-p p") 'hydra-projectile/body) ;;example-binding
+(global-set-key (kbd "H-p w") 'hydra-projectile-other-window/body) ;;example-binding
+
 #+END_SRC
 
-* Eshell
+* eshell
 
 #+BEGIN_SRC emacs-lisp
 
@@ -1423,6 +1893,15 @@ org-html-doctype "html5")
             (remove-hook 'eshell-output-filter-functions
                          'eshell-postoutput-scroll-to-bottom)))
 
+(add-hook 'eshell-mode-hook '(lambda ()
+			       (setq eshell-visual-commands '("vi" "screen" "top" "less" "more" "lynx"
+				 "ncftp" "pine" "tin" "trn" "elm" "vim"
+				 "htop")
+				 )
+			       ;;(add-to-list 'eshell-visual-commands "vim")
+))
+
+
 #+END_SRC
 
 * shell-mode
@@ -1446,6 +1925,7 @@ org-html-doctype "html5")
 
 (add-hook 'term-mode-hook (lambda () (display-line-numbers-mode -1)))
 (add-hook 'term-mode-hook (lambda () (nlinum-mode -1)))
+(add-hook 'term-mode-hook (lambda () (setq show-trailing-whitespace nil)))
 
 #+END_SRC
 
@@ -1460,7 +1940,7 @@ org-html-doctype "html5")
 (setq comint-scroll-to-bottom-on-output nil)
 
 #+END_SRC
-  
+
 * input method
 
 #+BEGIN_SRC emacs-lisp
@@ -1478,17 +1958,33 @@ org-html-doctype "html5")
 
 #+END_SRC
 
+* viper
+
+#+BEGIN_SRC emacs-lisp
+
+(use-package viper
+ :ensure t
+ :defer t)
+
+(setq viper-mode nil)
+(require 'viper)
+(global-set-key (kbd "H-j") 'viper-find-char-backward)
+(global-set-key (kbd "H-k") 'viper-find-char-forward)
+
+#+END_SRC
+
 * org-beautify
 
 #+BEGIN_SRC emacs-lisp
 
 ;;org-beautify-theme
 
-(use-package org-beautify-theme 
+(use-package org-beautify-theme
   :ensure t
   :defer t
-  :init 
-  :hook (org-bullets-mode . (load-theme 'org-beautify)))
+;;  :init
+;;  :hook (org-bullets-mode . (load-theme 'org-beautify))
+)
 
 ;(eval-after-load "org" (load-theme 'org-beautify))
 ;;(add-hook 'org-mode-hook (if (display-graphic-p)(lambda () (load-theme 'org-beautify))))
@@ -1503,4 +1999,3 @@ org-html-doctype "html5")
 ;(add-hook 'org-mode-hook (org-bullets-mode))
 
 #+END_SRC
-
