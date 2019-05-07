@@ -8,7 +8,7 @@ Pretty Much self explanatory config it contains the bare minimum in the init.el 
   + neotree for side tab file manager
   + hydra
   + projectile
-  + the Hyper key for expanding the emacs key config (my .Xmodmap is included in this repository and  shows the keyboard mapping changes  I applied.)
+  + the Hyper key for expanding the emacs key config and semicolon as a mod_shift key
   + eshell with ivy tab completion
   + etc ...
 
